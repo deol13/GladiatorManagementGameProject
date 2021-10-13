@@ -13,7 +13,15 @@ namespace GladiatorManagement.Models.Game_logic
         public string PlayerRollDetails { get; set; }
         public string OpponentRollDetails { get; set; }
 
-        
+        public int PlayerHealthLeft { get; set; }
+        public int OpponentHealthLeft { get; set; }
 
+        public string Hit { get; set; }
+
+        public int DamageDone { get; set; }
+
+        public string DamageDoneDetails { get; set; }
+
+        public string Winner { get; set; }
     }
 }

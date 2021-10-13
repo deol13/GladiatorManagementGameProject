@@ -7,13 +7,19 @@ namespace GladiatorManagement.Models.Game_logic
 {
     public class Combat
     {
-        private PlayerGladiator player;
-        private Gladiator opponent;  
+        private Gladiator player;
+        private Gladiator opponent;
 
-        public Combat(PlayerGladiator player, Gladiator opponent)
+        private int playerMaxHealth;
+        private int OpponentMaxHealth;
+
+        public Combat(Gladiator player, Gladiator opponent)
         {
             this.player = player;
             this.opponent = opponent;
+
+            playerMaxHealth = player.Health;
+            OpponentMaxHealth = opponent.Health;
         }
 
         public List<CombatInfo> StartCombat()
@@ -21,26 +27,35 @@ namespace GladiatorManagement.Models.Game_logic
             bool combatInprogress = true;
             List<CombatInfo> combatDetails = new List<CombatInfo>();
 
+            ARound.Player = player;
+            ARound.Opponent = opponent;
+
+            //Combat loop
             while(combatInprogress)
             {
-                //CombatInfo combatDetails = ;
-
-                //combatInprogress = CheckHealth(combatDetails);
+                //Start A round of fighting and gets the details back
+                CombatInfo details = ARound.Fight();
+                combatInprogress = CheckHealth(ref details);
+                combatDetails.Add(details);
             }
+
+            //Reset their health to max
+            player.Health = playerMaxHealth;
+            opponent.Health = OpponentMaxHealth;
 
             return combatDetails;
         }
 
-        private bool CheckHealth(CombatInfo combatDetails)
+        private bool CheckHealth(ref CombatInfo combatDetails)
         {
             if (opponent.Health <= 0)
             {
-                //combatDetails.Winner = Player;
+                combatDetails.Winner = "Player";
                 return false;
             }
             else if (player.Health <= 0)
             {
-                //combatDetails.Winner = Opponent;
+                combatDetails.Winner = "Opponent";
                 return false;
             }
 
