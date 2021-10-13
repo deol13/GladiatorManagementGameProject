@@ -23,9 +23,9 @@ namespace GladiatorManagement.Models.Game_logic
 
             while(combatInprogress)
             {
-                CombatInfo combatDetails = ;
+                //CombatInfo combatDetails = ;
 
-                combatInprogress = CheckHealth(combatDetails);
+                //combatInprogress = CheckHealth(combatDetails);
             }
 
             return combatDetails;
