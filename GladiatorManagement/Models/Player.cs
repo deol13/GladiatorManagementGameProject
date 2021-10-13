@@ -12,7 +12,7 @@ namespace GladiatorManagement.Models
         public int Id { get; set; }
 
         [Required]
-        public List<PlayerGladiator> gladiators { get; set; }
+        public List<PlayerGladiator> Gladiators { get; set; }
 
         public int Score { get; set; }
 
@@ -22,7 +22,7 @@ namespace GladiatorManagement.Models
         {
             Score = 0;
             Gold = 0;
-            gladiators = new List<PlayerGladiator>();
+            Gladiators = new List<PlayerGladiator>();
         }
 
     }
