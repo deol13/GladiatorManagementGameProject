@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace GladiatorManagement.Models
 {
-    public class Armor
+    public class Armor : Gear
     {
-        [Key]
-        public int Id { get; set; }
-
-        [Required]
-        public int Cost { get; set; }
-
         [Required]
         public int Defence { get; set; }
 
         [Required]
         public int Health { get; set; }
+
+        public Armor(int Cost, string Name, int Defence, int Health) : base(Cost, Name)
+        {
+            this.Defence = Defence;
+            this.Health = Health;
+        }
     }
 }

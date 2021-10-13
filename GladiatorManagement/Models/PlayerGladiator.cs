@@ -17,7 +17,7 @@ namespace GladiatorManagement.Models
         public int Experience { get; set; }
         [Required]
         public int Level { get; set; }
-        [Required]
+
         public int Score { get; set; }
 
         public PlayerGladiator(int Strength, int Accuracy, int Health, int Defence) : base(Strength, Accuracy, Health, Defence)

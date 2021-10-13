@@ -6,23 +6,21 @@ using System.Threading.Tasks;
 
 namespace GladiatorManagement.Models
 {
-    public class Player
+    public abstract class Gear
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public List<PlayerGladiator> gladiators { get; set; }
+        public int Cost { get; set; }
 
-        public int Score { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-        public int Gold { get; set; }
-
-        public Player()
+        public Gear(int Cost, string Name)
         {
-            Score = 0;
-            Gold = 0;
-            gladiators = new List<PlayerGladiator>();
+            this.Cost = Cost;
+            this.Name = Name;
         }
 
     }
