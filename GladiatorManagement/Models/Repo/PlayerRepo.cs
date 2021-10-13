@@ -27,5 +27,7 @@ namespace GladiatorManagement.Data
 
             return player;
         }
+
+
     }
 }
