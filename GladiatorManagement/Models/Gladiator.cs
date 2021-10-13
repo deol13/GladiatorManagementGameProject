@@ -10,7 +10,8 @@ namespace GladiatorManagement.Models
     {
         [Key]
         public int Id { get; set; }
-
+        [Required]
+        public string Name { get; set; }
         [Required]
         public int Strength { get; set; }
         [Required]
@@ -20,8 +21,9 @@ namespace GladiatorManagement.Models
         [Required]
         public int Defence { get; set; }
 
-        public Gladiator(int Strength, int Accuracy, int Health, int Defence)
+        public Gladiator(string Name, int Strength, int Accuracy, int Health, int Defence)
         {
+            this.Name = Name;
             this.Strength = Strength;
             this.Accuracy = Accuracy;
             this.Health = Health;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using GladiatorManagement.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,9 @@ namespace GladiatorManagement.Data
         {
         }
 
+        public DbSet<Player> Players { get; set; }
+        public DbSet<Gladiator> Gladiators { get; set; }
+        public DbSet<PlayerGladiator> PlayerGladiators { get; set; }
 
     }
 }

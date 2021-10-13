@@ -9,8 +9,9 @@ namespace GladiatorManagement.Models
     public class Player
     {
         [Key]
-        public int Id { get; set; }
-
+        public int PlayerId { get; set; }
+        [Required]
+        public string Name { get; set; }
         [Required]
         public List<PlayerGladiator> Gladiators { get; set; }
 

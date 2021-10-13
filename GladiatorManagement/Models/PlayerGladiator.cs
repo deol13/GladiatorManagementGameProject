@@ -8,6 +8,8 @@ namespace GladiatorManagement.Models
 {
     public class PlayerGladiator : Gladiator
     {
+        public Player Player;
+        public int PlayerId;
         public Weapon Weapon { get; set; }
         public Armor Armor { get; set; }
 
@@ -18,7 +20,7 @@ namespace GladiatorManagement.Models
 
         public int Score { get; set; }
 
-        public PlayerGladiator(int Strength, int Accuracy, int Health, int Defence) : base(Strength, Accuracy, Health, Defence)
+        public PlayerGladiator(string Name, int Strength, int Accuracy, int Health, int Defence) : base(Name, Strength, Accuracy, Health, Defence)
         {
             //Default weapon and armor aka you got nothing.
             Weapon = new Weapon("Fist", 0, 0, 0);
