@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Game logic\" />
     <Folder Include="Models\Service\" />
     <Folder Include="Models\Repo\" />
   </ItemGroup>
