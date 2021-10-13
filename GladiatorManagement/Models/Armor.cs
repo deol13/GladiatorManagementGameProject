@@ -14,7 +14,7 @@ namespace GladiatorManagement.Models
         [Required]
         public int Health { get; set; }
 
-        public Armor(int Cost, string Name, int Defence, int Health) : base(Cost, Name)
+        public Armor(string Name, int Cost, int Defence, int Health) : base(Name, Cost)
         {
             this.Defence = Defence;
             this.Health = Health;

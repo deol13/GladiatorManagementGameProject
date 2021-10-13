@@ -14,7 +14,7 @@ namespace GladiatorManagement.Models
         [Required]
         public int Accuracy { get; set; }
 
-        public Weapon(int Cost, string Name, int Strength, int Accuracy) : base(Cost, Name)
+        public Weapon(string Name, int Cost, int Strength, int Accuracy) : base(Name, Cost)
         {
             this.Strength = Strength;
             this.Accuracy = Accuracy;

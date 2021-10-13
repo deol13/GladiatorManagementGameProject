@@ -8,9 +8,7 @@ namespace GladiatorManagement.Models
 {
     public class PlayerGladiator : Gladiator
     {
-        [Required]
         public Weapon Weapon { get; set; }
-        [Required]
         public Armor Armor { get; set; }
 
         [Required]
@@ -22,8 +20,9 @@ namespace GladiatorManagement.Models
 
         public PlayerGladiator(int Strength, int Accuracy, int Health, int Defence) : base(Strength, Accuracy, Health, Defence)
         {
-            Weapon = new Weapon();
-            Armor = new Armor();
+            //Default weapon and armor aka you got nothing.
+            Weapon = new Weapon("Fist", 0, 0, 0);
+            Armor = new Armor("Skin", 0, 0, 0);
 
             Experience = 0;
             Level = 1;

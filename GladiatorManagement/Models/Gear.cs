@@ -17,7 +17,7 @@ namespace GladiatorManagement.Models
         [Required]
         public string Name { get; set; }
 
-        public Gear(int Cost, string Name)
+        public Gear(string Name, int Cost)
         {
             this.Cost = Cost;
             this.Name = Name;
