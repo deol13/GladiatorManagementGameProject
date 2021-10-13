@@ -13,4 +13,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.18" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Service\" />
+    <Folder Include="Models\Repo\" />
+  </ItemGroup>
+
 </Project>
