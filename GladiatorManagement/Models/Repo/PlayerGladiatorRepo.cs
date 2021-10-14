@@ -39,6 +39,7 @@ namespace GladiatorManagement.Models.Repo
                          where p.Id == gladiator.Id
                          select p);
             glad.Name = gladiator.Name;
+            glad.Experience = gladiator.Experience;
             glad.Level = gladiator.Level;
             glad.Score = gladiator.Score;
             glad.Strength = gladiator.Strength;

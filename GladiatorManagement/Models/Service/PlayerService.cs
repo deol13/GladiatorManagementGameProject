@@ -1,5 +1,6 @@
 ﻿using GladiatorManagement.Data;
 using GladiatorManagement.Models.Repo;
+using GladiatorManagement.Models.Game_logic;
 using Lexicon.CSharp.InfoGenerator;
 using System;
 using System.Collections.Generic;
@@ -86,13 +87,19 @@ namespace GladiatorManagement.Models.Service
 
         public PlayerGladiator LevelUp(PlayerGladiator playerGladiator)
         {
-            if (canLevelUp(playerGladiator)) playerGladiator.Level++;
+            if (CanLevelUp(playerGladiator))
+            {
+                playerGladiator.Level++;
+                playerGladiator.Experience = 0;
+            }
             return _playerGladiatorRepo.Update(playerGladiator);
         }
 
-        public bool canLevelUp(PlayerGladiator gladiator)
+        public bool CanLevelUp(PlayerGladiator gladiator)
         {
-            return true;
+            int maxLevel = 20;
+            if (gladiator.Level >= maxLevel) return false;
+            else return true;
         }
 
 
