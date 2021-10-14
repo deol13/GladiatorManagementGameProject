@@ -115,5 +115,6 @@ namespace GladiatorManagement.Models.Service
         }
 
 
+
     }
 }
