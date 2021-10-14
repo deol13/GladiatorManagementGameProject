@@ -1,4 +1,6 @@
 using GladiatorManagement.Data;
+using GladiatorManagement.Models.Service;
+using GladiatorManagement.Models.Repo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +29,7 @@ namespace GladiatorManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -37,6 +40,11 @@ namespace GladiatorManagement
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddMvc();
+            services.AddScoped<IPlayerService, PlayerService>();
+            services.AddScoped<IPlayerRepo, PlayerRepo>();
+            services.AddScoped<IPlayerGladiatorRepo, PlayerGladiatorRepo>();
+            services.AddScoped<IGladiatorRepo, GladiatorRepo>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

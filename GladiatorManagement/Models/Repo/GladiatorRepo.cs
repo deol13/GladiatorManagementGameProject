@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GladiatorManagement.Models
+namespace GladiatorManagement.Models.Repo
 {
-    public class GladiatorRepo
+    public class GladiatorRepo : IGladiatorRepo
     {
         ApplicationDbContext _appDbContext;
         

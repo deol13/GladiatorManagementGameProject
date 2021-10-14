@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GladiatorManagement.Models
+namespace GladiatorManagement.Models.Repo
 {
-    public class PlayerGladiatorRepo
+    public class PlayerGladiatorRepo : IPlayerGladiatorRepo
     {
         ApplicationDbContext _appDbContext;
 
@@ -53,11 +53,11 @@ namespace GladiatorManagement.Models
 
 
 
-        public bool Delete(Player player)
+        public bool Delete(PlayerGladiator playerGladiator)
         {
-            if (_appDbContext.Players.Contains(player))
+            if (_appDbContext.PlayerGladiators.Contains(playerGladiator))
             {
-                _appDbContext.Remove(player);
+                _appDbContext.Remove(playerGladiator);
                 _appDbContext.SaveChanges();
                 return true;
             }

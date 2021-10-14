@@ -1,4 +1,5 @@
 ﻿using GladiatorManagement.Data;
+using GladiatorManagement.Models.Repo;
 using Lexicon.CSharp.InfoGenerator;
 using System;
 using System.Collections.Generic;
@@ -8,14 +9,14 @@ using System.Threading.Tasks;
 namespace GladiatorManagement.Models.Service
 {
     
-    public class PlayerService
+    public class PlayerService : IPlayerService
     {
-        PlayerRepo _playerRepo;
-        PlayerGladiatorRepo _playerGladiatorRepo;
-        GladiatorRepo _gladiatorRepo;
+        IPlayerRepo _playerRepo;
+        IPlayerGladiatorRepo _playerGladiatorRepo;
+        IGladiatorRepo _gladiatorRepo;
         static InfoGenerator generator = new InfoGenerator();
 
-        public PlayerService(PlayerRepo playerRepo, PlayerGladiatorRepo playerGladiatorRepo, GladiatorRepo gladiatorRepo)
+        public PlayerService(IPlayerRepo playerRepo, IPlayerGladiatorRepo playerGladiatorRepo, IGladiatorRepo gladiatorRepo)
         {
             _playerRepo = playerRepo;
             _playerGladiatorRepo = playerGladiatorRepo;

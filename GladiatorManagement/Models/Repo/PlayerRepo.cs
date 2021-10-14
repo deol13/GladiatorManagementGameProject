@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using GladiatorManagement.Data;
 
-namespace GladiatorManagement.Models
+namespace GladiatorManagement.Models.Repo
 {
-    public class PlayerRepo
+    public class PlayerRepo : IPlayerRepo
     {
         ApplicationDbContext _appDbContext;
 
