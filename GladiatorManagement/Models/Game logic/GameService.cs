@@ -67,6 +67,11 @@ namespace GladiatorManagement.Models.Game_logic
                 opponent.Defence -= o.Armor.Defence;
                 opponent.Health -= o.Armor.Health;
             }
+
+            //TODO
+            //Give gold
+            //Give Xp
+            //Remove players char if they died
         }
         
     }
