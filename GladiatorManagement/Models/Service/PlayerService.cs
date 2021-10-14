@@ -104,6 +104,16 @@ namespace GladiatorManagement.Models.Service
             else return false;
         }
 
+        public bool RemoveGladiator(PlayerGladiator playerGladiator)
+        {
+            return _playerGladiatorRepo.Delete(playerGladiator);
+        }
+
+        public bool RemoveOpponent(Gladiator gladiator)
+        {
+            return _gladiatorRepo.Delete(gladiator);
+        }
+
 
     }
 }

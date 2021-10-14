@@ -33,6 +33,17 @@ namespace GladiatorManagement.Models.Repo
             return _appDbContext.Gladiators.ToList();
         }
 
+        public bool Delete(Gladiator gladiator)
+        {
+            if (_appDbContext.Gladiators.Contains(gladiator))
+            {
+                _appDbContext.Remove(gladiator);
+                _appDbContext.SaveChanges();
+                return true;
+            }
+            else return false;
+        }
+
 
     }
 }
