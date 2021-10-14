@@ -15,6 +15,7 @@ namespace GladiatorManagement.Models.Game_logic
             _playerService = playerService;
         }
 
+        //Needs to be tweak and improved
         public void LaunchCombat(int playerGladiatorId, int opponentGladiatorId)
         {
             Gladiator player = null;
@@ -72,10 +73,13 @@ namespace GladiatorManagement.Models.Game_logic
                 {
                     int gold = HowMuchGoldWon(p.Level);
                     _playerService.EditAmountOfGold(p.Player, gold);
-                    //
-                    _playerService.LevelUp(p);
 
-                    //_playerService.RemoveGladiator(opponent);
+                    _playerService.LevelUp(p);
+  
+                    if(o == null)
+                        _playerService.RemoveOpponent(opponent);
+                    else
+                        _playerService.RemoveGladiator(o);
                 }
             }
             if (o != null)
@@ -93,11 +97,8 @@ namespace GladiatorManagement.Models.Game_logic
                     _playerService.LevelUp(o);
                 }
 
-                //_playerService.RemoveGladiator(player);
+                _playerService.RemoveGladiator(p);
             }
-
-            //TODO
-            //Remove gladiator when they die
         }
 
         public int HowMuchGoldWon(int lvl)
