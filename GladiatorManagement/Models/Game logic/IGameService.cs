@@ -9,6 +9,10 @@ namespace GladiatorManagement.Models.Game_logic
     {
         public void LaunchCombat(int playerGladiatorId, int opponentGladiatorId);
         public int HowMuchGoldWon(int lvl);
-        public ShopInventory GenerateInventoryForAShop(ShopInventory inventory, int lvlOfGladiator, int nrOfGears);
+        public ShopInventory GenerateInventoryForAShop(int lvlOfGladiator, int nrOfGears);
+
+        public Shop CreateAShop(Shop shop, int lvlOfGladiator);
+
+        public ShopInventory BuyAPieceOfGear(ShopInventory inventory, PlayerGladiator playersGladiator, int idOfItem);
     }
 }
