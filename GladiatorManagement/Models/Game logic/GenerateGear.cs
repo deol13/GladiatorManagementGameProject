@@ -11,23 +11,24 @@ namespace GladiatorManagement.Models.Game_logic
         {
             Gear newGear = null;
 
-            //string name = ""; //Some type of generator of names
+            string name = ""; //Some type of generator of names
 
-            //int minValue = 1 + () / lvlOfGladiator;
-            //int maxValue = ;
-            //int attribute1 = XPAndGoldFormula.Randomize(minValue, maxValue);
-            //int attribute2 = XPAndGoldFormula.Randomize(minValue, maxValue);
+            int minValue = 1 + lvlOfGladiator / 2;
+            int maxValue = 2 + lvlOfGladiator / 2;
+            int attribute1 = XPAndGoldFormula.Randomize(minValue, maxValue);
+            int attribute2 = XPAndGoldFormula.Randomize(minValue, maxValue);
 
-            //int cost = XPAndGoldFormula.Randomize();
+            int cost = 50;
+            cost += (attribute1 + attribute2) * 10;
 
-            //if(typeOfGear == "Weapon")
-            //{
-            //    newGear = new Weapon(name, cost, attribute1, attribute2);
-            //}
-            //else if(typeOfGear == "Armor")
-            //{
-            //    newGear = new Armor(name, cost, attribute1, attribute2);
-            //}
+            if (typeOfGear == "Weapon")
+            {
+                newGear = new Weapon(name, cost, attribute1, attribute2);
+            }
+            else if (typeOfGear == "Armor")
+            {
+                newGear = new Armor(name, cost, attribute1, attribute2);
+            }
 
             return newGear;
         }
