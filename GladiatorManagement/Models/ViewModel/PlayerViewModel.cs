@@ -7,5 +7,6 @@ namespace GladiatorManagement.Models.ViewModel
 {
     public class PlayerViewModel
     {
+
     }
 }
