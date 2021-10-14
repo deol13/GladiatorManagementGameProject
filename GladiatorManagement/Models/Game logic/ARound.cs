@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lexicon.CSharp.InfoGenerator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace GladiatorManagement.Models.Game_logic
         public static Gladiator Player { get; set; }
         public static Gladiator Opponent { get; set; }
 
-        private static Random rng = new Random();
+        static InfoGenerator generator = new InfoGenerator();
 
         /// <summary>
         /// Starts a round of combat
@@ -105,7 +106,7 @@ namespace GladiatorManagement.Models.Game_logic
 
         private static int DiceRoll()
         {
-            return rng.Next(minRoll, maxRoll);
+            return generator.Next(minRoll, maxRoll);
         }
     }
 }

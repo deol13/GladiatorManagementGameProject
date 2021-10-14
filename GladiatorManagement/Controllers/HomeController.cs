@@ -23,6 +23,10 @@ namespace GladiatorManagement.Controllers
         {
             XPAndGoldFormula.Setup();
 
+            GameService g = new GameService();
+
+            g.LaunchCombat(0, 1);
+
             return View();
         }
 
