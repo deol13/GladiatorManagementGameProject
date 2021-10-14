@@ -13,6 +13,6 @@ namespace GladiatorManagement.Models.Game_logic
 
         public Shop CreateAShop(Shop shop, int lvlOfGladiator);
 
-        public ShopInventory BuyAPieceOfGear(ShopInventory inventory, PlayerGladiator playersGladiator, int idOfItem);
+        public bool BuyAPieceOfGear(ShopInventory inventory, PlayerGladiator playersGladiator, int idOfItem);
     }
 }
