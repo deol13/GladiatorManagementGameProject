@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using GladiatorManagement.Models.Game_logic;
 
 namespace GladiatorManagement.Controllers
 {
@@ -20,6 +21,8 @@ namespace GladiatorManagement.Controllers
 
         public IActionResult Index()
         {
+            XPAndGoldFormula.Setup();
+
             return View();
         }
 
