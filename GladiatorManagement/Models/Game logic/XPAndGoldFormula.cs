@@ -8,7 +8,7 @@ namespace GladiatorManagement.Models.Game_logic
     public static class XPAndGoldFormula
     {
         private static Random rng;
-        private static int MaxLvl { get; set; } = 20;
+        public static int MaxLvl { get; set; } = 20;
 
         /// <summary>
         /// Index 0 is the xp amount to lvl 2, index 1 to lvl 3 and so on.

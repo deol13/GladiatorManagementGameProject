@@ -97,9 +97,21 @@ namespace GladiatorManagement.Models.Service
 
         public bool CanLevelUp(PlayerGladiator gladiator)
         {
-            int maxLevel = 20;
-            if (gladiator.Level >= maxLevel) return false;
-            else return true;
+            int maxLevel = XPAndGoldFormula.MaxLvl;
+            int XpToLevel = XPAndGoldFormula.XpToLVl[gladiator.Level - 1];
+
+            if (gladiator.Level < maxLevel && gladiator.Experience == XpToLevel) return true;
+            else return false;
+        }
+
+        public bool RemoveGladiator(PlayerGladiator playerGladiator)
+        {
+            return _playerGladiatorRepo.Delete(playerGladiator);
+        }
+
+        public bool RemoveOpponent(Gladiator gladiator)
+        {
+            return _gladiatorRepo.Delete(gladiator);
         }
 
 
