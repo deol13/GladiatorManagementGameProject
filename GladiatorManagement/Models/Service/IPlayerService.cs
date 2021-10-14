@@ -18,5 +18,10 @@ namespace GladiatorManagement.Models.Service
         public PlayerGladiator LevelUp(PlayerGladiator playerGladiator);
 
         public bool CanLevelUp(PlayerGladiator gladiator);
+
+
+        public bool RemoveGladiator(PlayerGladiator playerGladiator);
+
+        public bool RemoveOpponent(Gladiator gladiator);
     }
 }
