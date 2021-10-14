@@ -6,11 +6,11 @@ using GladiatorManagement.Models.Service;
 
 namespace GladiatorManagement.Models.Game_logic
 {
-    public class GameService
+    public class GameService : IGameService
     {
-        PlayerService _playerService;
+        IPlayerService _playerService;
 
-        public GameService(PlayerService playerService)
+        public GameService(IPlayerService playerService)
         {
             _playerService = playerService;
         }
@@ -32,6 +32,7 @@ namespace GladiatorManagement.Models.Game_logic
 
             Combat combat = null;
 
+            //Player should always be of PlayerGladiator so maybe the first if-statement can be removed
             if (p != null)
             {
                 p.Weapon.Strength += 1;
@@ -71,6 +72,7 @@ namespace GladiatorManagement.Models.Game_logic
                 {
                     int gold = HowMuchGoldWon(p.Level);
                     _playerService.EditAmountOfGold(p.Player, gold);
+                    //
                     _playerService.LevelUp(p);
 
                     //_playerService.RemoveGladiator(opponent);
@@ -108,9 +110,22 @@ namespace GladiatorManagement.Models.Game_logic
             return gold;
         }
 
-        public ShopInventory GenerateInventoryForAShop(ShopInventory inventory)
+        public ShopInventory GenerateInventoryForAShop(ShopInventory inventory, int lvlOfGladiator, int nrOfGears)
         {
+            Gear newGear = null;
 
+            for (int i = 0; i < 5; i++)
+            {
+                newGear = GenerateGear.GenerateAGearObject("Weapon", lvlOfGladiator);
+                inventory.GearsInShop.Add(newGear);
+                newGear = null;
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                newGear = GenerateGear.GenerateAGearObject("Armor", lvlOfGladiator);
+                inventory.GearsInShop.Add(newGear);
+                newGear = null;
+            }
 
             return inventory;
         }

@@ -11,8 +11,11 @@ namespace GladiatorManagement.Models
         [Key]
         public int Id { get; set; }
 
+        /// <summary>
+        /// Can be made into an array since it will always be exact size
+        /// </summary>
         [Required]
-        List<Gear> GearsInShop { get; set; }
+        public List<Gear> GearsInShop { get; set; }
 
         public ShopInventory()
         {

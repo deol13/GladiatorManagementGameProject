@@ -14,18 +14,20 @@ namespace GladiatorManagement.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        IGameService _gameService;
+
+        public HomeController(ILogger<HomeController> logger, IGameService gameService)
         {
             _logger = logger;
+            _gameService = gameService;
         }
 
         public IActionResult Index()
         {
             XPAndGoldFormula.Setup();
 
-            //GameService g = new GameService();
-
-            g.LaunchCombat(0, 1);
+            //Test
+            _gameService.LaunchCombat(0, 1);
 
             return View();
         }
