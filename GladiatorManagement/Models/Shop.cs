@@ -12,7 +12,7 @@ namespace GladiatorManagement.Models
         public int Id { get; set; }
 
         [Required]
-        List<ShopInventory> Shops { get; set; }
+        public List<ShopInventory> Shops { get; set; }
 
         public Shop()
         {
