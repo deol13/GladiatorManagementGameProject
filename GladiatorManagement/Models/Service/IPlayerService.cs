@@ -32,7 +32,8 @@ namespace GladiatorManagement.Models.Service
         public PlayerGladiator AddDefence(PlayerGladiator playerGladiator, int amount);
         public PlayerGladiator AddXP(PlayerGladiator playerGladiator, int amount);
         public PlayerGladiator EditScore(PlayerGladiator playerGladiator, int amount);
-
+        public PlayerGladiator FindById(int id);
+        public Gladiator FindOpponentById(int id);
 
 
 

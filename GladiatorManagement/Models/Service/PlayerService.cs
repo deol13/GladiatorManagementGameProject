@@ -147,5 +147,15 @@ namespace GladiatorManagement.Models.Service
             return _playerGladiatorRepo.Update(playerGladiator);
         }
 
+        public PlayerGladiator FindById(int id)
+        {
+            return _playerGladiatorRepo.Read(id);
+        }
+
+        public Gladiator FindOpponentById(int id)
+        {
+            return _gladiatorRepo.Read(id);
+        }
+
     }
 }
