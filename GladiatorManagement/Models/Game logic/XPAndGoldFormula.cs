@@ -30,6 +30,7 @@ namespace GladiatorManagement.Models.Game_logic
             rng = new Random();
             XpToLVl = new int[MaxLvl];
             GoldToGive = new int[MaxLvl];
+            XPToGive = new int[MaxLvl];
 
             for (int i = 0; i < MaxLvl; i++)
             {
