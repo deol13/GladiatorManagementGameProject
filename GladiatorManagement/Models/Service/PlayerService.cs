@@ -91,7 +91,6 @@ namespace GladiatorManagement.Models.Service
             if (CanLevelUp(playerGladiator))
             {
                 playerGladiator.Level++;
-                playerGladiator.Experience = 0;
             }
             return _playerGladiatorRepo.Update(playerGladiator);
         }
@@ -101,7 +100,7 @@ namespace GladiatorManagement.Models.Service
             int maxLevel = XPAndGoldFormula.MaxLvl;
             int XpToLevel = XPAndGoldFormula.XpToLVl[gladiator.Level - 1];
 
-            if (gladiator.Level < maxLevel && gladiator.Experience == XpToLevel) return true;
+            if (gladiator.Level < maxLevel && gladiator.Experience >= XpToLevel) return true;
             else return false;
         }
 

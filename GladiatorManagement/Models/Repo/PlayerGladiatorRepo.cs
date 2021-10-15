@@ -43,10 +43,7 @@ namespace GladiatorManagement.Models.Repo
 
         public PlayerGladiator Update(PlayerGladiator gladiator)
         {
-            PlayerGladiator glad =
-                (PlayerGladiator)(from p in _appDbContext.PlayerGladiators
-                         where p.Id == gladiator.Id
-                         select p);
+            PlayerGladiator glad = _appDbContext.PlayerGladiators.Find(gladiator.Id);
             glad.Name = gladiator.Name;
             glad.Experience = gladiator.Experience;
             glad.Level = gladiator.Level;
