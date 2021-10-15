@@ -7,7 +7,7 @@ namespace GladiatorManagement.Models.Service
 {
     public interface IPlayerService
     {
-        public PlayerGladiator CreateDefaultGladiator(string name);
+        public PlayerGladiator CreateDefaultGladiator(Player player, string name);
 
         public PlayerGladiator CreateOpponent(PlayerGladiator playerGladiator);
 
