@@ -6,107 +6,112 @@ using System.Threading.Tasks;
 
 namespace GladiatorManagement.Models.Game_logic
 {
-    public static class ARound
+    public  class ARound
     {
-        private static int minRoll = 1;
-        private static int maxRoll = 7;
+        private int minRoll = 1;
+        private int maxRoll = 7;
 
-        //public static Gladiator Player { get; set; }
-        //public static Gladiator Opponent { get; set; }
+        private PlayerGladiator player;
+        private PlayerGladiator opponent;
 
-        //static InfoGenerator generator = new InfoGenerator();
+        private static InfoGenerator generator = new InfoGenerator();
 
-        ///// <summary>
-        ///// Starts a round of combat
-        ///// </summary>
-        ///// <param name="combatInfo">Saves the details of the round</param>
-        ///// <param name="player">Players gladiator</param>
-        ///// <param name="opponent">Opponent gladiator</param>
-        ///// <returns></returns>
-        //public static CombatInfo Fight()
-        //{
-        //    CombatInfo combatInfo = new CombatInfo();
+        public ARound(PlayerGladiator player, PlayerGladiator opponent)
+        {
+            this.player = player;
+            this.opponent = opponent;
+        }
 
-        //    int playerRoll = DiceRoll();
-        //    int opponentRoll = DiceRoll();
+        /// <summary>
+        /// Starts a round of combat
+        /// </summary>
+        /// <param name="combatInfo">Saves the details of the round</param>
+        /// <param name="player">Players gladiator</param>
+        /// <param name="opponent">Opponent gladiator</param>
+        /// <returns></returns>
+        public CombatInfo Fight()
+        {
+            CombatInfo combatInfo = new CombatInfo();
 
-        //    combatInfo = SaveRollInfo(combatInfo, playerRoll, opponentRoll);
+            int playerRoll = generator.Next(minRoll, maxRoll);
+            int opponentRoll = generator.Next(minRoll, maxRoll);
 
-        //    combatInfo = Hit(combatInfo);
+            combatInfo = SaveRollInfo(combatInfo, playerRoll, opponentRoll);
 
-        //    combatInfo.Winner = null;
-        //    return combatInfo;
-        //}
+            combatInfo = Hit(combatInfo);
 
-        //private static CombatInfo SaveRollInfo(CombatInfo combatInfo, int playerRoll, int opponentRoll)
-        //{
-        //    combatInfo.PlayerRollResult = playerRoll + Player.Accuracy;
-        //    combatInfo.OpponentRollResult = opponentRoll + Opponent.Accuracy;
+            combatInfo.Winner = null;
+            return combatInfo;
+        }
 
-        //    combatInfo.PlayerRollDetails = $"{playerRoll} + {Player.Accuracy}";
-        //    combatInfo.OpponentRollDetails = $"{opponentRoll} + {Opponent.Accuracy}";
+        private CombatInfo SaveRollInfo(CombatInfo combatInfo, int playerRoll, int opponentRoll)
+        {
+            combatInfo.PlayerRollResult = playerRoll + player.Accuracy + player.Weapon.Accuracy;
+            combatInfo.OpponentRollResult = opponentRoll + opponent.Accuracy + opponent.Weapon.Accuracy;
 
-        //    combatInfo.PlayerHealthLeft = Player.Health;
-        //    combatInfo.OpponentHealthLeft = Opponent.Health;
+            combatInfo.PlayerRollDetails = $"{playerRoll + player.Weapon.Accuracy} + {player.Accuracy}";
+            combatInfo.OpponentRollDetails = $"{opponentRoll + opponent.Weapon.Accuracy} + {opponent.Accuracy}";
 
-        //    return combatInfo;
-        //}
+            combatInfo.PlayerHealthLeft = player.Health;
+            combatInfo.OpponentHealthLeft = opponent.Health;
 
-        //private static CombatInfo Hit(CombatInfo combatInfo)
-        //{
-        //    if (combatInfo.PlayerRollResult > combatInfo.OpponentRollResult)
-        //    {
-        //        //If player rolls higher
-        //        combatInfo.Hit = "Player";
+            return combatInfo;
+        }
 
-        //        if (Player.Strength > Opponent.Defence)
-        //        {
-        //            combatInfo.DamageDone = (Player.Strength - Opponent.Defence);
-        //            Opponent.Health -= combatInfo.DamageDone;
+        private CombatInfo Hit(CombatInfo combatInfo)
+        {
+            if (combatInfo.PlayerRollResult > combatInfo.OpponentRollResult)
+            {
+                //If player rolls higher
+                combatInfo.Hit = "Player";
+                int playerTotalStr = player.Strength + player.Weapon.Strength;
+                int opponentTotalDef = opponent.Defence + opponent.Armor.Defence;
 
-        //            combatInfo.DamageDoneDetails = $"{Player.Strength} - {Opponent.Defence}";
-        //        }
-        //        else
-        //        {
-        //            combatInfo.DamageDone = 0;
-        //            combatInfo.DamageDoneDetails = $"{Player.Strength} - {Opponent.Defence}";
-        //        }
+                if (playerTotalStr > opponentTotalDef)
+                {
+                    combatInfo.DamageDone = (playerTotalStr - opponentTotalDef);
+                    opponent.Health -= combatInfo.DamageDone;
 
-        //        combatInfo.OpponentHealthLeft = Opponent.Health;
-        //    }
-        //    else if (combatInfo.OpponentRollResult > combatInfo.PlayerRollResult)
-        //    {
-        //        //If opponent rolls higher
-        //        combatInfo.Hit = "Opponent";
+                    combatInfo.DamageDoneDetails = $"{playerTotalStr} - {opponentTotalDef}";
+                }
+                else
+                {
+                    combatInfo.DamageDone = 0;
+                    combatInfo.DamageDoneDetails = $"{playerTotalStr} - {opponentTotalDef}";
+                }
 
-        //        if (Opponent.Strength > Player.Defence)
-        //        {
-        //            combatInfo.DamageDone = (Opponent.Strength - Player.Defence);
-        //            Player.Health -= combatInfo.DamageDone;
+                combatInfo.OpponentHealthLeft = opponent.Health;
+            }
+            else if (combatInfo.OpponentRollResult > combatInfo.PlayerRollResult)
+            {
+                //If opponent rolls higher
+                combatInfo.Hit = "Opponent";
+                int playerTotalDef = player.Defence + player.Armor.Defence;
+                int opponentTotalStr = opponent.Strength + opponent.Weapon.Strength;
 
-        //            combatInfo.DamageDoneDetails = $"{Opponent.Strength} - {Player.Defence}";
-        //        }
-        //        else
-        //        {
-        //            combatInfo.DamageDone = 0;
-        //            combatInfo.DamageDoneDetails = $"{Opponent.Strength} - {Player.Defence}";
-        //        }
+                if (opponentTotalStr > playerTotalDef)
+                {
+                    combatInfo.DamageDone = (opponentTotalStr - playerTotalDef);
+                    player.Health -= combatInfo.DamageDone;
 
-        //        combatInfo.PlayerHealthLeft = Player.Health;
-        //    }
-        //    else
-        //    {
-        //        //Even
-        //        combatInfo.Hit = "Even";
-        //        combatInfo.DamageDone = 0;
-        //    }
+                    combatInfo.DamageDoneDetails = $"{opponentTotalStr} - {playerTotalDef}";
+                }
+                else
+                {
+                    combatInfo.DamageDone = 0;
+                    combatInfo.DamageDoneDetails = $"{opponentTotalStr} - {playerTotalDef}";
+                }
 
-        //    return combatInfo;
-        //}
+                combatInfo.PlayerHealthLeft = player.Health;
+            }
+            else
+            {
+                //Even
+                combatInfo.Hit = "Even";
+                combatInfo.DamageDone = 0;
+            }
 
-        //private static int DiceRoll()
-        //{
-        //    return generator.Next(minRoll, maxRoll);
-        //}
+            return combatInfo;
+        }
     }
 }

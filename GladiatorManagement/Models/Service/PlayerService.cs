@@ -31,7 +31,7 @@ namespace GladiatorManagement.Models.Service
             int defence = 1;
 
             
-            PlayerGladiator gladiator = _playerGladiatorRepo.Create(name, strength, accuracy, health, defence);
+            PlayerGladiator gladiator = _playerGladiatorRepo.Create(player, name, strength, accuracy, health, defence);
             player.Gladiators.Add(gladiator);
             _playerRepo.Update(player);
 
@@ -60,7 +60,7 @@ namespace GladiatorManagement.Models.Service
             int health = rng.Next(minHealth, maxHealth);
             int defence = rng.Next(minDef, maxDef);
 
-            return _playerGladiatorRepo.Create(name, strength, accuracy, health, defence);
+            return _playerGladiatorRepo.Create(null, name, strength, accuracy, health, defence);
         }
 
         public PlayerGladiator UpdateGladiatorGear(PlayerGladiator gladiator, Gear gear)

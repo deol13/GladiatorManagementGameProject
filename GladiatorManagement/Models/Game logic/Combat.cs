@@ -7,59 +7,60 @@ namespace GladiatorManagement.Models.Game_logic
 {
     public class Combat
     {
-        //private Gladiator player;
-        //private Gladiator opponent;
+        private PlayerGladiator player;
+        private PlayerGladiator opponent;
 
-        //private int playerMaxHealth;
-        //private int OpponentMaxHealth;
+        private int playerMaxHealth;
+        private int OpponentMaxHealth;
 
-        //public Combat(Gladiator player, Gladiator opponent)
-        //{
-        //    this.player = player;
-        //    this.opponent = opponent;
+        public Combat(PlayerGladiator player, PlayerGladiator opponent)
+        {
+            this.player = player;
+            this.opponent = opponent;
 
-        //    playerMaxHealth = player.Health;
-        //    OpponentMaxHealth = opponent.Health;
-        //}
+            playerMaxHealth = player.Health;
+            OpponentMaxHealth = opponent.Health;
+        }
 
-        //public List<CombatInfo> StartCombat()
-        //{
-        //    bool combatInprogress = true;
-        //    List<CombatInfo> combatDetails = new List<CombatInfo>();
+        public List<CombatInfo> StartCombat()
+        {
+            opponent.Health += opponent.Armor.Health;
+            player.Health += player.Armor.Health;
 
-        //    ARound.Player = player;
-        //    ARound.Opponent = opponent;
+            bool combatInprogress = true;
+            List<CombatInfo> combatDetails = new List<CombatInfo>();
+            ARound aRound = new ARound(player, opponent);
 
-        //    //Combat loop
-        //    while(combatInprogress)
-        //    {
-        //        //Start A round of fighting and gets the details back
-        //        CombatInfo details = ARound.Fight();
-        //        combatInprogress = CheckHealth(ref details);
-        //        combatDetails.Add(details);
-        //    }
+            //Combat loop
+            while (combatInprogress)
+            {
+                //Start A round of fighting and gets the details back
+                CombatInfo details = aRound.Fight();
+                combatInprogress = CheckHealth(ref details);
+                combatDetails.Add(details);
+            }
 
-        //    //Reset their health to max
-        //    player.Health = playerMaxHealth;
-        //    opponent.Health = OpponentMaxHealth;
+            //Reset their health to max
+            player.Health = playerMaxHealth;
+            opponent.Health = OpponentMaxHealth;
 
-        //    return combatDetails;
-        //}
+            return combatDetails;
+        }
 
-        //private bool CheckHealth(ref CombatInfo combatDetails)
-        //{
-        //    if (opponent.Health <= 0)
-        //    {
-        //        combatDetails.Winner = "Player";
-        //        return false;
-        //    }
-        //    else if (player.Health <= 0)
-        //    {
-        //        combatDetails.Winner = "Opponent";
-        //        return false;
-        //    }
+        private bool CheckHealth(ref CombatInfo combatDetails)
+        {
+            if (opponent.Health <= 0)
+            {
+                combatDetails.Winner = "Player";
+                return false;
+            }
+            else if (player.Health <= 0)
+            {
+                combatDetails.Winner = "Opponent";
+                return false;
+            }
 
-        //    return true;
-        //}
+            return true;
+        }
     }
 }

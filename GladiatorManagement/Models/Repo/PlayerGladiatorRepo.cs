@@ -18,7 +18,7 @@ namespace GladiatorManagement.Models.Repo
         {
             PlayerGladiator gladiator = new PlayerGladiator
             {
-                Player = player,
+                //Player = player,
                 Name = name,
                 Strength = strength,
                 Accuracy = accuracy,
