@@ -56,7 +56,7 @@ namespace GladiatorManagement.Models.Game_logic
         {
             int gold = 0;
 
-            if ((lvl - 1) > 0 && (lvl - 1) < XPAndGoldFormula.GoldToGive.Length)
+            if ((lvl - 1) >= 0 && (lvl - 1) < XPAndGoldFormula.GoldToGive.Length)
                 gold = XPAndGoldFormula.GoldToGive[lvl - 1];
 
             return gold;
