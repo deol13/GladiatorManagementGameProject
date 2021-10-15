@@ -16,6 +16,8 @@ namespace GladiatorManagement.Data
 
         public DbSet<Player> Players { get; set; }
         public DbSet<PlayerGladiator> PlayerGladiators { get; set; }
+        public DbSet<Weapon> Weapons { get; set; }
+        public DbSet<Armor> Armors { get; set; }
 
     }
 }
