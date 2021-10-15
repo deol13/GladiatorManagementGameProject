@@ -40,10 +40,7 @@ namespace GladiatorManagement.Models.Repo
 
         public Player Update(Player player)
         {
-            Player pl =
-                (Player)(from p in _appDbContext.Players
-                         where p.PlayerId == player.PlayerId
-                         select p);
+            Player pl = _appDbContext.Players.Find(player.PlayerId);
             pl.Name = player.Name;
             pl.Gold = player.Gold;
             pl.Score = player.Score;
