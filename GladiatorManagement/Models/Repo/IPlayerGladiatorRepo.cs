@@ -7,7 +7,7 @@ namespace GladiatorManagement.Models.Repo
 {
     public interface IPlayerGladiatorRepo
     {
-        public PlayerGladiator Create(string name, int strength, int accuracy, int health, int defence);
+        public PlayerGladiator Create(Player player, string name, int strength, int accuracy, int health, int defence);
 
         public PlayerGladiator Read(int id);
         public List<PlayerGladiator> Read();
