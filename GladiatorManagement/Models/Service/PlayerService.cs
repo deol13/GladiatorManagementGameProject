@@ -114,7 +114,38 @@ namespace GladiatorManagement.Models.Service
             return _gladiatorRepo.Delete(gladiator);
         }
 
+        public PlayerGladiator AddHealth(PlayerGladiator playerGladiator, int amount)
+        {
+            playerGladiator.Health += amount;
+            return _playerGladiatorRepo.Update(playerGladiator);
+        }
 
+        public PlayerGladiator AddStrength(PlayerGladiator playerGladiator, int amount)
+        {
+            playerGladiator.Strength += amount;
+            return _playerGladiatorRepo.Update(playerGladiator);
+        }
+         
+        public PlayerGladiator AddAccuracy(PlayerGladiator playerGladiator, int amount)
+        {
+            playerGladiator.Accuracy += amount;
+            return _playerGladiatorRepo.Update(playerGladiator);
+        }
+        public PlayerGladiator AddDefence(PlayerGladiator playerGladiator, int amount)
+        {
+            playerGladiator.Defence += amount;
+            return _playerGladiatorRepo.Update(playerGladiator);
+        }
+        public PlayerGladiator AddXP(PlayerGladiator playerGladiator, int amount)
+        {
+            playerGladiator.Experience += amount;
+            return _playerGladiatorRepo.Update(playerGladiator);
+        }
+        public PlayerGladiator EditScore(PlayerGladiator playerGladiator, int amount)
+        {
+            playerGladiator.Score += amount;
+            return _playerGladiatorRepo.Update(playerGladiator);
+        }
 
     }
 }

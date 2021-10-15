@@ -23,5 +23,18 @@ namespace GladiatorManagement.Models.Service
         public bool RemoveGladiator(PlayerGladiator playerGladiator);
 
         public bool RemoveOpponent(Gladiator gladiator);
+
+        public PlayerGladiator AddHealth(PlayerGladiator playerGladiator, int amount);
+
+        public PlayerGladiator AddStrength(PlayerGladiator playerGladiator, int amount);
+
+        public PlayerGladiator AddAccuracy(PlayerGladiator playerGladiator, int amount);
+        public PlayerGladiator AddDefence(PlayerGladiator playerGladiator, int amount);
+        public PlayerGladiator AddXP(PlayerGladiator playerGladiator, int amount);
+        public PlayerGladiator EditScore(PlayerGladiator playerGladiator, int amount);
+
+
+
+
     }
 }
