@@ -36,17 +36,17 @@ namespace GladiatorManagement.Controllers
 
             player = _playerRepo.Read(1);
 
-            
-
             //_playerService.EditAmountOfGold(player, 101);
 
-            PlayerGladiator playerGladiate = _playerService.FindById(4);
+            //PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Harris");
+            PlayerGladiator playerGladiate = _playerService.FindById(14);
 
-            //PlayerGladiator opponent = _playerService.CreateOpponent(playerGladiate);
+            PlayerGladiator opponent = _playerService.FindById(11);
+            //PlayerGladiator opponent1 = _playerService.CreateOpponent(playerGladiate);
 
-            //_gameService.LaunchCombat(playerGladiate.Id, opponent.Id, false);
+            _gameService.LaunchCombat(playerGladiate.Id, opponent.Id, false);
 
-            _playerService.RemoveGladiator(playerGladiate);
+            //_playerService.RemoveGladiator(playerGladiate);
 
             return View();
         }

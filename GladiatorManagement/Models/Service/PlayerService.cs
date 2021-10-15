@@ -25,10 +25,10 @@ namespace GladiatorManagement.Models.Service
 
         public PlayerGladiator CreateDefaultGladiator(Player player, string name)
         {
-            int strength = 1;
-            int accuracy = 1;
-            int health = 1;
-            int defence = 1;
+            int strength = 5;
+            int accuracy = 5;
+            int health = 5;
+            int defence = 5;
 
             
             PlayerGladiator gladiator = _playerGladiatorRepo.Create(player, name, strength, accuracy, health, defence);
