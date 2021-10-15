@@ -88,6 +88,7 @@ namespace GladiatorManagement.Models.Service
 
         public PlayerGladiator LevelUp(PlayerGladiator playerGladiator)
         {
+            playerGladiator.Experience++;
             if (CanLevelUp(playerGladiator))
             {
                 playerGladiator.Level++;
