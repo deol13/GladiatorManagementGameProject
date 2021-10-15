@@ -89,9 +89,11 @@ namespace GladiatorManagement.Models.Service
         public PlayerGladiator LevelUp(PlayerGladiator playerGladiator)
         {
             playerGladiator.Experience++;
+
             if (CanLevelUp(playerGladiator))
             {
                 playerGladiator.Level++;
+                playerGladiator.Experience -= XPAndGoldFormula.XpToLVl[playerGladiator.Level - 1];
             }
             return _playerGladiatorRepo.Update(playerGladiator);
         }
