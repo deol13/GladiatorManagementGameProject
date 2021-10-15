@@ -12,7 +12,7 @@ namespace GladiatorManagement.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public Player Player { get; set; }
-        public int PlayerId { get; set; }
+        public int? PlayerId { get; set; }
         public int Strength { get; set; }
         public int Accuracy { get; set; }
         public int Health { get; set; }
