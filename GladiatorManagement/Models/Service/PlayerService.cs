@@ -43,7 +43,7 @@ namespace GladiatorManagement.Models.Service
         {
             Random rng = new Random();
 
-            string name = generator.NextString(3, 8);
+            string name = generator.NextUserName();
 
             int minStr = playerGladiator.Strength - 2;
             int maxStr = playerGladiator.Strength + 3;
