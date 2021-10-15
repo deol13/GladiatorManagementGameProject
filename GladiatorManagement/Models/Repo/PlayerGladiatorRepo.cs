@@ -14,10 +14,11 @@ namespace GladiatorManagement.Models.Repo
         {
             _appDbContext = appDbContext;
         }
-        public PlayerGladiator Create(string name, int strength, int accuracy, int health, int defence)
+        public PlayerGladiator Create(Player player, string name, int strength, int accuracy, int health, int defence)
         {
             PlayerGladiator gladiator = new PlayerGladiator
             {
+                Player = player,
                 Name = name,
                 Strength = strength,
                 Accuracy = accuracy,
