@@ -16,8 +16,16 @@ namespace GladiatorManagement.Models.Repo
         }
         public PlayerGladiator Create(string name, int strength, int accuracy, int health, int defence)
         {
-            PlayerGladiator gladiator = new PlayerGladiator(name, strength, accuracy, health, defence);
-            _appDbContext.Gladiators.Add(gladiator);
+            PlayerGladiator gladiator = new PlayerGladiator
+            {
+                Name = name,
+                Strength = strength,
+                Accuracy = accuracy,
+                Health = health,
+                Defence = defence
+            };
+            
+            _appDbContext.PlayerGladiators.Add(gladiator);
             _appDbContext.SaveChanges();
             return gladiator;
         }

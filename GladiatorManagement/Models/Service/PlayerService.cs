@@ -14,14 +14,12 @@ namespace GladiatorManagement.Models.Service
     {
         IPlayerRepo _playerRepo;
         IPlayerGladiatorRepo _playerGladiatorRepo;
-        IGladiatorRepo _gladiatorRepo;
         static InfoGenerator generator = new InfoGenerator();
 
-        public PlayerService(IPlayerRepo playerRepo, IPlayerGladiatorRepo playerGladiatorRepo, IGladiatorRepo gladiatorRepo)
+        public PlayerService(IPlayerRepo playerRepo, IPlayerGladiatorRepo playerGladiatorRepo)
         {
             _playerRepo = playerRepo;
             _playerGladiatorRepo = playerGladiatorRepo;
-            _gladiatorRepo = gladiatorRepo;
         }
 
 
@@ -38,7 +36,7 @@ namespace GladiatorManagement.Models.Service
 
         }
 
-        public Gladiator CreateOpponent(PlayerGladiator playerGladiator)
+        public PlayerGladiator CreateOpponent(PlayerGladiator playerGladiator)
         {
             Random rng = new Random();
 
@@ -59,7 +57,7 @@ namespace GladiatorManagement.Models.Service
             int health = rng.Next(minHealth, maxHealth);
             int defence = rng.Next(minDef, maxDef);
 
-            return _gladiatorRepo.Create(name, strength, accuracy, health, defence);
+            return _playerGladiatorRepo.Create(name, strength, accuracy, health, defence);
         }
 
         public PlayerGladiator UpdateGladiatorGear(PlayerGladiator gladiator, Gear gear)
@@ -109,11 +107,6 @@ namespace GladiatorManagement.Models.Service
             return _playerGladiatorRepo.Delete(playerGladiator);
         }
 
-        public bool RemoveOpponent(Gladiator gladiator)
-        {
-            return _gladiatorRepo.Delete(gladiator);
-        }
-
         public PlayerGladiator AddHealth(PlayerGladiator playerGladiator, int amount)
         {
             playerGladiator.Health += amount;
@@ -150,11 +143,6 @@ namespace GladiatorManagement.Models.Service
         public PlayerGladiator FindById(int id)
         {
             return _playerGladiatorRepo.Read(id);
-        }
-
-        public Gladiator FindOpponentById(int id)
-        {
-            return _gladiatorRepo.Read(id);
         }
 
     }

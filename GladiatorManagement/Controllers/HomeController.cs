@@ -27,7 +27,7 @@ namespace GladiatorManagement.Controllers
             XPAndGoldFormula.Setup();
 
             //Test
-            _gameService.LaunchCombat(0, 1);
+            //_gameService.LaunchCombat(0, 1);
 
             return View();
         }

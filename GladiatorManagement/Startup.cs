@@ -44,7 +44,6 @@ namespace GladiatorManagement
             services.AddScoped<IPlayerService, PlayerService>();
             services.AddScoped<IPlayerRepo, PlayerRepo>();
             services.AddScoped<IPlayerGladiatorRepo, PlayerGladiatorRepo>();
-            services.AddScoped<IGladiatorRepo, GladiatorRepo>();
             services.AddScoped<IGameService, GameService>();
 
         }

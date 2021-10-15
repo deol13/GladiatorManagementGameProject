@@ -9,7 +9,7 @@ namespace GladiatorManagement.Models.Service
     {
         public PlayerGladiator CreateDefaultGladiator(string name);
 
-        public Gladiator CreateOpponent(PlayerGladiator playerGladiator);
+        public PlayerGladiator CreateOpponent(PlayerGladiator playerGladiator);
 
         public PlayerGladiator UpdateGladiatorGear(PlayerGladiator gladiator, Gear gear);
         public Player EditAmountOfGold(Player player, int changeInGold);
@@ -22,8 +22,6 @@ namespace GladiatorManagement.Models.Service
 
         public bool RemoveGladiator(PlayerGladiator playerGladiator);
 
-        public bool RemoveOpponent(Gladiator gladiator);
-
         public PlayerGladiator AddHealth(PlayerGladiator playerGladiator, int amount);
 
         public PlayerGladiator AddStrength(PlayerGladiator playerGladiator, int amount);
@@ -33,7 +31,6 @@ namespace GladiatorManagement.Models.Service
         public PlayerGladiator AddXP(PlayerGladiator playerGladiator, int amount);
         public PlayerGladiator EditScore(PlayerGladiator playerGladiator, int amount);
         public PlayerGladiator FindById(int id);
-        public Gladiator FindOpponentById(int id);
 
 
 

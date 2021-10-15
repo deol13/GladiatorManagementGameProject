@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace GladiatorManagement.Models
 {
-    public class PlayerGladiator : Gladiator
+    public class PlayerGladiator
     {
-        public Player Player;
-        public int PlayerId;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Player Player { get; set; }
+        public int PlayerId { get; set; }
+        public int Strength { get; set; }
+        public int Accuracy { get; set; }
+        public int Health { get; set; }
+        public int Defence { get; set; }
         public Weapon Weapon { get; set; }
         public Armor Armor { get; set; }
 
@@ -20,7 +26,7 @@ namespace GladiatorManagement.Models
 
         public int Score { get; set; }
 
-        public PlayerGladiator(string Name, int Strength, int Accuracy, int Health, int Defence) : base(Name, Strength, Accuracy, Health, Defence)
+        public PlayerGladiator()
         {
             //Default weapon and armor aka you got nothing.
             Weapon = new Weapon("Fist", 0, 0, 0);
