@@ -23,6 +23,9 @@ namespace GladiatorManagement.Models.Game_logic
         /// </summary>
         public static int[] GoldToGive { get; set; }
 
+        /// <summary>
+        /// Needs to be rebalanced, it give enough to lvl right now
+        /// </summary>
         public static int[] XPToGive { get; set; }
 
         public static void Setup()
