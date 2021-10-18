@@ -8,6 +8,8 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20211015093312_NoSeparateOpponent.cs" />
     <Compile Remove="Data\Migrations\20211015093312_NoSeparateOpponent.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211018111613_ShopInventory.cs" />
+    <Compile Remove="Data\Migrations\20211018111613_ShopInventory.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

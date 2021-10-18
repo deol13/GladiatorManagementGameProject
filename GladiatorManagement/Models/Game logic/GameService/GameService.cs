@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GladiatorManagement.Models.Game_logic.GameRepo;
 using GladiatorManagement.Models.Service;
 
 namespace GladiatorManagement.Models.Game_logic
@@ -9,10 +10,18 @@ namespace GladiatorManagement.Models.Game_logic
     public class GameService : IGameService
     {
         IPlayerService _playerService;
+        IGameRepo _gameRepo;
 
-        public GameService(IPlayerService playerService)
+        public Shop Shop { get; set; }
+
+        public GameService()
+        {
+        }
+
+        public GameService(IPlayerService playerService, IGameRepo gameRepo)
         {
             _playerService = playerService;
+            _gameRepo = gameRepo;
         }
 
         //Needs to be tweak and improved
@@ -70,25 +79,52 @@ namespace GladiatorManagement.Models.Game_logic
             for (int i = 0; i < nrOfGears / 2; i++)
             {
                 newGear = GenerateGear.GenerateAGearObject("Weapon", lvlOfGladiator);
-                inventory.GearsInShop.Add(newGear);
+                inventory.WeaponsInShop.Add(newGear as Weapon);
                 newGear = null;
             }
             for (int i = 0; i < nrOfGears / 2; i++)
             {
                 newGear = GenerateGear.GenerateAGearObject("Armor", lvlOfGladiator);
-                inventory.GearsInShop.Add(newGear);
+                inventory.ArmorsInShop.Add(newGear as Armor);
                 newGear = null;
             }
 
             return inventory;
         }
 
-        public ShopInventory CreateAShop(int lvlOfGladiator)
+        public ShopInventory CreateAShop(int lvlOfGladiator, int gladiatorId)
         {
-
             ShopInventory inventory = GenerateInventoryForAShop(lvlOfGladiator, 10);
+            inventory.GladiatorId = gladiatorId;
+
+            _gameRepo.SaveShopInventory(inventory);
+            Shop.Shops.Add(inventory);
 
             return inventory;
+        }
+
+        public bool RemoveShopInventory(int shopInventoryId)
+        {
+            ShopInventory inventory = FindShopInventory(shopInventoryId);
+
+            if (Shop.Shops.Remove(inventory))
+            {
+                //Call PlayerService to remove all the armors/weapons
+                return _gameRepo.RemoveShopInvenotry(inventory);
+            }
+
+            return false;
+        }
+
+        public ShopInventory FindShopInventory(int shopInventoryId)
+        {
+            foreach (var item in Shop.Shops)
+            {
+                if (item.Id == shopInventoryId)
+                    return item;
+            }
+
+            return _gameRepo.FindShopInventory(shopInventoryId);
         }
 
         /// <summary>
@@ -98,27 +134,55 @@ namespace GladiatorManagement.Models.Game_logic
         /// <param name="playersGladiator">The gladiator buying</param>
         /// <param name="idOfItem">The index of the gear in the inventory</param>
         /// <returns></returns>
-        public bool BuyAPieceOfGear(ShopInventory inventory, PlayerGladiator playersGladiator, int idOfItem)
+        public bool BuyAPieceOfGear(ShopInventory inventory, PlayerGladiator playersGladiator, bool weapon, int idOfItem)
         {
             bool succeeded = false;
 
-            if (idOfItem >= 0 && idOfItem < inventory.GearsInShop.Count)
+            if (weapon)
             {
-                int goldAvailable = playersGladiator.Player.Gold;
-
-                if (goldAvailable >= inventory.GearsInShop[idOfItem].Cost)
+                if (idOfItem >= 0 && idOfItem < inventory.WeaponsInShop.Count)
                 {
-                    _playerService.EditAmountOfGold(playersGladiator.Player, inventory.GearsInShop[0].Cost * -1);
-                    _playerService.UpdateGladiatorGear(playersGladiator, inventory.GearsInShop[idOfItem]);
+                    int goldAvailable = playersGladiator.Player.Gold;
 
-                    inventory.GearsInShop.RemoveAt(idOfItem);
+                    if (goldAvailable >= inventory.WeaponsInShop[idOfItem].Cost)
+                    {
+                        _playerService.EditAmountOfGold(playersGladiator.Player, inventory.WeaponsInShop[0].Cost * -1);
+                        _playerService.UpdateGladiatorGear(playersGladiator, inventory.WeaponsInShop[idOfItem]);
 
-                    succeeded = true;
+                        inventory.WeaponsInShop.RemoveAt(idOfItem);
+
+                        _gameRepo.Update(inventory);
+
+                        succeeded = true;
+                    }
                 }
+            }
+            else
+            {
+                if (idOfItem >= 0 && idOfItem < inventory.ArmorsInShop.Count)
+                {
+                    int goldAvailable = playersGladiator.Player.Gold;
 
+                    if (goldAvailable >= inventory.ArmorsInShop[idOfItem].Cost)
+                    {
+                        _playerService.EditAmountOfGold(playersGladiator.Player, inventory.ArmorsInShop[0].Cost * -1);
+                        _playerService.UpdateGladiatorGear(playersGladiator, inventory.ArmorsInShop[idOfItem]);
+
+                        inventory.ArmorsInShop.RemoveAt(idOfItem);
+
+                        _gameRepo.Update(inventory);
+
+                        succeeded = true;
+                    }
+                }
             }
 
             return succeeded;
+        }
+
+        public void GetInventoryFromdatabase()
+        {
+            Shop.Shops = _gameRepo.All();
         }
     }
 }

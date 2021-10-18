@@ -8,10 +8,8 @@ namespace GladiatorManagement.Models
 {
     public class Shop
     {
-        [Key]
         public int Id { get; set; }
 
-        [Required]
         public List<ShopInventory> Shops { get; set; }
 
         public Shop()

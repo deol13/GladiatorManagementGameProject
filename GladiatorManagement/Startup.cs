@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GladiatorManagement.Models.Game_logic;
+using GladiatorManagement.Models.Game_logic.GameRepo;
 
 namespace GladiatorManagement
 {
@@ -45,6 +46,7 @@ namespace GladiatorManagement
             services.AddScoped<IPlayerRepo, PlayerRepo>();
             services.AddScoped<IPlayerGladiatorRepo, PlayerGladiatorRepo>();
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameRepo, GameRepo>();
 
         }
 

@@ -34,9 +34,15 @@ namespace GladiatorManagement.Controllers
 
         public IActionResult Index()
         {
-            XPAndGoldFormula.Setup();
+            //Find a better solution
+            List<Weapon> w = _appDbContext.Weapons.ToList();
+            List<Armor> a = _appDbContext.Armors.ToList();
 
-            if(_appDbContext.Weapons.Find(2) == null)
+            XPAndGoldFormula.Setup();
+            _gameService.Shop = new Shop();
+            _gameService.GetInventoryFromdatabase();    
+
+            if (_appDbContext.Weapons.Find(2) == null)
             {
                 Weapon weapon = new Weapon("Fist", 0, 0, 0);
                 _appDbContext.Weapons.Add(weapon);
@@ -68,9 +74,32 @@ namespace GladiatorManagement.Controllers
             ////_playerService.RemoveGladiator(playerGladiate
             ///
 
-
+            
+            //Test();
 
             return View();
+        }
+
+        public void Test()
+        {
+            Player player = _playerRepo.Read(1);
+            PlayerGladiator playerGladiate = _playerService.FindById(15);
+
+            ////Create shop + inventory
+            ShopInventory inventory = _gameService.CreateAShop(playerGladiate.Level, playerGladiate.Id);
+
+            ////Find Shop, both with right id and a wrong id
+            //ShopInventory inventory = _gameService.FindShopInventory(1);
+            //ShopInventory inventory2 = _gameService.FindShopInventory(5);
+
+            ////Buy a piece and send it wrong id
+            //bool succeeded = _gameService.BuyAPieceOfGear(inventory, playerGladiate, false, 6);
+            bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 1);
+            
+
+            //
+            //_gameService.RemoveShopInventory(5);
+            _gameService.RemoveShopInventory(inventory.Id);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

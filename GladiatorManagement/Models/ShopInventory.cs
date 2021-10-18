@@ -11,15 +11,21 @@ namespace GladiatorManagement.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
+        public int GladiatorId { get; set; }
+
         /// <summary>
         /// Can be made into an array since it will always be exact size
         /// </summary>
         [Required]
-        public List<Gear> GearsInShop { get; set; }
+        public List<Weapon> WeaponsInShop { get; set; }
+        [Required]
+        public List<Armor> ArmorsInShop { get; set; }
 
         public ShopInventory()
         {
-            GearsInShop = new List<Gear>();
+            WeaponsInShop = new List<Weapon>();
+            ArmorsInShop = new List<Armor>();
         }
     }
 }
