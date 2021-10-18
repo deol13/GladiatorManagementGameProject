@@ -46,9 +46,9 @@ namespace GladiatorManagement
             services.AddScoped<IPlayerRepo, PlayerRepo>();
             services.AddScoped<IPlayerGladiatorRepo, PlayerGladiatorRepo>();
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameRepo, GameRepo>();
             services.AddScoped<IArmorRepo, ArmorRepo>();
             services.AddScoped<IWeaponRepo, WeaponRepo>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

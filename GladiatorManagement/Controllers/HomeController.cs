@@ -38,8 +38,8 @@ namespace GladiatorManagement.Controllers
         public IActionResult Index()
         {
             //Find a better solution
-            List<Weapon> w = _appDbContext.Weapons.ToList();
-            List<Armor> a = _appDbContext.Armors.ToList();
+            List<Weapon> w = _weaponRepo.Read();
+            List<Armor> a = _armorRepo.Read();
 
             XPAndGoldFormula.Setup();
             _gameService.Shop = new Shop();
@@ -57,23 +57,6 @@ namespace GladiatorManagement.Controllers
                 Armor armor = _armorRepo.Create("Skin", 0, 0, 0);
                 PlayerGladiatorRepo.DefaultAId = armor.Id;
             }
-            //Player player = null;
-
-            //player = _playerRepo.Read(1);
-
-            ////_playerService.EditAmountOfGold(player, 101);
-
-            ////PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Harris");
-            //PlayerGladiator playerGladiate = _playerService.FindById(14);
-
-            //PlayerGladiator opponent = _playerService.FindById(12);
-            ////PlayerGladiator opponent1 = _playerService.CreateOpponent(playerGladiate);
-
-            //_gameService.LaunchCombat(playerGladiate.Id, opponent.Id, false);
-
-            ////_playerService.RemoveGladiator(playerGladiate
-            ///
-
             
             //Test();
 
@@ -89,17 +72,30 @@ namespace GladiatorManagement.Controllers
             ShopInventory inventory = _gameService.CreateAShop(playerGladiate.Level, playerGladiate.Id);
 
             ////Find Shop, both with right id and a wrong id
-            //ShopInventory inventory = _gameService.FindShopInventory(1);
-            //ShopInventory inventory2 = _gameService.FindShopInventory(5);
+            //ShopInventory inventory = _gameService.FindShopInventory(2);
 
             ////Buy a piece and send it wrong id
-            //bool succeeded = _gameService.BuyAPieceOfGear(inventory, playerGladiate, false, 6);
-            bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 1);
-            
+            bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 2);
 
-            //
-            //_gameService.RemoveShopInventory(5);
-            _gameService.RemoveShopInventory(inventory.Id);
+            //_gameService.RemoveShopInventory(inventory.Id);
+
+
+
+            //Player player = null;
+
+            //player = _playerRepo.Read(1);
+
+            ////_playerService.EditAmountOfGold(player, 101);
+
+            ////PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Harris");
+            //PlayerGladiator playerGladiate = _playerService.FindById(14);
+
+            //PlayerGladiator opponent = _playerService.FindById(12);
+            ////PlayerGladiator opponent1 = _playerService.CreateOpponent(playerGladiate);
+
+            //_gameService.LaunchCombat(playerGladiate.Id, opponent.Id, false);
+
+            ////_playerService.RemoveGladiator(playerGladiate   
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

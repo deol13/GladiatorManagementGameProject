@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GladiatorManagement.Models.Game_logic.GameRepo;
+using GladiatorManagement.Models.Repo;
 using GladiatorManagement.Models.Service;
 
 namespace GladiatorManagement.Models.Game_logic
@@ -11,17 +12,17 @@ namespace GladiatorManagement.Models.Game_logic
     {
         IPlayerService _playerService;
         IGameRepo _gameRepo;
+        IArmorRepo _armorRepo;
+        IWeaponRepo _weaponRepo;
 
         public Shop Shop { get; set; }
 
-        public GameService()
-        {
-        }
-
-        public GameService(IPlayerService playerService, IGameRepo gameRepo)
+        public GameService(IPlayerService playerService, IGameRepo gameRepo, IWeaponRepo weaponRepo, IArmorRepo armorRepo)
         {
             _playerService = playerService;
             _gameRepo = gameRepo;
+            _armorRepo = armorRepo;
+            _weaponRepo = weaponRepo;
         }
 
         //Needs to be tweak and improved
@@ -79,12 +80,14 @@ namespace GladiatorManagement.Models.Game_logic
             for (int i = 0; i < nrOfGears / 2; i++)
             {
                 newGear = GenerateGear.GenerateAGearObject("Weapon", lvlOfGladiator);
+                newGear = _weaponRepo.Create(newGear as Weapon);
                 inventory.WeaponsInShop.Add(newGear as Weapon);
                 newGear = null;
             }
             for (int i = 0; i < nrOfGears / 2; i++)
             {
                 newGear = GenerateGear.GenerateAGearObject("Armor", lvlOfGladiator);
+                newGear = _armorRepo.Create(newGear as Armor);
                 inventory.ArmorsInShop.Add(newGear as Armor);
                 newGear = null;
             }
@@ -109,8 +112,18 @@ namespace GladiatorManagement.Models.Game_logic
 
             if (Shop.Shops.Remove(inventory))
             {
-                //Call PlayerService to remove all the armors/weapons
-                return _gameRepo.RemoveShopInvenotry(inventory);
+                bool succeeded = _gameRepo.RemoveShopInvenotry(inventory);
+
+                foreach (var item in inventory.WeaponsInShop)
+                {
+                    _weaponRepo.Delete(item);
+                }
+                foreach (var item in inventory.ArmorsInShop)
+                {
+                    _armorRepo.Delete(item);
+                }
+
+                return succeeded;
             }
 
             return false;

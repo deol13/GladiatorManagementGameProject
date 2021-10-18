@@ -23,6 +23,13 @@ namespace GladiatorManagement.Models.Repo
             return wp;
         }
 
+        public Weapon Create(Weapon weapon)
+        {
+            _appDbContext.Weapons.Add(weapon);
+            _appDbContext.SaveChanges();
+            return weapon;
+        }
+
         public bool Delete(Weapon weapon)
         {
             if (_appDbContext.Weapons.Contains(weapon))

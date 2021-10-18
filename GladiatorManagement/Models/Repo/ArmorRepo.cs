@@ -23,6 +23,14 @@ namespace GladiatorManagement.Models.Repo
             return arm;
         }
 
+        public Armor Create(Armor armor)
+        {
+            _appDbContext.Armors.Add(armor);
+            _appDbContext.SaveChanges();
+
+            return armor;
+        }
+
         public bool Delete(Armor armor)
         {
             if (_appDbContext.Armors.Contains(armor))

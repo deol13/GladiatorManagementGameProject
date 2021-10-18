@@ -14,12 +14,17 @@ namespace GladiatorManagement.Models.Service
     {
         IPlayerRepo _playerRepo;
         IPlayerGladiatorRepo _playerGladiatorRepo;
+        IArmorRepo _armorRepo;
+        IWeaponRepo _weaponRepo;
+
         static InfoGenerator generator = new InfoGenerator();
 
-        public PlayerService(IPlayerRepo playerRepo, IPlayerGladiatorRepo playerGladiatorRepo)
+        public PlayerService(IPlayerRepo playerRepo, IPlayerGladiatorRepo playerGladiatorRepo, IWeaponRepo weaponRepo, IArmorRepo armorRepo)
         {
             _playerRepo = playerRepo;
             _playerGladiatorRepo = playerGladiatorRepo;
+            _armorRepo = armorRepo;
+            _weaponRepo = weaponRepo;
         }
 
 
@@ -65,8 +70,16 @@ namespace GladiatorManagement.Models.Service
 
         public PlayerGladiator UpdateGladiatorGear(PlayerGladiator gladiator, Gear gear)
         {
-            if (gear is Armor) gladiator.Armor = (Armor)gear;
-            else if (gear is Weapon) gladiator.Weapon = (Weapon)gear;    
+            if (gear is Armor)
+            {
+                _armorRepo.Delete(gladiator.Armor);
+                gladiator.Armor = (Armor)gear;
+            }
+            else if (gear is Weapon)
+            {
+                _weaponRepo.Delete(gladiator.Weapon);
+                gladiator.Weapon = (Weapon)gear;
+            }
             
             return _playerGladiatorRepo.Update(gladiator);
 
