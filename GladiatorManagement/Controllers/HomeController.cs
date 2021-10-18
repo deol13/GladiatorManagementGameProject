@@ -32,11 +32,13 @@ namespace GladiatorManagement.Controllers
         {
             XPAndGoldFormula.Setup();
 
-            //Player player = null;
+            Player player = null;
 
-            //player = _playerRepo.Read(1);
+            player = _playerRepo.Read(1);
 
             ////_playerService.EditAmountOfGold(player, 101);
+
+            PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Harris111");
 
             ////PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Harris");
             //PlayerGladiator playerGladiate = _playerService.FindById(14);

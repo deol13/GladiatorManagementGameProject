@@ -11,7 +11,7 @@ namespace GladiatorManagement.Models.Game_logic
         public int HowMuchGoldWon(int lvl);
         public ShopInventory GenerateInventoryForAShop(int lvlOfGladiator, int nrOfGears);
 
-        public Shop CreateAShop(Shop shop, int lvlOfGladiator);
+        public ShopInventory CreateAShop(int lvlOfGladiator);
 
         public bool BuyAPieceOfGear(ShopInventory inventory, PlayerGladiator playersGladiator, int idOfItem);
     }

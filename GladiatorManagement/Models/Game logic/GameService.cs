@@ -83,12 +83,12 @@ namespace GladiatorManagement.Models.Game_logic
             return inventory;
         }
 
-        public Shop CreateAShop(Shop shop, int lvlOfGladiator)
+        public ShopInventory CreateAShop(int lvlOfGladiator)
         {
-            ShopInventory inventory = GenerateInventoryForAShop(lvlOfGladiator, 10);
-            shop.Shops.Add(inventory);
 
-            return shop;
+            ShopInventory inventory = GenerateInventoryForAShop(lvlOfGladiator, 10);
+
+            return inventory;
         }
 
         /// <summary>

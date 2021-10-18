@@ -30,8 +30,8 @@ namespace GladiatorManagement.Models
         public PlayerGladiator()
         {
             //Default weapon and armor aka you got nothing.
-            Weapon = new Weapon("Fist", 0, 0, 0);
-            Armor = new Armor("Skin", 0, 0, 0);
+            Weapon = null;
+            Armor = null;
 
             Experience = 0;
             Level = 1;

@@ -9,6 +9,8 @@ namespace GladiatorManagement.Models.Repo
     public class PlayerGladiatorRepo : IPlayerGladiatorRepo
     {
         ApplicationDbContext _appDbContext;
+        public static int DefaultWId { get; set; } = 2;
+        public static int DefaultAId { get; set; } = 2;
 
         public PlayerGladiatorRepo(ApplicationDbContext appDbContext)
         {
@@ -16,6 +18,9 @@ namespace GladiatorManagement.Models.Repo
         }
         public PlayerGladiator Create(Player player, string name, int strength, int accuracy, int health, int defence)
         {
+            Weapon defaultWeapon = _appDbContext.Weapons.Find(DefaultWId);
+            Armor defaultArmor = _appDbContext.Armors.Find(DefaultAId);
+
             PlayerGladiator gladiator = new PlayerGladiator
             {
                 //Player = player,
@@ -23,7 +28,9 @@ namespace GladiatorManagement.Models.Repo
                 Strength = strength,
                 Accuracy = accuracy,
                 Health = health,
-                Defence = defence
+                Defence = defence,
+                Weapon = defaultWeapon,
+                Armor = defaultArmor
             };
             
             _appDbContext.PlayerGladiators.Add(gladiator);
