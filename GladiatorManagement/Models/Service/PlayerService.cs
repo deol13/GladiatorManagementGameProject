@@ -165,5 +165,9 @@ namespace GladiatorManagement.Models.Service
             return _playerGladiatorRepo.Read(id);
         }
 
+        public Player GetPlayer(int id)
+        {
+            return _playerRepo.Read(id);
+        }
     }
 }

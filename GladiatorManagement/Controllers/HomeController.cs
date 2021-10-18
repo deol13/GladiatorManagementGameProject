@@ -83,7 +83,7 @@ namespace GladiatorManagement.Controllers
 
             //Player player = null;
 
-            //player = _playerRepo.Read(1);
+            //player = _playerService.GetPlayer(1);
 
             ////_playerService.EditAmountOfGold(player, 101);
 
