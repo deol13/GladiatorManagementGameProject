@@ -39,14 +39,6 @@ namespace GladiatorManagement.Controllers
         {
             XPAndGoldFormula.Setup();
 
-            foreach(Weapon w in _weaponRepo.Read())
-            {
-                _weaponRepo.Delete(w);
-            }
-            foreach(Armor a in _armorRepo.Read())
-            {
-                _armorRepo.Delete(a);
-            }
 
             if(_weaponRepo.Read(2) == null)
             {
