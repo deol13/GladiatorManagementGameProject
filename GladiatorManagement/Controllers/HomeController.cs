@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using GladiatorManagement.Models.Game_logic;
 using GladiatorManagement.Models.Service;
 using GladiatorManagement.Models.Repo;
+using GladiatorManagement.Data;
 
 namespace GladiatorManagement.Controllers
 {
@@ -19,19 +20,35 @@ namespace GladiatorManagement.Controllers
         IPlayerRepo _playerRepo;
         IGameService _gameService;
         IPlayerService _playerService;
+        ApplicationDbContext _appDbContext;
 
-        public HomeController(ILogger<HomeController> logger, IGameService gameService, IPlayerService playerService, IPlayerRepo playerRepo)
+        public HomeController(ILogger<HomeController> logger, IGameService gameService, IPlayerService playerService, 
+            IPlayerRepo playerRepo, ApplicationDbContext appDbContext)
         {
             _logger = logger;
             _gameService = gameService;
             _playerService = playerService;
             _playerRepo = playerRepo;
+            _appDbContext = appDbContext;
         }
 
         public IActionResult Index()
         {
             XPAndGoldFormula.Setup();
 
+            if(_appDbContext.Weapons.Find(2) == null)
+            {
+                Weapon weapon = new Weapon("Fist", 0, 0, 0);
+                _appDbContext.Weapons.Add(weapon);
+                PlayerGladiatorRepo.DefaultWId = weapon.Id;
+                
+            }
+            if (_appDbContext.Armors.Find(2) == null)
+            {
+                Armor armor = new Armor("Skin", 0, 0, 0);
+                _appDbContext.Armors.Add(armor);
+                PlayerGladiatorRepo.DefaultAId = armor.Id;
+            }
             //Player player = null;
 
             //player = _playerRepo.Read(1);
@@ -46,7 +63,10 @@ namespace GladiatorManagement.Controllers
 
             //_gameService.LaunchCombat(playerGladiate.Id, opponent.Id, false);
 
-            ////_playerService.RemoveGladiator(playerGladiate);
+            ////_playerService.RemoveGladiator(playerGladiate
+            ///
+
+
 
             return View();
         }
