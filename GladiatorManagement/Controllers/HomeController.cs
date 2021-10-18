@@ -20,35 +20,43 @@ namespace GladiatorManagement.Controllers
         IPlayerRepo _playerRepo;
         IGameService _gameService;
         IPlayerService _playerService;
-        ApplicationDbContext _appDbContext;
+        IArmorRepo _armorRepo;
+        IWeaponRepo _weaponRepo;
+
 
         public HomeController(ILogger<HomeController> logger, IGameService gameService, IPlayerService playerService, 
-            IPlayerRepo playerRepo, ApplicationDbContext appDbContext)
+            IPlayerRepo playerRepo, IWeaponRepo weaponRepo, IArmorRepo armorRepo)
         {
             _logger = logger;
             _gameService = gameService;
             _playerService = playerService;
             _playerRepo = playerRepo;
-            _appDbContext = appDbContext;
+            _armorRepo = armorRepo;
+            _weaponRepo = weaponRepo;
         }
 
         public IActionResult Index()
         {
             XPAndGoldFormula.Setup();
 
-            if(_appDbContext.Weapons.Find(2) == null)
+            foreach(Weapon w in _weaponRepo.Read())
             {
-                Weapon weapon = new Weapon("Fist", 0, 0, 0);
-                _appDbContext.Weapons.Add(weapon);
-                _appDbContext.SaveChanges();
+                _weaponRepo.Delete(w);
+            }
+            foreach(Armor a in _armorRepo.Read())
+            {
+                _armorRepo.Delete(a);
+            }
+
+            if(_weaponRepo.Read(2) == null)
+            {
+                Weapon weapon = _weaponRepo.Create("Fist", 0, 0, 0);
                 PlayerGladiatorRepo.DefaultWId = weapon.Id;
                 
             }
-            if (_appDbContext.Armors.Find(2) == null)
+            if (_armorRepo.Read(2) == null)
             {
-                Armor armor = new Armor("Skin", 0, 0, 0);
-                _appDbContext.Armors.Add(armor);
-                _appDbContext.SaveChanges();
+                Armor armor = _armorRepo.Create("Skin", 0, 0, 0);
                 PlayerGladiatorRepo.DefaultAId = armor.Id;
             }
             //Player player = null;
