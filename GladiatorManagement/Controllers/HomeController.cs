@@ -40,6 +40,7 @@ namespace GladiatorManagement.Controllers
             {
                 Weapon weapon = new Weapon("Fist", 0, 0, 0);
                 _appDbContext.Weapons.Add(weapon);
+                _appDbContext.SaveChanges();
                 PlayerGladiatorRepo.DefaultWId = weapon.Id;
                 
             }
@@ -47,6 +48,7 @@ namespace GladiatorManagement.Controllers
             {
                 Armor armor = new Armor("Skin", 0, 0, 0);
                 _appDbContext.Armors.Add(armor);
+                _appDbContext.SaveChanges();
                 PlayerGladiatorRepo.DefaultAId = armor.Id;
             }
             //Player player = null;
