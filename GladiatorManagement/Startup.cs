@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GladiatorManagement.Models.Game_logic;
 using GladiatorManagement.Models.Game_logic.GameRepo;
+using Microsoft.AspNetCore.Http;
 
 namespace GladiatorManagement
 {
@@ -31,17 +32,22 @@ namespace GladiatorManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
-            services.AddControllersWithViews();
-            services.AddRazorPages();
-            services.AddMvc();
             services.AddScoped<IPlayerService, PlayerService>();
             services.AddScoped<IPlayerRepo, PlayerRepo>();
             services.AddScoped<IPlayerGladiatorRepo, PlayerGladiatorRepo>();
@@ -49,6 +55,8 @@ namespace GladiatorManagement
             services.AddScoped<IGameRepo, GameRepo>();
             services.AddScoped<IArmorRepo, ArmorRepo>();
             services.AddScoped<IWeaponRepo, WeaponRepo>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
