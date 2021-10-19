@@ -13,7 +13,7 @@ namespace GladiatorManagement.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public List<PlayerGladiator> Gladiators { get; set; }
+        public virtual List<PlayerGladiator> Gladiators { get; set; }
 
         public int Score { get; set; }
 

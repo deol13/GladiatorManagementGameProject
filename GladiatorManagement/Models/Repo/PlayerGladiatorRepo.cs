@@ -9,8 +9,8 @@ namespace GladiatorManagement.Models.Repo
     public class PlayerGladiatorRepo : IPlayerGladiatorRepo
     {
         ApplicationDbContext _appDbContext;
-        public static int DefaultWId { get; set; } = 2;
-        public static int DefaultAId { get; set; } = 2;
+        public static int DefaultWId { get; set; } = 1;
+        public static int DefaultAId { get; set; } = 1;
 
         public PlayerGladiatorRepo(ApplicationDbContext appDbContext)
         {

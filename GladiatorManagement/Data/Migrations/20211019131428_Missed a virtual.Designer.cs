@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GladiatorManagement.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211013090755_PlayersAndGladiators")]
-    partial class PlayersAndGladiators
+    [Migration("20211019131428_Missed a virtual")]
+    partial class Missedavirtual
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.18")
+                .HasAnnotation("ProductVersion", "3.1.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -41,43 +41,14 @@ namespace GladiatorManagement.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Armor");
-                });
-
-            modelBuilder.Entity("GladiatorManagement.Models.Gladiator", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Accuracy")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Defence")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Health")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Strength")
+                    b.Property<int?>("ShopInventoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Gladiators");
+                    b.HasIndex("ShopInventoryId");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Gladiator");
+                    b.ToTable("Armors");
                 });
 
             modelBuilder.Entity("GladiatorManagement.Models.Player", b =>
@@ -102,6 +73,72 @@ namespace GladiatorManagement.Data.Migrations
                     b.ToTable("Players");
                 });
 
+            modelBuilder.Entity("GladiatorManagement.Models.PlayerGladiator", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Accuracy")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ArmorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Defence")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Experience")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Health")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Strength")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WeaponId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArmorId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.HasIndex("WeaponId");
+
+                    b.ToTable("PlayerGladiators");
+                });
+
+            modelBuilder.Entity("GladiatorManagement.Models.ShopInventory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GladiatorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShopInventories");
+                });
+
             modelBuilder.Entity("GladiatorManagement.Models.Weapon", b =>
                 {
                     b.Property<int>("Id")
@@ -119,12 +156,17 @@ namespace GladiatorManagement.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ShopInventoryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Strength")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Weapon");
+                    b.HasIndex("ShopInventoryId");
+
+                    b.ToTable("Weapons");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -270,12 +312,10 @@ namespace GladiatorManagement.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -312,12 +352,10 @@ namespace GladiatorManagement.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -327,35 +365,33 @@ namespace GladiatorManagement.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("GladiatorManagement.Models.Armor", b =>
+                {
+                    b.HasOne("GladiatorManagement.Models.ShopInventory", null)
+                        .WithMany("ArmorsInShop")
+                        .HasForeignKey("ShopInventoryId");
+                });
+
             modelBuilder.Entity("GladiatorManagement.Models.PlayerGladiator", b =>
                 {
-                    b.HasBaseType("GladiatorManagement.Models.Gladiator");
+                    b.HasOne("GladiatorManagement.Models.Armor", "Armor")
+                        .WithMany()
+                        .HasForeignKey("ArmorId");
 
-                    b.Property<int?>("ArmorId")
-                        .HasColumnType("int");
+                    b.HasOne("GladiatorManagement.Models.Player", "Player")
+                        .WithMany("Gladiators")
+                        .HasForeignKey("PlayerId");
 
-                    b.Property<int>("Experience")
-                        .HasColumnType("int");
+                    b.HasOne("GladiatorManagement.Models.Weapon", "Weapon")
+                        .WithMany()
+                        .HasForeignKey("WeaponId");
+                });
 
-                    b.Property<int>("Level")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PlayerId1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WeaponId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("ArmorId");
-
-                    b.HasIndex("PlayerId1");
-
-                    b.HasIndex("WeaponId");
-
-                    b.HasDiscriminator().HasValue("PlayerGladiator");
+            modelBuilder.Entity("GladiatorManagement.Models.Weapon", b =>
+                {
+                    b.HasOne("GladiatorManagement.Models.ShopInventory", null)
+                        .WithMany("WeaponsInShop")
+                        .HasForeignKey("ShopInventoryId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -407,21 +443,6 @@ namespace GladiatorManagement.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("GladiatorManagement.Models.PlayerGladiator", b =>
-                {
-                    b.HasOne("GladiatorManagement.Models.Armor", "Armor")
-                        .WithMany()
-                        .HasForeignKey("ArmorId");
-
-                    b.HasOne("GladiatorManagement.Models.Player", null)
-                        .WithMany("Gladiators")
-                        .HasForeignKey("PlayerId1");
-
-                    b.HasOne("GladiatorManagement.Models.Weapon", "Weapon")
-                        .WithMany()
-                        .HasForeignKey("WeaponId");
                 });
 #pragma warning restore 612, 618
         }
