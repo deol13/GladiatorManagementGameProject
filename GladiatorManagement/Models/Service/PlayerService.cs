@@ -183,5 +183,10 @@ namespace GladiatorManagement.Models.Service
         {
             return _playerRepo.Read(id);
         }
+
+        public Player CreatePlayer(string name)
+        {
+            return _playerRepo.Create(name);
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace GladiatorManagement.Models.Service
     {
         public Player CurrentPlayer { get; set; }
 
+        public Player CreatePlayer(string name);
         public Player GetPlayer(int id);
         public PlayerGladiator CreateDefaultGladiator(Player player, string name);
 
