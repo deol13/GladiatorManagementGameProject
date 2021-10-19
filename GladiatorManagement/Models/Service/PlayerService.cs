@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GladiatorManagement.Models.ViewModel;
 
 namespace GladiatorManagement.Models.Service
 {
@@ -99,6 +100,18 @@ namespace GladiatorManagement.Models.Service
             return _playerRepo.Update(player);
         }
 
+        public PlayerViewModel FindPlayerById(int id)
+        {
+            Player player = _playerRepo.Read(id);
+            PlayerViewModel playerVM = new PlayerViewModel
+            {
+                Player = player,
+                Gladiators = player.Gladiators
+            };
+
+            return playerVM;
+
+        }
         public PlayerGladiator LevelUp(PlayerGladiator playerGladiator)
         {
             if (playerGladiator.Level >= 0 && playerGladiator.Level < XPAndGoldFormula.MaxLvl)

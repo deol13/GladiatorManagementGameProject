@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GladiatorManagement.Models.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace GladiatorManagement.Models.Service
         public PlayerGladiator LevelUp(PlayerGladiator playerGladiator);
 
         public bool CanLevelUp(PlayerGladiator gladiator);
+
+        public PlayerViewModel FindPlayerById(int id);
 
 
         public bool RemoveGladiator(PlayerGladiator playerGladiator);

@@ -8,5 +8,8 @@ namespace GladiatorManagement.Models.ViewModel
     public class PlayerViewModel
     {
 
+        public Player Player { get; set; }
+        public List<PlayerGladiator> Gladiators { get; set; }
+
     }
 }

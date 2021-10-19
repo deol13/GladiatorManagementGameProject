@@ -10,6 +10,7 @@ using GladiatorManagement.Models.Game_logic;
 using GladiatorManagement.Models.Service;
 using GladiatorManagement.Models.Repo;
 using GladiatorManagement.Data;
+using GladiatorManagement.Models.ViewModel;
 
 namespace GladiatorManagement.Controllers
 {
@@ -97,6 +98,14 @@ namespace GladiatorManagement.Controllers
 
             ////_playerService.RemoveGladiator(playerGladiate   
         }
+
+        [HttpPost]
+        public IActionResult ShowPlayer(int id)
+        {
+            PlayerViewModel player = _playerService.FindPlayerById(id);
+            return PartialView("_PlayerView", player);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
