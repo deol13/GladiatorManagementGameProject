@@ -216,5 +216,20 @@ namespace GladiatorManagement.Models.Game_logic
         {
             Shop.Shops = _gameRepo.All();
         }
+
+        public void CheckDefaultGear()
+        {
+            if (_weaponRepo.Read(1) == null)
+            {
+                Weapon weapon = _weaponRepo.Create("Fist", 0, 0, 0);
+                PlayerGladiatorRepo.DefaultWId = weapon.Id;
+
+            }
+            if (_armorRepo.Read(1) == null)
+            {
+                Armor armor = _armorRepo.Create("Skin", 0, 0, 0);
+                PlayerGladiatorRepo.DefaultAId = armor.Id;
+            }
+        }
     }
 }

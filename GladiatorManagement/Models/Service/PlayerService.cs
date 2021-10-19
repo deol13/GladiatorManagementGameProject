@@ -19,6 +19,7 @@ namespace GladiatorManagement.Models.Service
         IWeaponRepo _weaponRepo;
 
         static InfoGenerator generator = new InfoGenerator();
+        public Player CurrentPlayer { get; set; }
 
         public PlayerService(IPlayerRepo playerRepo, IPlayerGladiatorRepo playerGladiatorRepo, IWeaponRepo weaponRepo, IArmorRepo armorRepo)
         {

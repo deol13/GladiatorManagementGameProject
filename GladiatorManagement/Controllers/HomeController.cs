@@ -18,50 +18,37 @@ namespace GladiatorManagement.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        IPlayerRepo _playerRepo;
         IGameService _gameService;
         IPlayerService _playerService;
-        IArmorRepo _armorRepo;
-        IWeaponRepo _weaponRepo;
 
 
-        public HomeController(ILogger<HomeController> logger, IGameService gameService, IPlayerService playerService, 
-            IPlayerRepo playerRepo, IWeaponRepo weaponRepo, IArmorRepo armorRepo)
+        public HomeController(ILogger<HomeController> logger, IGameService gameService, IPlayerService playerService)
         {
             _logger = logger;
             _gameService = gameService;
             _playerService = playerService;
-            _playerRepo = playerRepo;
-            _armorRepo = armorRepo;
-            _weaponRepo = weaponRepo;
         }
 
         public IActionResult Index()
         {
+            _gameService.CheckDefaultGear();
             XPAndGoldFormula.Setup();
             _gameService.Shop = new Shop();  
-
-
-            if(_weaponRepo.Read(1) == null)
-            {
-                Weapon weapon = _weaponRepo.Create("Fist", 0, 0, 0);
-                PlayerGladiatorRepo.DefaultWId = weapon.Id;
-                
-            }
-            if (_armorRepo.Read(1) == null)
-            {
-                Armor armor = _armorRepo.Create("Skin", 0, 0, 0);
-                PlayerGladiatorRepo.DefaultAId = armor.Id;
-            }
             
-            Test();
+            //Test();
 
             return View();
         }
 
+        private bool LoadPlayer(string eMail)
+        {
+
+            return false;
+        }
+
         public void Test()
         {
-            Player player = _playerRepo.Read(1);
+            Player player = _playerService.GetPlayer(1);
             PlayerGladiator playerGladiate = player.Gladiators.First();
             //PlayerGladiator playerGladiate = _playerService.FindById(1);
 

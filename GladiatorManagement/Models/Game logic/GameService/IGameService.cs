@@ -23,5 +23,6 @@ namespace GladiatorManagement.Models.Game_logic
         public ShopInventory FindGladiatorsInventory(int id);
 
         public bool BuyAPieceOfGear(ShopInventory inventory, PlayerGladiator playersGladiator, bool weapon, int idOfItem);
+        public void CheckDefaultGear();
     }
 }
