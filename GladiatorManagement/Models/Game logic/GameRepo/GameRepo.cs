@@ -25,6 +25,11 @@ namespace GladiatorManagement.Models.Game_logic.GameRepo
             return _appDbContext.ShopInventories.Find(id);
         }
 
+        public ShopInventory FindGladiatorsInventory(int gladiatorId)
+        {
+            return _appDbContext.ShopInventories.Single(b => b.GladiatorId == gladiatorId);
+        }
+
         public bool RemoveShopInvenotry(ShopInventory shopInventory)
         {
             if (_appDbContext.ShopInventories.Contains(shopInventory))

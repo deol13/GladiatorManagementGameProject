@@ -8,6 +8,7 @@ namespace GladiatorManagement.Models.Game_logic.GameRepo
     public interface IGameRepo
     {
         public ShopInventory FindShopInventory(int id);
+        public ShopInventory FindGladiatorsInventory(int gladiatorId);
         public ShopInventory SaveShopInventory(ShopInventory shopInventory);
         public bool RemoveShopInvenotry(ShopInventory shopInventory);
         public List<ShopInventory> All();

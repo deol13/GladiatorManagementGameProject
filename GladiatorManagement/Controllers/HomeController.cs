@@ -44,7 +44,7 @@ namespace GladiatorManagement.Controllers
 
             XPAndGoldFormula.Setup();
             _gameService.Shop = new Shop();
-            _gameService.GetInventoryFromdatabase();    
+            //_gameService.GetInventoryFromdatabase();    
 
 
             if(_weaponRepo.Read(2) == null)
@@ -59,24 +59,24 @@ namespace GladiatorManagement.Controllers
                 PlayerGladiatorRepo.DefaultAId = armor.Id;
             }
             
-            //Test();
+            Test();
 
             return View();
         }
 
         public void Test()
         {
-            Player player = _playerRepo.Read(1);
-            PlayerGladiator playerGladiate = _playerService.FindById(15);
+            //Player player = _playerRepo.Read(1);
+            //PlayerGladiator playerGladiate = _playerService.FindById(15);
 
             ////Create shop + inventory
-            ShopInventory inventory = _gameService.CreateAShop(playerGladiate.Level, playerGladiate.Id);
+            //ShopInventory inventory = _gameService.CreateAShop(playerGladiate.Level, playerGladiate.Id);
 
             ////Find Shop, both with right id and a wrong id
-            //ShopInventory inventory = _gameService.FindShopInventory(2);
+            ShopInventory inventory = _gameService.FindShopInventory(4);
 
             ////Buy a piece and send it wrong id
-            bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 2);
+            //bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 2);
 
             //_gameService.RemoveShopInventory(inventory.Id);
 

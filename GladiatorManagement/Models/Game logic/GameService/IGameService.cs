@@ -20,6 +20,7 @@ namespace GladiatorManagement.Models.Game_logic
         public bool RemoveShopInventory(int shopInventoryId);
 
         public ShopInventory FindShopInventory(int id);
+        public ShopInventory FindGladiatorsInventory(int id);
 
         public bool BuyAPieceOfGear(ShopInventory inventory, PlayerGladiator playersGladiator, bool weapon, int idOfItem);
     }

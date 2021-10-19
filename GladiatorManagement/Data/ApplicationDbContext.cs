@@ -12,6 +12,7 @@ namespace GladiatorManagement.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            ChangeTracker.LazyLoadingEnabled = false;
         }
 
         public DbSet<Player> Players { get; set; }
