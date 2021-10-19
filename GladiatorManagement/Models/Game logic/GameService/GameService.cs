@@ -108,25 +108,23 @@ namespace GladiatorManagement.Models.Game_logic
 
         public bool RemoveShopInventory(int shopInventoryId)
         {
+            bool succeeded = false;
             ShopInventory inventory = FindShopInventory(shopInventoryId);
 
-            if (Shop.Shops.Remove(inventory))
+            Shop.Shops.Remove(inventory);
+
+            foreach (var item in inventory.WeaponsInShop)
             {
-                bool succeeded = _gameRepo.RemoveShopInvenotry(inventory);
-
-                foreach (var item in inventory.WeaponsInShop)
-                {
-                    _weaponRepo.Delete(item);
-                }
-                foreach (var item in inventory.ArmorsInShop)
-                {
-                    _armorRepo.Delete(item);
-                }
-
-                return succeeded;
+                _weaponRepo.Delete(item);
+            }
+            foreach (var item in inventory.ArmorsInShop)
+            {
+                _armorRepo.Delete(item);
             }
 
-            return false;
+            succeeded = _gameRepo.RemoveShopInvenotry(inventory);
+
+            return succeeded;
         }
 
         public ShopInventory FindShopInventory(int shopInventoryId)
@@ -137,7 +135,28 @@ namespace GladiatorManagement.Models.Game_logic
                     return item;
             }
 
-            return _gameRepo.FindShopInventory(shopInventoryId);
+            ShopInventory inv = _gameRepo.FindShopInventory(shopInventoryId);
+
+            if (inv != null)
+                Shop.Shops.Add(inv);
+
+            return inv;
+        }
+
+        public ShopInventory FindGladiatorsInventory(int gladiatorId)
+        {
+            foreach (var item in Shop.Shops)
+            {
+                if (item.GladiatorId == gladiatorId)
+                    return item;
+            }
+
+            ShopInventory inv = _gameRepo.FindGladiatorsInventory(gladiatorId);
+
+            if (inv != null)
+                Shop.Shops.Add(inv);
+
+            return inv;
         }
 
         /// <summary>
