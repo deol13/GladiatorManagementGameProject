@@ -37,8 +37,7 @@
             <div class="col">
                 <p>Level</p>
             </div>
-            <div class="details">
-                @*TODO make gladiator details view*@
+            <div class="col">
                 <p>Details</p>
             </div>
         </div>
@@ -51,9 +50,8 @@
                 <div class="col">
                     <p>@gladiator.Level</p>
                 </div>
-                <div class="details">
-                    @*TODO make gladiator details view*@
-                    <a>Details</a>
+                <div class="col">
+                    <a asp-action="GladiatorDetails" asp-route-id="@gladiator.Id">Details</a>
                 </div>
             </div>
         }

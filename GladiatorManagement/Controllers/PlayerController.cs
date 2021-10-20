@@ -28,5 +28,11 @@ namespace GladiatorManagement.Controllers
             PlayerViewModel player = _playerService.FindPlayerById(id);
             return PartialView("_PlayerView", player);
         }
+
+        public IActionResult GladiatorDetails(int id)
+        {
+            PlayerGladiator glad = _playerService.FindById(id);
+            return PartialView("_GladiatorDetails", glad);
+        }
     }
 }

@@ -1,0 +1,41 @@
+﻿@model GladiatorManagement.Models.PlayerGladiator
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p>Name: @Model.Name</p>
+        </div>
+        <div class="col">
+            <p>Level: @Model.Level</p>
+        </div>
+        <div class="col">
+            <p>Experience: @Model.Experience</p>
+        </div>
+        <div class="col">
+            <p>Score: @Model.Score</p>
+        </div>
+        <div class="col">
+            <p>Strength: @Model.Strength</p>
+        </div>
+        <div class="col">
+            <p>Accuracy: @Model.Accuracy</p>
+        </div>
+        <div class="col">
+            <p>Health: @Model.Health</p>
+        </div>
+        <div class="col">
+            <p>Defence: @Model.Defence</p>
+        </div>
+        <div class="col">
+            <p>Armor: @Model.Armor.Name</p>
+        </div>
+        <div class="col">
+            <p>Weapon: @Model.Weapon.Name</p>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Return</a>
+</div>
