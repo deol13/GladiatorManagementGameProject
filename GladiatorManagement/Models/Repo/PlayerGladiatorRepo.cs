@@ -30,7 +30,9 @@ namespace GladiatorManagement.Models.Repo
                 Health = health,
                 Defence = defence,
                 Weapon = defaultWeapon,
-                Armor = defaultArmor
+                Armor = defaultArmor,
+                Player = player,
+                PlayerId = player.PlayerId
             };
             
             _appDbContext.PlayerGladiators.Add(gladiator);

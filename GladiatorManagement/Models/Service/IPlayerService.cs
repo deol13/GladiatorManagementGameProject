@@ -13,34 +13,27 @@ namespace GladiatorManagement.Models.Service
         public Player CreatePlayer(string name, string email);
         public Player GetPlayer(int id);
         public Player GetPlayer(string email);
-        public PlayerGladiator CreateDefaultGladiator(Player player, string name);
-
-        public PlayerGladiator CreateOpponent(PlayerGladiator playerGladiator);
-
-        public PlayerGladiator UpdateGladiatorGear(PlayerGladiator gladiator, Gear gear);
         public Player EditAmountOfGold(Player player, int changeInGold);
-
         public Player EditScore(Player player, int changeInScore);
-        public PlayerGladiator LevelUp(PlayerGladiator playerGladiator);
+        public Player UpdatePlayer();
+        public void UpdateCurrentPlayerGladiator(PlayerGladiator playerGladiator);
+        public void LoggedOut();
 
-        public bool CanLevelUp(PlayerGladiator gladiator);
+        public PlayerGladiator CreateDefaultGladiator(Player player, string name);
+        public PlayerGladiator CreateOpponent(PlayerGladiator playerGladiator);
+        public PlayerGladiator FindById(int id);
+        public bool RemoveGladiator(PlayerGladiator playerGladiator);
+        public PlayerGladiator UpdateGladiatorGear(PlayerGladiator gladiator, Gear gear);
 
         public PlayerViewModel FindPlayerById(int id);
-
-
-        public bool RemoveGladiator(PlayerGladiator playerGladiator);
-
+        
+        public PlayerGladiator LevelUp(PlayerGladiator playerGladiator);
+        public bool CanLevelUp(PlayerGladiator gladiator);
         public PlayerGladiator AddHealth(PlayerGladiator playerGladiator, int amount);
-
         public PlayerGladiator AddStrength(PlayerGladiator playerGladiator, int amount);
-
         public PlayerGladiator AddAccuracy(PlayerGladiator playerGladiator, int amount);
         public PlayerGladiator AddDefence(PlayerGladiator playerGladiator, int amount);
         public PlayerGladiator AddXP(PlayerGladiator playerGladiator, int amount);
         public PlayerGladiator EditScore(PlayerGladiator playerGladiator, int amount);
-        public PlayerGladiator FindById(int id);
-        public void LoggedOut();
-
-
     }
 }

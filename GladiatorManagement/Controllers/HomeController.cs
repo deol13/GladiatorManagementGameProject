@@ -33,32 +33,37 @@ namespace GladiatorManagement.Controllers
         {
             _gameService.CheckDefaultGear();
             XPAndGoldFormula.Setup();
-            _gameService.Shop = new Shop();
+            
 
             return View();
         }
 
         public IActionResult Test()
         {
-            //Test();
-            Player player = _playerService.GetPlayer(2);
+            //Test123();
+            Player player = _playerService.GetPlayer(3);
+            //Player player = _playerService.CreatePlayer("Dennis", "dd@hotmail.com");
 
             return View();
         }
 
         public void Test123()
         {
-            Player player = _playerService.GetPlayer(2);
-            //PlayerGladiator playerGladiate = player.Gladiators.First();
-            //PlayerGladiator playerGladiate = _playerService.FindById(1);
+            //Player player = _playerService.GetPlayer(2);
+
+            //PlayerGladiator playerGladiate = player.Gladiators.First();//= player.Gladiators.First();
+            //PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Ty123pper");
+            //PlayerGladiator playerGladiate = _playerService.FindById(4);
 
             ////Create shop + inventory
 
             ////Find Shop, both with right id and a wrong id
-            //ShopInventory inventory = _gameService.FindShopInventory(1);
+            //ShopInventory inventory = _gameService.FindShopInventory(4);
+            //ShopInventory inventory = _gameService.CreateAShop(playerGladiate.Level, playerGladiate.Id);
 
             ////Buy a piece and send it wrong id
-            //bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 2);
+            //bool succeeded = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 0);
+            //bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 8);
             //bool succeeded3 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, false, 1);
 
             //_gameService.RemoveShopInventory(inventory.Id);

@@ -7,7 +7,7 @@ namespace GladiatorManagement.Models.Game_logic
 {
     public interface IGameService
     {
-        public Shop Shop { get; set; }
+        public static Shop Shop { get; set; }
 
         public void GetInventoryFromdatabase();
 

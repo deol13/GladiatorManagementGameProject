@@ -15,7 +15,7 @@ namespace GladiatorManagement.Models.Game_logic
         IArmorRepo _armorRepo;
         IWeaponRepo _weaponRepo;
 
-        public Shop Shop { get; set; }
+        public static Shop Shop { get; set; }
 
         public GameService(IPlayerService playerService, IGameRepo gameRepo, IWeaponRepo weaponRepo, IArmorRepo armorRepo)
         {
@@ -47,10 +47,12 @@ namespace GladiatorManagement.Models.Game_logic
 
                 _playerService.LevelUp(player);
 
+                //Makes sure it doesn't check currentPlayer
                 _playerService.RemoveGladiator(opponent);
             }
             else
             {
+                //Make sure opponent player object is read and used for this.
                 if (PvP)
                 {
                     int gold = HowMuchGoldWon(opponent.Level);
@@ -111,36 +113,37 @@ namespace GladiatorManagement.Models.Game_logic
             bool succeeded = false;
             ShopInventory inventory = FindShopInventory(shopInventoryId);
 
-            Shop.Shops.Remove(inventory);
-
-            foreach (var item in inventory.WeaponsInShop)
+            if (inventory != null)
             {
-                _weaponRepo.Delete(item);
-            }
-            foreach (var item in inventory.ArmorsInShop)
-            {
-                _armorRepo.Delete(item);
-            }
+                _weaponRepo.DeleteAll(inventory);
+                _armorRepo.DeleteAll(inventory);
 
-            succeeded = _gameRepo.RemoveShopInvenotry(inventory);
+                Shop.Shops.Remove(inventory);
+                succeeded = _gameRepo.RemoveShopInvenotry(inventory);
+            }
 
             return succeeded;
         }
 
         public ShopInventory FindShopInventory(int shopInventoryId)
         {
-            foreach (var item in Shop.Shops)
+            if (Shop != null)
             {
-                if (item.Id == shopInventoryId)
-                    return item;
+                foreach (var item in Shop.Shops)
+                {
+                    if (item.Id == shopInventoryId)
+                        return item;
+                }
+
+                ShopInventory inv = _gameRepo.FindShopInventory(shopInventoryId);
+
+                if (inv != null)
+                    Shop.Shops.Add(inv);
+
+                return inv;
             }
 
-            ShopInventory inv = _gameRepo.FindShopInventory(shopInventoryId);
-
-            if (inv != null)
-                Shop.Shops.Add(inv);
-
-            return inv;
+            return null;
         }
 
         public ShopInventory FindGladiatorsInventory(int gladiatorId)
@@ -161,6 +164,7 @@ namespace GladiatorManagement.Models.Game_logic
 
         /// <summary>
         /// Send ShopInventory inventory in as a ref, changes to it are made.
+        /// The id is its index in the list. 1-5 for weapon and 1-5 for armor
         /// </summary>
         /// <param name="inventory">Specific inventory gladiator sees</param>
         /// <param name="playersGladiator">The gladiator buying</param>
@@ -178,12 +182,14 @@ namespace GladiatorManagement.Models.Game_logic
 
                     if (goldAvailable >= inventory.WeaponsInShop[idOfItem].Cost)
                     {
-                        _playerService.EditAmountOfGold(playersGladiator.Player, inventory.WeaponsInShop[0].Cost * -1);
-                        _playerService.UpdateGladiatorGear(playersGladiator, inventory.WeaponsInShop[idOfItem]);
-
+                        Weapon weap = inventory.WeaponsInShop[idOfItem];
                         inventory.WeaponsInShop.RemoveAt(idOfItem);
-
                         _gameRepo.Update(inventory);
+
+
+                        _playerService.EditAmountOfGold(playersGladiator.Player, weap.Cost * -1);
+                        playersGladiator = _playerService.UpdateGladiatorGear(playersGladiator, weap);
+                        //_playerService.UpdateCurrentPlayerGladiator(playersGladiator);
 
                         succeeded = true;
                     }
@@ -197,12 +203,13 @@ namespace GladiatorManagement.Models.Game_logic
 
                     if (goldAvailable >= inventory.ArmorsInShop[idOfItem].Cost)
                     {
-                        _playerService.EditAmountOfGold(playersGladiator.Player, inventory.ArmorsInShop[0].Cost * -1);
-                        _playerService.UpdateGladiatorGear(playersGladiator, inventory.ArmorsInShop[idOfItem]);
-
+                        Armor arm = inventory.ArmorsInShop[idOfItem];
                         inventory.ArmorsInShop.RemoveAt(idOfItem);
-
                         _gameRepo.Update(inventory);
+
+                        _playerService.EditAmountOfGold(playersGladiator.Player, arm.Cost * -1);
+                        playersGladiator = _playerService.UpdateGladiatorGear(playersGladiator, arm);
+                        //_playerService.UpdateCurrentPlayerGladiator(playersGladiator);
 
                         succeeded = true;
                     }
@@ -230,6 +237,8 @@ namespace GladiatorManagement.Models.Game_logic
                 Armor armor = _armorRepo.Create("Skin", 0, 0, 0);
                 PlayerGladiatorRepo.DefaultAId = armor.Id;
             }
+            if (Shop == null)
+                Shop = new Shop();
         }
     }
 }

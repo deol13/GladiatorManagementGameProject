@@ -46,14 +46,16 @@ namespace GladiatorManagement.Models.Repo
 
         public Player Update(Player player)
         {
-            Player pl = _appDbContext.Players.Find(player.PlayerId);
+            //_appDbContext.Players.Update(player);
 
-            pl.Name = player.Name;
-            pl.Gold = player.Gold;
-            pl.Score = player.Score;
-            pl.Gladiators = player.Gladiators;
+            //Player pl = _appDbContext.Players.Find(player.PlayerId);
+
+            //pl.Name = player.Name;
+            //pl.Gold = player.Gold;
+            //pl.Score = player.Score;
+            //pl.Gladiators = player.Gladiators;
             _appDbContext.SaveChanges();
-            return pl;
+            return player;
         }
 
         public bool Delete(Player player)

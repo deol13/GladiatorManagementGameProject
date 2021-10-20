@@ -13,6 +13,7 @@ namespace GladiatorManagement.Models.Service
     
     public class PlayerService : IPlayerService
     {
+        //Variables
         IPlayerRepo _playerRepo;
         IPlayerGladiatorRepo _playerGladiatorRepo;
         IArmorRepo _armorRepo;
@@ -21,6 +22,7 @@ namespace GladiatorManagement.Models.Service
         static InfoGenerator generator = new InfoGenerator();
         public static Player CurrentPlayer { get; set; }
 
+        //Constructor
         public PlayerService(IPlayerRepo playerRepo, IPlayerGladiatorRepo playerGladiatorRepo, IWeaponRepo weaponRepo, IArmorRepo armorRepo)
         {
             _playerRepo = playerRepo;
@@ -29,7 +31,99 @@ namespace GladiatorManagement.Models.Service
             _weaponRepo = weaponRepo;
         }
 
+        //Player object
+        public Player CreatePlayer(string name, string email)
+        {
+            CurrentPlayer = _playerRepo.Create(name, email);
+            return CurrentPlayer;
+        }
+        /// <summary>
+        /// Used to get opponent Player object in PVP
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Player GetPlayer(int id)
+        {
+            return _playerRepo.Read(id);
 
+            //if (CurrentPlayer == null || CurrentPlayer.PlayerId != id)
+            //    CurrentPlayer = _playerRepo.Read(id);
+            //return CurrentPlayer;
+        }
+        /// <summary>
+        /// Used by register and login
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Player GetPlayer(string email)
+        {
+            if (CurrentPlayer == null || CurrentPlayer.EmailVerification != email)
+                CurrentPlayer = _playerRepo.Read(email);
+
+            if (CurrentPlayer.Gladiators == null)
+                CurrentPlayer.Gladiators = new List<PlayerGladiator>();
+
+            return CurrentPlayer;
+        }
+        public PlayerViewModel FindPlayerById(int id)
+        {
+            Player player = null;
+            if (CurrentPlayer.PlayerId != id)
+                player = _playerRepo.Read(id);
+            else
+                player = CurrentPlayer;
+
+            PlayerViewModel playerVM = new PlayerViewModel
+            {
+                Player = player,
+                Gladiators = player.Gladiators
+            };
+
+            return playerVM;
+
+        }
+        //send in negative value for changeInGold if you want to decrease amount
+        public Player EditAmountOfGold(Player player, int changeInGold)
+        {
+            CurrentPlayer.Gold += changeInGold;
+            return _playerRepo.Update(CurrentPlayer);
+        }
+        public Player EditScore(Player player, int changeInScore)
+        {
+            player.Score += changeInScore;
+            return _playerRepo.Update(player);
+        }
+        /// <summary>
+        /// Not sure if I should remove it
+        /// </summary>
+        /// <returns></returns>
+        public Player UpdatePlayer()
+        {
+            return _playerRepo.Update(CurrentPlayer);
+        }
+        /// <summary>
+        /// Send in an existing gladiator and update currentPlayer's version of that gladiator.
+        /// Used after finishing updating a gladiator
+        /// </summary>
+        /// <param name="gladiator"></param>
+        public void UpdateCurrentPlayerGladiator(PlayerGladiator gladiator)
+        {
+            for (int i = 0; i < CurrentPlayer.Gladiators.Count; i++)
+            {
+                if (CurrentPlayer.Gladiators[i].Id == gladiator.Id)
+                {
+                    CurrentPlayer.Gladiators[i] = gladiator;
+                }
+            }
+        }
+        public void LoggedOut()
+        {
+            CurrentPlayer = null;
+        }
+
+        
+                    
+        //PlayerGladiator Object
         public PlayerGladiator CreateDefaultGladiator(Player player, string name)
         {
             int strength = 5;
@@ -39,13 +133,11 @@ namespace GladiatorManagement.Models.Service
 
             
             PlayerGladiator gladiator = _playerGladiatorRepo.Create(player, name, strength, accuracy, health, defence);
-            player.Gladiators.Add(gladiator);
-            _playerRepo.Update(player);
+            CurrentPlayer.Gladiators.Add(gladiator);
+            _playerRepo.Update(CurrentPlayer);
 
             return gladiator;
-
         }
-
         public PlayerGladiator CreateOpponent(PlayerGladiator playerGladiator)
         {
             Random rng = new Random();
@@ -69,50 +161,48 @@ namespace GladiatorManagement.Models.Service
 
             return _playerGladiatorRepo.Create(null, name, strength, accuracy, health, defence);
         }
+        public PlayerGladiator FindById(int id)
+        {
+            foreach (var item in CurrentPlayer.Gladiators)
+            {
+                if (item.Id == id)
+                    return item;
+            }
+            return _playerGladiatorRepo.Read(id);
+        }
+        public bool RemoveGladiator(PlayerGladiator playerGladiator)
+        {
+            foreach (var item in CurrentPlayer.Gladiators)
+            {
+                if (item.Id == playerGladiator.Id)
+                {
+                    CurrentPlayer.Gladiators.Remove(item);
+                    return _playerGladiatorRepo.Delete(playerGladiator);
+                }
+            }
 
+            return _playerGladiatorRepo.Delete(playerGladiator);
+        }
         public PlayerGladiator UpdateGladiatorGear(PlayerGladiator gladiator, Gear gear)
         {
             if (gear is Armor)
             {
-                _armorRepo.Delete(gladiator.Armor);
+                Armor tmp = gladiator.Armor;
                 gladiator.Armor = (Armor)gear;
+                gladiator = _playerGladiatorRepo.Update(gladiator);
+                _armorRepo.Delete(tmp);
             }
             else if (gear is Weapon)
             {
-                _weaponRepo.Delete(gladiator.Weapon);
+                Weapon tmp = gladiator.Weapon;
                 gladiator.Weapon = (Weapon)gear;
+                gladiator = _playerGladiatorRepo.Update(gladiator);
+                _weaponRepo.Delete(tmp);
             }
-            
-            return _playerGladiatorRepo.Update(gladiator);
 
-        }
-        
-        //send in negative value for changeInGold if you want to decrease amount
-        public Player EditAmountOfGold(Player player, int changeInGold)
-        {
-            player.Gold += changeInGold;
-            return _playerRepo.Update(player);
+            return gladiator;
+        }  
 
-        }
-
-        public Player EditScore(Player player, int changeInScore)
-        {
-            player.Score += changeInScore;
-            return _playerRepo.Update(player);
-        }
-
-        public PlayerViewModel FindPlayerById(int id)
-        {
-            Player player = _playerRepo.Read(id);
-            PlayerViewModel playerVM = new PlayerViewModel
-            {
-                Player = player,
-                Gladiators = player.Gladiators
-            };
-
-            return playerVM;
-
-        }
         public PlayerGladiator LevelUp(PlayerGladiator playerGladiator)
         {
             if (playerGladiator.Level >= 0 && playerGladiator.Level < XPAndGoldFormula.MaxLvl)
@@ -126,7 +216,6 @@ namespace GladiatorManagement.Models.Service
             }
             return _playerGladiatorRepo.Update(playerGladiator);
         }
-
         public bool CanLevelUp(PlayerGladiator gladiator)
         {
             int maxLevel = XPAndGoldFormula.MaxLvl;
@@ -135,24 +224,16 @@ namespace GladiatorManagement.Models.Service
             if (gladiator.Level < maxLevel && gladiator.Experience >= XpToLevel) return true;
             else return false;
         }
-
-        public bool RemoveGladiator(PlayerGladiator playerGladiator)
-        {
-            return _playerGladiatorRepo.Delete(playerGladiator);
-        }
-
         public PlayerGladiator AddHealth(PlayerGladiator playerGladiator, int amount)
         {
             playerGladiator.Health += amount;
             return _playerGladiatorRepo.Update(playerGladiator);
         }
-
         public PlayerGladiator AddStrength(PlayerGladiator playerGladiator, int amount)
         {
             playerGladiator.Strength += amount;
             return _playerGladiatorRepo.Update(playerGladiator);
         }
-         
         public PlayerGladiator AddAccuracy(PlayerGladiator playerGladiator, int amount)
         {
             playerGladiator.Accuracy += amount;
@@ -172,36 +253,6 @@ namespace GladiatorManagement.Models.Service
         {
             playerGladiator.Score += amount;
             return _playerGladiatorRepo.Update(playerGladiator);
-        }
-
-        public PlayerGladiator FindById(int id)
-        {
-            return _playerGladiatorRepo.Read(id);
-        }
-
-        public Player GetPlayer(int id)
-        {
-            if(CurrentPlayer == null || CurrentPlayer.PlayerId != id)
-                CurrentPlayer = _playerRepo.Read(id);
-            return CurrentPlayer;
-        }
-
-        public Player GetPlayer(string email)
-        {
-            if (CurrentPlayer == null ||CurrentPlayer.EmailVerification != email)
-                CurrentPlayer = _playerRepo.Read(email);
-            return CurrentPlayer;
-        }
-
-        public Player CreatePlayer(string name, string email)
-        {
-            CurrentPlayer = _playerRepo.Create(name, email);
-            return CurrentPlayer;
-        }
-
-        public void LoggedOut()
-        {
-            CurrentPlayer = null;
-        }
+        }   
     }
 }
