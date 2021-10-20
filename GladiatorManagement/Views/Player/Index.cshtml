@@ -1,0 +1,18 @@
+﻿
+
+<label for="id">Enter ID:</label>
+    <input type="number" id="id" />
+    <button type="submit" asp-controller="Player" asp-action="ShowPlayer"
+            id="playerDetailsButton" data-target="viewContainer">
+        Show Player
+    </button>
+    <div id="viewContainer"></div>
+    <script>
+            $("#playerDetailsButton").click(function (e) {
+                e.preventDefault();
+                let id = $("#id").val();
+                $.post("Player/ShowPlayer/" + id, function (res) {
+                    $("#viewContainer").html(res);
+                });
+            });
+    </script>

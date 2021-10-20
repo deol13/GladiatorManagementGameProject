@@ -1,13 +1,15 @@
 ﻿@model PlayerViewModel
 
-
-<div class="container">
+<div class="container" asp-controller="Player" asp-action="Index">
     <div class="row">
         <div class="col">
             <p>@Model.Player.Name<p>
         </div>
         <div class="col">
             <p>@Model.Player.Score</p>
+        </div>
+        <div class="col">
+            <p>@Model.Player.Gold</p>
         </div>
     </div>
 </div>
