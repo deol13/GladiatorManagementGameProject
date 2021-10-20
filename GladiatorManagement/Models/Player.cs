@@ -15,6 +15,9 @@ namespace GladiatorManagement.Models
         [Required]
         public virtual List<PlayerGladiator> Gladiators { get; set; }
 
+        [Required]
+        public string EmailVerification { get; set; }
+
         public int Score { get; set; }
 
         public int Gold { get; set; }

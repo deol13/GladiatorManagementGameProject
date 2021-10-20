@@ -15,11 +15,12 @@ namespace GladiatorManagement.Models.Repo
             _appDbContext = appDbContext;
         }
 
-        public Player Create(string name)
+        public Player Create(string name, string email)
         {
             Player player = new Player
             {
-                Name = name
+                Name = name,
+                EmailVerification = email
             };
 
             _appDbContext.Players.Add(player);
@@ -31,6 +32,11 @@ namespace GladiatorManagement.Models.Repo
         public Player Read(int id)
         {
             return _appDbContext.Players.FirstOrDefault(p => p.PlayerId == id);
+        }
+
+        public Player Read(string email)
+        {
+            return _appDbContext.Players.FirstOrDefault(p => p.EmailVerification == email);
         }
 
         public List<Player> Read()

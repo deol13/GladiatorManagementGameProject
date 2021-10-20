@@ -8,10 +8,11 @@ namespace GladiatorManagement.Models.Service
 {
     public interface IPlayerService
     {
-        public Player CurrentPlayer { get; set; }
+        public static Player CurrentPlayer { get; set; }
 
-        public Player CreatePlayer(string name);
+        public Player CreatePlayer(string name, string email);
         public Player GetPlayer(int id);
+        public Player GetPlayer(string email);
         public PlayerGladiator CreateDefaultGladiator(Player player, string name);
 
         public PlayerGladiator CreateOpponent(PlayerGladiator playerGladiator);
@@ -38,7 +39,7 @@ namespace GladiatorManagement.Models.Service
         public PlayerGladiator AddXP(PlayerGladiator playerGladiator, int amount);
         public PlayerGladiator EditScore(PlayerGladiator playerGladiator, int amount);
         public PlayerGladiator FindById(int id);
-
+        public void LoggedOut();
 
 
     }

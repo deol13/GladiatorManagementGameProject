@@ -33,33 +33,33 @@ namespace GladiatorManagement.Controllers
         {
             _gameService.CheckDefaultGear();
             XPAndGoldFormula.Setup();
-            _gameService.Shop = new Shop();  
-            
-            //Test();
+            _gameService.Shop = new Shop();
 
             return View();
         }
 
-        private bool LoadPlayer(string eMail)
+        public IActionResult Test()
         {
+            //Test();
+            Player player = _playerService.GetPlayer(2);
 
-            return false;
+            return View();
         }
 
-        public void Test()
+        public void Test123()
         {
-            Player player = _playerService.GetPlayer(1);
-            PlayerGladiator playerGladiate = player.Gladiators.First();
+            Player player = _playerService.GetPlayer(2);
+            //PlayerGladiator playerGladiate = player.Gladiators.First();
             //PlayerGladiator playerGladiate = _playerService.FindById(1);
 
             ////Create shop + inventory
 
             ////Find Shop, both with right id and a wrong id
-            ShopInventory inventory = _gameService.FindShopInventory(1);
+            //ShopInventory inventory = _gameService.FindShopInventory(1);
 
             ////Buy a piece and send it wrong id
-            bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 2);
-            bool succeeded3 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, false, 1);
+            //bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 2);
+            //bool succeeded3 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, false, 1);
 
             //_gameService.RemoveShopInventory(inventory.Id);
 

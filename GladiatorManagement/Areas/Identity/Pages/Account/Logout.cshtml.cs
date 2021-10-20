@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GladiatorManagement.Models.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,14 @@ namespace GladiatorManagement.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
+        private readonly IPlayerService _playerService;
 
-        public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger)
+
+        public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger, IPlayerService playerService)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _playerService = playerService;
         }
 
         public void OnGet()
@@ -30,6 +34,8 @@ namespace GladiatorManagement.Areas.Identity.Pages.Account
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
+            _playerService.LoggedOut();
+
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);
