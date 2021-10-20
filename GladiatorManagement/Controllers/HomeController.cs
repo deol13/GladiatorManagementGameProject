@@ -82,12 +82,7 @@ namespace GladiatorManagement.Controllers
             ////_playerService.RemoveGladiator(playerGladiate   
         }
 
-        [HttpPost]
-        public IActionResult ShowPlayer(int id)
-        {
-            PlayerViewModel player = _playerService.FindPlayerById(id);
-            return PartialView("_PlayerView", player);
-        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
