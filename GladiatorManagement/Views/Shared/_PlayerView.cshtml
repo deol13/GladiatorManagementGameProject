@@ -1,6 +1,20 @@
 ﻿@model PlayerViewModel
 
-<div class="container" asp-controller="Player" asp-action="Index">
+
+<h3>Player info</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p>Name<p>
+        </div>
+        <div class="col">
+            <p>Score</p>
+        </div>
+        <div class="col">
+            <p>Gold</p>
+        </div>
+    </div>
     <div class="row">
         <div class="col">
             <p>@Model.Player.Name<p>
@@ -13,3 +27,36 @@
         </div>
     </div>
 </div>
+
+    <h3>Gladiators</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>Name</p>
+            </div>
+            <div class="col">
+                <p>Level</p>
+            </div>
+            <div class="details">
+                @*TODO make gladiator details view*@
+                <p>Details</p>
+            </div>
+        </div>
+        @foreach (PlayerGladiator gladiator in Model.Player.Gladiators)
+        {
+            <div class="row">
+                <div class="col">
+                    <p>@gladiator.Name</p>
+                </div>
+                <div class="col">
+                    <p>@gladiator.Level</p>
+                </div>
+                <div class="details">
+                    @*TODO make gladiator details view*@
+                    <a>Details</a>
+                </div>
+            </div>
+        }
+    </div>
+
+    
