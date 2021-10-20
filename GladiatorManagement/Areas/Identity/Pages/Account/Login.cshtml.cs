@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using GladiatorManagement.Models.Service;
 
 namespace GladiatorManagement.Areas.Identity.Pages.Account
 {
@@ -20,14 +21,17 @@ namespace GladiatorManagement.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IPlayerService _playerService;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            IPlayerService playerService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _playerService = playerService;
         }
 
         [BindProperty]
@@ -83,6 +87,8 @@ namespace GladiatorManagement.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    _playerService.GetPlayer(Input.Email);
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

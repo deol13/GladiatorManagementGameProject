@@ -19,7 +19,7 @@ namespace GladiatorManagement.Models.Service
         IWeaponRepo _weaponRepo;
 
         static InfoGenerator generator = new InfoGenerator();
-        public Player CurrentPlayer { get; set; }
+        public static Player CurrentPlayer { get; set; }
 
         public PlayerService(IPlayerRepo playerRepo, IPlayerGladiatorRepo playerGladiatorRepo, IWeaponRepo weaponRepo, IArmorRepo armorRepo)
         {
@@ -181,12 +181,27 @@ namespace GladiatorManagement.Models.Service
 
         public Player GetPlayer(int id)
         {
-            return _playerRepo.Read(id);
+            if(CurrentPlayer == null || CurrentPlayer.PlayerId != id)
+                CurrentPlayer = _playerRepo.Read(id);
+            return CurrentPlayer;
         }
 
-        public Player CreatePlayer(string name)
+        public Player GetPlayer(string email)
         {
-            return _playerRepo.Create(name);
+            if (CurrentPlayer == null ||CurrentPlayer.EmailVerification != email)
+                CurrentPlayer = _playerRepo.Read(email);
+            return CurrentPlayer;
+        }
+
+        public Player CreatePlayer(string name, string email)
+        {
+            CurrentPlayer = _playerRepo.Create(name, email);
+            return CurrentPlayer;
+        }
+
+        public void LoggedOut()
+        {
+            CurrentPlayer = null;
         }
     }
 }
