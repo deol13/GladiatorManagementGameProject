@@ -8,9 +8,10 @@ namespace GladiatorManagement.Models.Service
 {
     public interface IPlayerService
     {
-        public static Player CurrentPlayer { get; set; }
+        private static Player CurrentPlayer;
 
         public Player CreatePlayer(string name, string email);
+        public Player GetCurrentPlayer();
         public Player GetPlayer(int id);
         public Player GetPlayer(string email);
         public Player EditAmountOfGold(Player player, int changeInGold);

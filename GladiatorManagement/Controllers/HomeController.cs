@@ -49,10 +49,10 @@ namespace GladiatorManagement.Controllers
 
         public void Test123()
         {
-            //Player player = _playerService.GetPlayer(2);
+            Player player = _playerService.GetCurrentPlayer();
 
             //PlayerGladiator playerGladiate = player.Gladiators.First();//= player.Gladiators.First();
-            //PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Ty123pper");
+            PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Typper2");
             //PlayerGladiator playerGladiate = _playerService.FindById(4);
 
             ////Create shop + inventory

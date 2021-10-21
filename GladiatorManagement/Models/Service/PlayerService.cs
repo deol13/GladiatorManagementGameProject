@@ -20,7 +20,7 @@ namespace GladiatorManagement.Models.Service
         IWeaponRepo _weaponRepo;
 
         static InfoGenerator generator = new InfoGenerator();
-        public static Player CurrentPlayer { get; set; }
+        private static Player CurrentPlayer;
 
         //Constructor
         public PlayerService(IPlayerRepo playerRepo, IPlayerGladiatorRepo playerGladiatorRepo, IWeaponRepo weaponRepo, IArmorRepo armorRepo)
@@ -37,6 +37,13 @@ namespace GladiatorManagement.Models.Service
             CurrentPlayer = _playerRepo.Create(name, email);
             return CurrentPlayer;
         }
+        /// <summary>
+        /// Because currentPlayer is static, making it public with a get don't work when the _playerService is of the type Interface as in controller. 
+        /// </summary>
+        /// <returns></returns>
+        public Player GetCurrentPlayer()
+        { return CurrentPlayer; }
+
         /// <summary>
         /// Used to get opponent Player object in PVP
         /// </summary>
