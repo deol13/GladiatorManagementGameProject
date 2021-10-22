@@ -18,9 +18,9 @@ namespace GladiatorManagement.Models
         /// Can be made into an array since it will always be exact size
         /// </summary>
         [Required]
-        public virtual List<Weapon> WeaponsInShop { get; set; }
+        public List<Weapon> WeaponsInShop { get; set; }
         [Required]
-        public virtual List<Armor> ArmorsInShop { get; set; }
+        public List<Armor> ArmorsInShop { get; set; }
 
         public ShopInventory()
         {

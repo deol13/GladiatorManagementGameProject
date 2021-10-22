@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GladiatorManagement.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211019130550_Virtual added to enable lazy loading")]
-    partial class Virtualaddedtoenablelazyloading
+    [Migration("20211022114937_InventoryId for Gladiator")]
+    partial class InventoryIdforGladiator
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,6 +58,10 @@ namespace GladiatorManagement.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("EmailVerification")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Gold")
                         .HasColumnType("int");
 
@@ -93,6 +97,9 @@ namespace GladiatorManagement.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Health")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InventoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Level")

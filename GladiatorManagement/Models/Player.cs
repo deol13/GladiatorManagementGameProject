@@ -13,7 +13,7 @@ namespace GladiatorManagement.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public virtual List<PlayerGladiator> Gladiators { get; set; }
+        public List<PlayerGladiator> Gladiators { get; set; }
 
         [Required]
         public string EmailVerification { get; set; }

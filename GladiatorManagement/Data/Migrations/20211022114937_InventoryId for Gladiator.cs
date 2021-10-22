@@ -2,22 +2,22 @@
 
 namespace GladiatorManagement.Data.Migrations
 {
-    public partial class EmailVerifactionforplayer : Migration
+    public partial class InventoryIdforGladiator : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "EmailVerification",
-                table: "Players",
+            migrationBuilder.AddColumn<int>(
+                name: "InventoryId",
+                table: "PlayerGladiators",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: 0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "EmailVerification",
-                table: "Players");
+                name: "InventoryId",
+                table: "PlayerGladiators");
         }
     }
 }

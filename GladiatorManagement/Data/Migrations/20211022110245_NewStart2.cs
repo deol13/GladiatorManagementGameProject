@@ -2,7 +2,7 @@
 
 namespace GladiatorManagement.Data.Migrations
 {
-    public partial class Virtualaddedtoenablelazyloading : Migration
+    public partial class NewStart2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,7 @@ namespace GladiatorManagement.Data.Migrations
                     PlayerId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: false),
+                    EmailVerification = table.Column<string>(nullable: false),
                     Score = table.Column<int>(nullable: false),
                     Gold = table.Column<int>(nullable: false)
                 },
