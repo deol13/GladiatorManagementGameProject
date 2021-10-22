@@ -9,7 +9,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
     {
         public static Shop Shop { get; set; }
 
-        public void GetInventoryFromdatabase();
+        //public void GetInventoryFromdatabase();
 
         public void LaunchCombat(int playerGladiatorId, int opponentGladiatorId, bool PvP);
         public int HowMuchGoldWon(int lvl);
@@ -25,5 +25,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
         public bool BuyAPieceOfGear(ShopInventory inventory, PlayerGladiator playersGladiator, bool weapon, int idOfItem);
         public void CheckDefaultGear();
         public void LogOut();
+        public List<Armor> ReadAllArmor();
+        public List<Weapon> ReadAllWeapon();
     }
 }

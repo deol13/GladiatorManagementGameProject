@@ -34,13 +34,17 @@ namespace GladiatorManagement.Controllers
         {
             _gameService.CheckDefaultGear();
             XPAndGoldFormula.Setup();
+           
 
             return View();
         }
 
         public IActionResult Test()
         {
-            //Test();
+            List<Armor> w = _gameService.ReadAllArmor();
+            List<Weapon> a = _gameService.ReadAllWeapon();
+
+            Test123();
 
             return View();
         }
@@ -48,37 +52,23 @@ namespace GladiatorManagement.Controllers
         public void Test123()
         {
             Player player = _playerService.GetCurrentPlayer();
-            //PlayerGladiator playerGladiate = player.Gladiators.First();
-            //PlayerGladiator playerGladiate = _playerService.FindById(1);
 
-            ////Create shop + inventory
+            //PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Hars1");
+            PlayerGladiator playerGladiate = player.Gladiators.FirstOrDefault();
 
-            ////Find Shop, both with right id and a wrong id
-            //ShopInventory inventory = _gameService.FindShopInventory(1);
+            //ShopInventory inventory = _gameService.FindGladiatorsInventory(playerGladiate.Id);
 
-            ////Buy a piece and send it wrong id
-            //bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 2);
-            //bool succeeded3 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, false, 1);
+            ShopInventory inventory2 = _gameService.CreateAShop(playerGladiate.Level, playerGladiate.Id);
+            //playerGladiate.InventoryId = inventory2.Id;
+
+            bool succeeded = _gameService.BuyAPieceOfGear(inventory2, playerGladiate, true, 1);
+            bool succeeded2 = _gameService.BuyAPieceOfGear(inventory2, playerGladiate, false, 1);
 
             //_gameService.RemoveShopInventory(inventory.Id);
 
+            //PlayerGladiator opponent1 = _playerService.CreateOpponent(playerGladiate);
 
-
-            //Player player = null;
-
-            //player = _playerService.GetPlayer(1);
-
-            ////_playerService.EditAmountOfGold(player, 101);
-
-            ////PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Harris");
-            //PlayerGladiator playerGladiate = _playerService.FindById(14);
-
-            //PlayerGladiator opponent = _playerService.FindById(12);
-            ////PlayerGladiator opponent1 = _playerService.CreateOpponent(playerGladiate);
-
-            //_gameService.LaunchCombat(playerGladiate.Id, opponent.Id, false);
-
-            ////_playerService.RemoveGladiator(playerGladiate   
+            //_gameService.LaunchCombat(playerGladiate.Id, opponent.Id, false);  
         }
 
 

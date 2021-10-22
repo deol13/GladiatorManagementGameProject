@@ -11,6 +11,7 @@ namespace GladiatorManagement.Models.Repo
 
         public PlayerGladiator Read(int id);
         public List<PlayerGladiator> Read();
+        public List<PlayerGladiator> ReadRelatedToPlayer(int id);
 
         public PlayerGladiator Update(PlayerGladiator gladiator);
 

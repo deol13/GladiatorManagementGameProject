@@ -137,6 +137,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
 
             ShopInventory inv = _gameRepo.FindShopInventory(shopInventoryId);
 
+
             if (inv != null)
                 Shop.Shops.Add(inv);
 
@@ -152,6 +153,14 @@ namespace GladiatorManagement.Models.Game_logic.GameService
             }
 
             ShopInventory inv = _gameRepo.FindGladiatorsInventory(gladiatorId);
+            //for (int i = 0; i < inv.ArmorsInShop.Count; i++)
+            //{
+
+            //}
+            //for (int i = 0; i < inv.WeaponsInShop.Count; i++)
+            //{
+
+            //}
 
             if (inv != null)
                 Shop.Shops.Add(inv);
@@ -178,7 +187,17 @@ namespace GladiatorManagement.Models.Game_logic.GameService
 
                     if (goldAvailable >= inventory.WeaponsInShop[idOfItem].Cost)
                     {
-                        _playerService.EditAmountOfGold(playersGladiator.Player, inventory.WeaponsInShop[0].Cost * -1);
+                        //Weapon weap = inventory.WeaponsInShop[idOfItem];
+                        //inventory.WeaponsInShop.RemoveAt(idOfItem);
+                        //_gameRepo.Update(inventory);
+
+
+                        //_playerService.EditAmountOfGold(playersGladiator.Player, weap.Cost * -1);
+                        //playersGladiator = _playerService.UpdateGladiatorGear(playersGladiator, weap);
+
+                        //succeeded = true;
+
+                        _playerService.EditAmountOfGold(playersGladiator.Player, inventory.WeaponsInShop[idOfItem].Cost * -1);
                         _playerService.UpdateGladiatorGear(playersGladiator, inventory.WeaponsInShop[idOfItem]);
 
                         inventory.WeaponsInShop.RemoveAt(idOfItem);
@@ -212,10 +231,10 @@ namespace GladiatorManagement.Models.Game_logic.GameService
             return succeeded;
         }
 
-        public void GetInventoryFromdatabase()
-        {
-            Shop.Shops = _gameRepo.All();
-        }
+        //public void GetInventoryFromdatabase()
+        //{
+        //    Shop.Shops = _gameRepo.All();
+        //}
 
         public void CheckDefaultGear()
         {
@@ -232,13 +251,20 @@ namespace GladiatorManagement.Models.Game_logic.GameService
             }
             if (Shop == null)
                 Shop = new Shop();
-
-            //Ta ner lista av weapon & armor
         }
 
         public void LogOut()
         {
             Shop = null;
+        }
+
+        public List<Armor> ReadAllArmor()
+        {
+            return _armorRepo.Read();
+        }
+        public List<Weapon> ReadAllWeapon()
+        {
+            return _weaponRepo.Read();
         }
     }
 }
