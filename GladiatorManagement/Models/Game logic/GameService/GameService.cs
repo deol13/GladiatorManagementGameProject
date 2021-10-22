@@ -15,7 +15,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
         IArmorRepo _armorRepo;
         IWeaponRepo _weaponRepo;
 
-        public Shop Shop { get; set; }
+        public static Shop Shop { get; set; }
 
         public GameService(IPlayerService playerService, IGameRepo gameRepo, IWeaponRepo weaponRepo, IArmorRepo armorRepo)
         {
@@ -230,6 +230,15 @@ namespace GladiatorManagement.Models.Game_logic.GameService
                 Armor armor = _armorRepo.Create("Skin", 0, 0, 0);
                 PlayerGladiatorRepo.DefaultAId = armor.Id;
             }
+            if (Shop == null)
+                Shop = new Shop();
+
+            //Ta ner lista av weapon & armor
+        }
+
+        public void LogOut()
+        {
+            Shop = null;
         }
     }
 }

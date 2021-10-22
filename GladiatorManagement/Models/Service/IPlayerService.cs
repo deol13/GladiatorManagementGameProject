@@ -13,6 +13,7 @@ namespace GladiatorManagement.Models.Service
         public Player CreatePlayer(string name, string email);
         public Player GetPlayer(int id);
         public Player GetPlayer(string email);
+        public Player GetCurrentPlayer();
         public PlayerGladiator CreateDefaultGladiator(Player player, string name);
 
         public PlayerGladiator CreateOpponent(PlayerGladiator playerGladiator);
