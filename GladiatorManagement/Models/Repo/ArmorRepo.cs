@@ -33,7 +33,7 @@ namespace GladiatorManagement.Models.Repo
 
         public bool Delete(Armor armor)
         {
-            if (_appDbContext.Armors.Contains(armor))
+            if (_appDbContext.Armors.Contains(armor) && armor.Id != 1)
             {
                 _appDbContext.Armors.Remove(armor);
                 _appDbContext.SaveChanges();

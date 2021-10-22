@@ -11,14 +11,15 @@ namespace GladiatorManagement.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual Player Player { get; set; }
+        public Player Player { get; set; }
         public int? PlayerId { get; set; }
         public int Strength { get; set; }
         public int Accuracy { get; set; }
         public int Health { get; set; }
         public int Defence { get; set; }
-        public virtual Weapon Weapon { get; set; }
-        public virtual Armor Armor { get; set; }
+        public Weapon Weapon { get; set; }
+        public Armor Armor { get; set; }
+        public int InventoryId { get; set; }
 
         [Required]
         public int Experience { get; set; }

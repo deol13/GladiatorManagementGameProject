@@ -12,6 +12,10 @@
     <Compile Remove="Data\Migrations\20211018111613_ShopInventory.Designer.cs" />
     <Compile Remove="Data\Migrations\20211019130314_REdid everything.cs" />
     <Compile Remove="Data\Migrations\20211019130314_REdid everything.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211022105829_NewStart.cs" />
+    <Compile Remove="Data\Migrations\20211022105829_NewStart.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211022110016_NewStart.cs" />
+    <Compile Remove="Data\Migrations\20211022110016_NewStart.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

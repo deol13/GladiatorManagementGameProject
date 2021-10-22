@@ -47,22 +47,29 @@ namespace GladiatorManagement.Models.Repo
         {
             return _appDbContext.PlayerGladiators.ToList();
         }
+        public List<PlayerGladiator> ReadRelatedToPlayer(int id)
+        {
+            return _appDbContext.PlayerGladiators.Where(g => g.PlayerId == id).ToList();
+        }
 
         public PlayerGladiator Update(PlayerGladiator gladiator)
         {
-            PlayerGladiator glad = _appDbContext.PlayerGladiators.Find(gladiator.Id);
-            glad.Name = gladiator.Name;
-            glad.Experience = gladiator.Experience;
-            glad.Level = gladiator.Level;
-            glad.Score = gladiator.Score;
-            glad.Strength = gladiator.Strength;
-            glad.Accuracy = gladiator.Accuracy;
-            glad.Health = gladiator.Health;
-            glad.Defence = gladiator.Defence;
-            glad.Armor = gladiator.Armor;
-            glad.Weapon = gladiator.Weapon;
+            //PlayerGladiator glad = _appDbContext.PlayerGladiators.Find(gladiator.Id);
+            //glad.Name = gladiator.Name;
+            //glad.Experience = gladiator.Experience;
+            //glad.Level = gladiator.Level;
+            //glad.Score = gladiator.Score;
+            //glad.Strength = gladiator.Strength;
+            //glad.Accuracy = gladiator.Accuracy;
+            //glad.Health = gladiator.Health;
+            //glad.Defence = gladiator.Defence;
+            //glad.Armor = gladiator.Armor;
+            //glad.Weapon = gladiator.Weapon;
+
+            //_appDbContext.Update(gladiator);
+
             _appDbContext.SaveChanges();
-            return glad;
+            return gladiator;
         }
 
 

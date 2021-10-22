@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GladiatorManagement.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace GladiatorManagement.Models.Repo
 {
@@ -32,8 +34,9 @@ namespace GladiatorManagement.Models.Repo
 
         public bool Delete(Weapon weapon)
         {
-            if (_appDbContext.Weapons.Contains(weapon))
+            if (_appDbContext.Weapons.Contains(weapon) && weapon.Id != 1)
             {
+                //_appDbContext.Entry(weapon).State = EntityState.Deleted;
                 _appDbContext.Weapons.Remove(weapon);
                 _appDbContext.SaveChanges();
                 return true;

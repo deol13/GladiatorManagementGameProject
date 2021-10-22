@@ -72,18 +72,41 @@ namespace GladiatorManagement.Models.Service
 
         public PlayerGladiator UpdateGladiatorGear(PlayerGladiator gladiator, Gear gear)
         {
+            PlayerGladiator gladiatorTMP = null;
             if (gear is Armor)
             {
-                _armorRepo.Delete(gladiator.Armor);
+                Armor oldGear = gladiator.Armor;
                 gladiator.Armor = (Armor)gear;
+
+                gladiatorTMP = _playerGladiatorRepo.Update(gladiator);
+
+                _armorRepo.Delete(oldGear);
+                
             }
             else if (gear is Weapon)
             {
-                _weaponRepo.Delete(gladiator.Weapon);
+                Weapon oldGear = gladiator.Weapon;
                 gladiator.Weapon = (Weapon)gear;
+
+                gladiatorTMP = _playerGladiatorRepo.Update(gladiator);
+
+                _weaponRepo.Delete(oldGear);
             }
-            
-            return _playerGladiatorRepo.Update(gladiator);
+
+            return gladiatorTMP;
+
+            //if (gear is Armor)
+            //{
+            //    _armorRepo.Delete(gladiator.Armor);
+            //    gladiator.Armor = (Armor)gear;
+            //}
+            //else if (gear is Weapon)
+            //{
+            //    _weaponRepo.Delete(gladiator.Weapon);
+            //    gladiator.Weapon = (Weapon)gear;
+            //}
+
+            //return _playerGladiatorRepo.Update(gladiator);
 
         }
         
@@ -181,13 +204,31 @@ namespace GladiatorManagement.Models.Service
 
         public Player GetPlayer(int id)
         {
-            return CurrentPlayer = _playerRepo.Read(id); ;
+            Player opponent = _playerRepo.Read(id);
+            if(opponent != null)
+                opponent.Gladiators = _playerGladiatorRepo.ReadRelatedToPlayer(opponent.PlayerId);
+            return opponent;
         }
 
         public Player GetPlayer(string email)
         {
-            if (CurrentPlayer == null ||CurrentPlayer.EmailVerification != email)
+            if (CurrentPlayer == null || CurrentPlayer.EmailVerification != email)
+            {
+                _armorRepo.Read();
+                _weaponRepo.Read();
+
                 CurrentPlayer = _playerRepo.Read(email);
+                CurrentPlayer.Gladiators = _playerGladiatorRepo.ReadRelatedToPlayer(CurrentPlayer.PlayerId);
+
+
+
+                //for (int i = 0; i < CurrentPlayer.Gladiators.Count; i++)
+                //{
+                //    Add a int to Gladiator called ArmorId and WeaponId that hold's his/her's weapon and armor object ids
+                //    CurrentPlayer.Gladiators[i].Armor = _armorRepo.Read(CurrentPlayer.Gladiators[i].ArmorId);
+                //    CurrentPlayer.Gladiators[i].Weapon = _armorRepo.Read(CurrentPlayer.Gladiators[i].WeaponId);
+                //}
+            }
             return CurrentPlayer;
         }
         public Player GetCurrentPlayer()
