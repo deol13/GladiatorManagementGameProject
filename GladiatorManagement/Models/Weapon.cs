@@ -14,10 +14,14 @@ namespace GladiatorManagement.Models
         [Required]
         public int Accuracy { get; set; }
 
+        public virtual PlayerGladiator Gladiator { get; set; }
+        public int? PlayerGladiatorId { get; set; }
+
         public Weapon(string Name, int Cost, int Strength, int Accuracy) : base(Name, Cost)
         {
             this.Strength = Strength;
             this.Accuracy = Accuracy;
+            Gladiator = null;
         }
     }
 }

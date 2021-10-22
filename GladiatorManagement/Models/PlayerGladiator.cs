@@ -29,10 +29,6 @@ namespace GladiatorManagement.Models
 
         public PlayerGladiator()
         {
-            //Default weapon and armor aka you got nothing.
-            Weapon = null;
-            Armor = null;
-
             Experience = 0;
             Level = 1;
             Score = 0;

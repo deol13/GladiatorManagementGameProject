@@ -14,10 +14,14 @@ namespace GladiatorManagement.Models
         [Required]
         public int Health { get; set; }
 
+        public virtual PlayerGladiator Gladiator { get; set; }
+        public int? PlayerGladiatorId { get; set; }
+
         public Armor(string Name, int Cost, int Defence, int Health) : base(Name, Cost)
         {
             this.Defence = Defence;
             this.Health = Health;
+            Gladiator = null;
         }
     }
 }

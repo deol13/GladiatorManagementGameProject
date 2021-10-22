@@ -31,7 +31,7 @@ namespace GladiatorManagement.Controllers
 
         public IActionResult Index()
         {
-            _gameService.CheckDefaultGear();
+           // _gameService.CheckDefaultGear();
             XPAndGoldFormula.Setup();
             
 
@@ -40,8 +40,8 @@ namespace GladiatorManagement.Controllers
 
         public IActionResult Test()
         {
-            //Test123();
-            Player player = _playerService.GetPlayer(3);
+            Test123();
+            //Player player = _playerService.GetPlayer(3);
             //Player player = _playerService.CreatePlayer("Dennis", "dd@hotmail.com");
 
             return View();
@@ -52,7 +52,11 @@ namespace GladiatorManagement.Controllers
             Player player = _playerService.GetCurrentPlayer();
 
             //PlayerGladiator playerGladiate = player.Gladiators.First();//= player.Gladiators.First();
-            PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Typper2");
+            //PlayerGladiator opponent = _playerService.CreateOpponent(playerGladiate);
+            //_gameService.LaunchCombat(playerGladiate.Id, opponent.Id, false);
+
+            
+            //PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "ghaut5");
             //PlayerGladiator playerGladiate = _playerService.FindById(4);
 
             ////Create shop + inventory

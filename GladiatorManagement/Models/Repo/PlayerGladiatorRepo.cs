@@ -18,8 +18,10 @@ namespace GladiatorManagement.Models.Repo
         }
         public PlayerGladiator Create(Player player, string name, int strength, int accuracy, int health, int defence)
         {
-            Weapon defaultWeapon = _appDbContext.Weapons.Find(DefaultWId);
-            Armor defaultArmor = _appDbContext.Armors.Find(DefaultAId);
+            //Weapon defaultWeapon = _appDbContext.Weapons.Find(DefaultWId);
+            //Armor defaultArmor = _appDbContext.Armors.Find(DefaultAId);
+            Weapon defaultWeapon = new Weapon("Fist", 0, 1, 1);
+            Armor defaultArmor = new Armor("Skin", 0, 1, 1);
 
             PlayerGladiator gladiator = new PlayerGladiator
             {
@@ -31,12 +33,29 @@ namespace GladiatorManagement.Models.Repo
                 Defence = defence,
                 Weapon = defaultWeapon,
                 Armor = defaultArmor,
-                Player = player,
                 PlayerId = player.PlayerId
             };
-            
+            //defaultWeapon.Gladiator = gladiator;
+            //defaultArmor.Gladiator = gladiator;
+            //gladiator.Weapon = defaultWeapon;
+            //gladiator.Armor = defaultArmor;
+
+
             _appDbContext.PlayerGladiators.Add(gladiator);
             _appDbContext.SaveChanges();
+
+            defaultWeapon.PlayerGladiatorId = gladiator.Id;
+            defaultArmor.PlayerGladiatorId = gladiator.Id;
+            defaultWeapon.Gladiator = gladiator;
+            defaultArmor.Gladiator = gladiator;
+            //_appDbContext.Weapons.Add(defaultWeapon);
+            //_appDbContext.Armors.Add(defaultArmor);
+            _appDbContext.SaveChanges();
+
+            //gladiator.Weapon = defaultWeapon;
+            //gladiator.Armor = defaultArmor;
+            //_appDbContext.SaveChanges();
+
             return gladiator;
         }
 
