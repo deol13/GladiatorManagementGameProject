@@ -7,7 +7,7 @@ namespace GladiatorManagement.Models.Game_logic
 {
     public interface IGameService
     {
-        public Shop Shop { get; set; }
+        public static Shop Shop { get; set; }
 
         public void GetInventoryFromdatabase();
 
@@ -24,5 +24,6 @@ namespace GladiatorManagement.Models.Game_logic
 
         public bool BuyAPieceOfGear(ShopInventory inventory, PlayerGladiator playersGladiator, bool weapon, int idOfItem);
         public void CheckDefaultGear();
+        public void LogOut();
     }
 }
