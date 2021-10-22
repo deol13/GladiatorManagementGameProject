@@ -181,9 +181,7 @@ namespace GladiatorManagement.Models.Service
 
         public Player GetPlayer(int id)
         {
-            if(CurrentPlayer == null || CurrentPlayer.PlayerId != id)
-                CurrentPlayer = _playerRepo.Read(id);
-            return CurrentPlayer;
+            return CurrentPlayer = _playerRepo.Read(id); ;
         }
 
         public Player GetPlayer(string email)
@@ -192,7 +190,10 @@ namespace GladiatorManagement.Models.Service
                 CurrentPlayer = _playerRepo.Read(email);
             return CurrentPlayer;
         }
-
+        public Player GetCurrentPlayer()
+        {
+            return CurrentPlayer;
+        }
         public Player CreatePlayer(string name, string email)
         {
             CurrentPlayer = _playerRepo.Create(name, email);

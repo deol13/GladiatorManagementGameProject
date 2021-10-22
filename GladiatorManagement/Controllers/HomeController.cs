@@ -34,7 +34,6 @@ namespace GladiatorManagement.Controllers
         {
             _gameService.CheckDefaultGear();
             XPAndGoldFormula.Setup();
-            _gameService.Shop = new Shop();
 
             return View();
         }
@@ -42,14 +41,13 @@ namespace GladiatorManagement.Controllers
         public IActionResult Test()
         {
             //Test();
-            Player player = _playerService.GetPlayer(2);
 
             return View();
         }
 
         public void Test123()
         {
-            Player player = _playerService.GetPlayer(2);
+            Player player = _playerService.GetCurrentPlayer();
             //PlayerGladiator playerGladiate = player.Gladiators.First();
             //PlayerGladiator playerGladiate = _playerService.FindById(1);
 
