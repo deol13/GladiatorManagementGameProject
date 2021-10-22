@@ -56,7 +56,7 @@ namespace GladiatorManagement.Controllers
             //_gameService.LaunchCombat(playerGladiate.Id, opponent.Id, false);
 
             
-            //PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "ghaut5");
+            PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "ghaut4");
             //PlayerGladiator playerGladiate = _playerService.FindById(4);
 
             ////Create shop + inventory

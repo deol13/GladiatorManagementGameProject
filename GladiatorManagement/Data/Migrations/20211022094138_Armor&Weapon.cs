@@ -2,7 +2,7 @@
 
 namespace GladiatorManagement.Data.Migrations
 {
-    public partial class Virtualaddedtoenablelazyloading : Migration
+    public partial class ArmorWeapon : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,7 @@ namespace GladiatorManagement.Data.Migrations
                     PlayerId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: false),
+                    EmailVerification = table.Column<string>(nullable: false),
                     Score = table.Column<int>(nullable: false),
                     Gold = table.Column<int>(nullable: false)
                 },
@@ -67,6 +68,33 @@ namespace GladiatorManagement.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PlayerGladiators",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    PlayerId = table.Column<int>(nullable: true),
+                    Strength = table.Column<int>(nullable: false),
+                    Accuracy = table.Column<int>(nullable: false),
+                    Health = table.Column<int>(nullable: false),
+                    Defence = table.Column<int>(nullable: false),
+                    Experience = table.Column<int>(nullable: false),
+                    Level = table.Column<int>(nullable: false),
+                    Score = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlayerGladiators", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlayerGladiators_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "PlayerId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Armors",
                 columns: table => new
                 {
@@ -76,11 +104,18 @@ namespace GladiatorManagement.Data.Migrations
                     Name = table.Column<string>(nullable: false),
                     Defence = table.Column<int>(nullable: false),
                     Health = table.Column<int>(nullable: false),
+                    PlayerGladiatorId = table.Column<int>(nullable: true),
                     ShopInventoryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Armors", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Armors_PlayerGladiators_PlayerGladiatorId",
+                        column: x => x.PlayerGladiatorId,
+                        principalTable: "PlayerGladiators",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Armors_ShopInventories_ShopInventoryId",
                         column: x => x.ShopInventoryId,
@@ -99,11 +134,18 @@ namespace GladiatorManagement.Data.Migrations
                     Name = table.Column<string>(nullable: false),
                     Strength = table.Column<int>(nullable: false),
                     Accuracy = table.Column<int>(nullable: false),
+                    PlayerGladiatorId = table.Column<int>(nullable: true),
                     ShopInventoryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Weapons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Weapons_PlayerGladiators_PlayerGladiatorId",
+                        column: x => x.PlayerGladiatorId,
+                        principalTable: "PlayerGladiators",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Weapons_ShopInventories_ShopInventoryId",
                         column: x => x.ShopInventoryId,
@@ -112,46 +154,12 @@ namespace GladiatorManagement.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "PlayerGladiators",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    PlayerId = table.Column<int>(nullable: true),
-                    Strength = table.Column<int>(nullable: false),
-                    Accuracy = table.Column<int>(nullable: false),
-                    Health = table.Column<int>(nullable: false),
-                    Defence = table.Column<int>(nullable: false),
-                    WeaponId = table.Column<int>(nullable: true),
-                    ArmorId = table.Column<int>(nullable: true),
-                    Experience = table.Column<int>(nullable: false),
-                    Level = table.Column<int>(nullable: false),
-                    Score = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlayerGladiators", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PlayerGladiators_Armors_ArmorId",
-                        column: x => x.ArmorId,
-                        principalTable: "Armors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PlayerGladiators_Players_PlayerId",
-                        column: x => x.PlayerId,
-                        principalTable: "Players",
-                        principalColumn: "PlayerId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PlayerGladiators_Weapons_WeaponId",
-                        column: x => x.WeaponId,
-                        principalTable: "Weapons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Armors_PlayerGladiatorId",
+                table: "Armors",
+                column: "PlayerGladiatorId",
+                unique: true,
+                filter: "[PlayerGladiatorId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Armors_ShopInventoryId",
@@ -159,19 +167,16 @@ namespace GladiatorManagement.Data.Migrations
                 column: "ShopInventoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayerGladiators_ArmorId",
-                table: "PlayerGladiators",
-                column: "ArmorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PlayerGladiators_PlayerId",
                 table: "PlayerGladiators",
                 column: "PlayerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayerGladiators_WeaponId",
-                table: "PlayerGladiators",
-                column: "WeaponId");
+                name: "IX_Weapons_PlayerGladiatorId",
+                table: "Weapons",
+                column: "PlayerGladiatorId",
+                unique: true,
+                filter: "[PlayerGladiatorId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Weapons_ShopInventoryId",
@@ -182,19 +187,19 @@ namespace GladiatorManagement.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PlayerGladiators");
-
-            migrationBuilder.DropTable(
                 name: "Armors");
-
-            migrationBuilder.DropTable(
-                name: "Players");
 
             migrationBuilder.DropTable(
                 name: "Weapons");
 
             migrationBuilder.DropTable(
+                name: "PlayerGladiators");
+
+            migrationBuilder.DropTable(
                 name: "ShopInventories");
+
+            migrationBuilder.DropTable(
+                name: "Players");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Name",

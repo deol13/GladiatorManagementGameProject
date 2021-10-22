@@ -12,6 +12,12 @@
     <Compile Remove="Data\Migrations\20211018111613_ShopInventory.Designer.cs" />
     <Compile Remove="Data\Migrations\20211019130314_REdid everything.cs" />
     <Compile Remove="Data\Migrations\20211019130314_REdid everything.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211022093805_Armor&amp;Weapon_back.cs" />
+    <Compile Remove="Data\Migrations\20211022093805_Armor&amp;Weapon_back.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211022093923_Armor&amp;Weapon.cs" />
+    <Compile Remove="Data\Migrations\20211022093923_Armor&amp;Weapon.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211022094006_Armor&amp;Weapon.cs" />
+    <Compile Remove="Data\Migrations\20211022094006_Armor&amp;Weapon.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
