@@ -55,15 +55,15 @@ namespace GladiatorManagement.Controllers
             //PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Hars1");
             PlayerGladiator playerGladiate = player.Gladiators.FirstOrDefault();
 
-            //ShopInventory inventory = _gameService.FindGladiatorsInventory(playerGladiate.Id);
+            ShopInventory inventory = _gameService.FindShopInventory(playerGladiate.Id, true);
 
-            ShopInventory inventory2 = _gameService.CreateAShop(playerGladiate.Level, playerGladiate.Id);
+            //ShopInventory inventory2 = _gameService.CreateAShop(playerGladiate.Level, playerGladiate.Id);
             //playerGladiate.InventoryId = inventory2.Id;
 
-            bool succeeded = _gameService.BuyAPieceOfGear(inventory2, playerGladiate, true, 1);
-            bool succeeded2 = _gameService.BuyAPieceOfGear(inventory2, playerGladiate, false, 1);
+            //bool succeeded = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 0);
+            bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, false, 1);
 
-            //_gameService.RemoveShopInventory(inventory.Id);
+            _gameService.RemoveShopInventory(inventory.Id);
 
             //PlayerGladiator opponent1 = _playerService.CreateOpponent(playerGladiate);
 

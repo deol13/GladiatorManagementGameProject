@@ -46,12 +46,18 @@ namespace GladiatorManagement.Models.Repo
 
         public Weapon Read(int id)
         {
-            return _appDbContext.Weapons.FirstOrDefault(w => w.Id == id);
+            return _appDbContext.Weapons.AsNoTracking().FirstOrDefault(w => w.Id == id);
         }
 
         public List<Weapon> Read()
         {
-            return _appDbContext.Weapons.ToList();
+            return _appDbContext.Weapons.AsNoTracking().ToList();
+            //return _appDbContext.Weapons.ToList();
+        }
+
+        public List<Weapon> ReadAllInventory(int inventoryId)
+        {
+            return _appDbContext.Weapons.AsNoTracking().Where(a => a.ShopInventoryId == inventoryId).ToList();
         }
     }
 }

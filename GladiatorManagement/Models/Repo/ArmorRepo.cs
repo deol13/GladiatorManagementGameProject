@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GladiatorManagement.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace GladiatorManagement.Models.Repo
 {
@@ -44,12 +45,18 @@ namespace GladiatorManagement.Models.Repo
 
         public Armor Read(int id)
         {
-            return _appDbContext.Armors.FirstOrDefault(a => a.Id == id);
+            return _appDbContext.Armors.AsNoTracking().FirstOrDefault(a => a.Id == id);
         }
-
+        
         public List<Armor> Read()
         {
-            return _appDbContext.Armors.ToList();
+            return _appDbContext.Armors.AsNoTracking().ToList();
+            //return _appDbContext.Armors.ToList();
         }
+        public List<Armor> ReadAllInventory(int inventoryId)
+        {
+            return _appDbContext.Armors.AsNoTracking().Where(a => a.ShopInventoryId == inventoryId).ToList();
+        }
+
     }
 }
