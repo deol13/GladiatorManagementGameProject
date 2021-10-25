@@ -1,7 +1,9 @@
 ﻿using GladiatorManagement.Data;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace GladiatorManagement.Models.Repo
@@ -9,8 +11,8 @@ namespace GladiatorManagement.Models.Repo
     public class PlayerGladiatorRepo : IPlayerGladiatorRepo
     {
         ApplicationDbContext _appDbContext;
-        public static int DefaultWId { get; set; } = 1;
-        public static int DefaultAId { get; set; } = 1;
+        //public static int DefaultWId { get; set; } = 1;
+        //public static int DefaultAId { get; set; } = 1;
 
         public PlayerGladiatorRepo(ApplicationDbContext appDbContext)
         {
@@ -18,12 +20,15 @@ namespace GladiatorManagement.Models.Repo
         }
         public PlayerGladiator Create(Player player, string name, int strength, int accuracy, int health, int defence)
         {
-            Weapon defaultWeapon = _appDbContext.Weapons.Find(DefaultWId);
-            Armor defaultArmor = _appDbContext.Armors.Find(DefaultAId);
+            Weapon defaultWeapon = new Weapon("Fist", 0, 0, 0);//_appDbContext.Weapons.Find(DefaultWId);
+            Armor defaultArmor = new Armor("Skin", 0, 0, 0);//_appDbContext.Armors.Find(DefaultAId);
+            _appDbContext.Weapons.Add(defaultWeapon);
+            _appDbContext.Armors.Add(defaultArmor);
+            _appDbContext.SaveChanges();
 
             PlayerGladiator gladiator = new PlayerGladiator
             {
-                PlayerId = player.PlayerId,
+                //PlayerId = player.PlayerId,
                 Name = name,
                 Strength = strength,
                 Accuracy = accuracy,
@@ -31,9 +36,12 @@ namespace GladiatorManagement.Models.Repo
                 Defence = defence,
                 Weapon = defaultWeapon,
                 Armor = defaultArmor,
-                WeaponID = DefaultWId,
-                ArmorID = DefaultAId
+                WeaponID = defaultWeapon.Id,
+                ArmorID = defaultArmor.Id
             };
+
+            if (player != null)
+                gladiator.PlayerId = player.PlayerId;
             
             _appDbContext.PlayerGladiators.Add(gladiator);
             _appDbContext.SaveChanges();
@@ -68,19 +76,23 @@ namespace GladiatorManagement.Models.Repo
             //glad.Armor = gladiator.Armor;
             //glad.Weapon = gladiator.Weapon;
 
-            _appDbContext.Update(gladiator);
+            EntityEntry ee = _appDbContext.Entry(gladiator);
+
+            if(ee.State == Microsoft.EntityFrameworkCore.EntityState.Detached)
+                _appDbContext.Update(gladiator);
+
             int changes = _appDbContext.SaveChanges();
             return gladiator;
         }
-
 
 
         public bool Delete(PlayerGladiator playerGladiator)
         {
             if (_appDbContext.PlayerGladiators.Contains(playerGladiator))
             {
-                _appDbContext.Remove(playerGladiator);
-                _appDbContext.SaveChanges();
+                _appDbContext.PlayerGladiators.Remove(playerGladiator);
+                
+                int changes = _appDbContext.SaveChanges();
                 return true;
             }
             else return false;

@@ -17,7 +17,7 @@ namespace GladiatorManagement.Models.Game_logic
             string name = "";
 
             int minValue = 1 + lvlOfGladiator / 2;
-            int maxValue = 2 + lvlOfGladiator / 2;
+            int maxValue = 3 + lvlOfGladiator / 2;
             int attribute1 = generator.Next(minValue, maxValue); //XPAndGoldFormula.Randomize(minValue, maxValue);
             int attribute2 = generator.Next(minValue, maxValue);//XPAndGoldFormula.Randomize(minValue, maxValue);
 
@@ -26,13 +26,13 @@ namespace GladiatorManagement.Models.Game_logic
 
             if (typeOfGear == "Weapon")
             {
+                name = $"{typeOfGear}+{attribute1 + attribute2}";
                 newGear = new Weapon(name, cost, attribute1, attribute2);
-                name = $"{typeOfGear}: Strength +{attribute1} & Accuracy+{attribute2}";
             }
             else if (typeOfGear == "Armor")
             {
+                name = $"{typeOfGear}+{attribute1 + attribute2}";
                 newGear = new Armor(name, cost, attribute1, attribute2);
-                name = $"{typeOfGear}: Defence +{attribute1} & Health+{attribute2}";
             }
 
             return newGear;

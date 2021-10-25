@@ -76,8 +76,10 @@ namespace GladiatorManagement.Models.Game_logic
                 }
                 else
                 {
-                    combatInfo.DamageDone = 0;
-                    combatInfo.DamageDoneDetails = $"{playerTotalStr} - {opponentTotalDef}";
+                    combatInfo.DamageDone = 1;
+                    opponent.Health -= combatInfo.DamageDone;
+
+                    combatInfo.DamageDoneDetails = "Opponent's defence higher than players strength. Damage done 1.";
                 }
 
                 combatInfo.OpponentHealthLeft = opponent.Health;
@@ -98,8 +100,10 @@ namespace GladiatorManagement.Models.Game_logic
                 }
                 else
                 {
-                    combatInfo.DamageDone = 0;
-                    combatInfo.DamageDoneDetails = $"{opponentTotalStr} - {playerTotalDef}";
+                    combatInfo.DamageDone = 1;
+                    player.Health -= combatInfo.DamageDone;
+
+                    combatInfo.DamageDoneDetails = "Players's defence higher than opponents strength. Damage done 1.";
                 }
 
                 combatInfo.PlayerHealthLeft = player.Health;
@@ -108,7 +112,11 @@ namespace GladiatorManagement.Models.Game_logic
             {
                 //Even
                 combatInfo.Hit = "Even";
-                combatInfo.DamageDone = 0;
+                combatInfo.DamageDone = 1;
+                player.Health -= combatInfo.DamageDone;
+                opponent.Health -= combatInfo.DamageDone;
+
+                combatInfo.DamageDoneDetails = "Even, both takes 1 damage.";
             }
 
             return combatInfo;

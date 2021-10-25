@@ -26,28 +26,26 @@ namespace GladiatorManagement.Models.Game_logic.GameService
         }
 
         //Needs to be tweak and improved
-        public void LaunchCombat(int playerGladiatorId, int opponentGladiatorId, bool PvP)
+        public void LaunchCombat(PlayerGladiator player, PlayerGladiator opponent, bool PvP)
         {
             //Setup
-            PlayerGladiator player = null;
-            PlayerGladiator opponent = null;
-            player = _playerService.FindById(playerGladiatorId);
-            opponent = _playerService.FindById(opponentGladiatorId);
             Combat combat = new Combat(player, opponent);
 
             //Start combat & save info
             List<CombatInfo> listOfCombatDetails = combat.StartCombat();
             CombatInfo info = listOfCombatDetails.Last();
 
+            //rig
+            info.Winner = "Player";
+
             //Work in progress
             if (info.Winner == "Player")
             {
                 int gold = HowMuchGoldWon(player.Level);
                 _playerService.EditAmountOfGold(player.Player, gold);
-
                 _playerService.LevelUp(player);
 
-                _playerService.RemoveGladiator(opponent);
+                RemoveFalledGladiatorsGear(opponent);
             }
             else
             {
@@ -58,8 +56,17 @@ namespace GladiatorManagement.Models.Game_logic.GameService
                     _playerService.LevelUp(opponent);
                 }
 
-                _playerService.RemoveGladiator(player);
+                RemoveFalledGladiatorsGear(player);
             }
+        }
+
+        public void RemoveFalledGladiatorsGear(PlayerGladiator gladiator)
+        {
+            Armor armor = gladiator.Armor;
+            Weapon weapon = gladiator.Weapon;
+            _playerService.RemoveGladiator(gladiator);
+            _armorRepo.Delete(armor);
+            _weaponRepo.Delete(weapon);
         }
 
         public int HowMuchGoldWon(int lvl)
@@ -83,7 +90,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
                 newW.ShopInventoryId = inventory.Id;
 
                 newW = _weaponRepo.Create(newW);
-                inventory.WeaponsInShop.Add(newW);
+                //inventory.WeaponsInShop.Add(newW);
                 newGear = null;
                 newW = null;
             }
@@ -94,7 +101,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
                 newA.ShopInventoryId = inventory.Id;
 
                 newA = _armorRepo.Create(newA);
-                inventory.ArmorsInShop.Add(newA);
+                //inventory.ArmorsInShop.Add(newA);
                 newGear = null;
                 newA = null;
             }
@@ -130,21 +137,34 @@ namespace GladiatorManagement.Models.Game_logic.GameService
 
         public bool RemoveShopInventory(int shopInventoryId)
         {
+            //bool succeeded = false;
+            //ShopInventory inventory = FindShopInventory(shopInventoryId, false);
+
+            //Shop.Shops.Remove(inventory);
+
+            //foreach (var item in inventory.WeaponsInShop)
+            //{
+            //    _weaponRepo.Delete(item);
+            //}
+            //foreach (var item in inventory.ArmorsInShop)
+            //{
+            //    _armorRepo.Delete(item);
+            //}
+
+            //succeeded = _gameRepo.RemoveShopInvenotry(inventory);
+
+            //return succeeded;
             bool succeeded = false;
             ShopInventory inventory = FindShopInventory(shopInventoryId, false);
 
-            Shop.Shops.Remove(inventory);
-
-            foreach (var item in inventory.WeaponsInShop)
+            if (inventory != null)
             {
-                _weaponRepo.Delete(item);
-            }
-            foreach (var item in inventory.ArmorsInShop)
-            {
-                _armorRepo.Delete(item);
-            }
+                _weaponRepo.DeleteAll(inventory);
+                _armorRepo.DeleteAll(inventory);
 
-            succeeded = _gameRepo.RemoveShopInvenotry(inventory);
+                Shop.Shops.Remove(inventory);
+                succeeded = _gameRepo.RemoveShopInvenotry(inventory);
+            }
 
             return succeeded;
         }
@@ -265,17 +285,17 @@ namespace GladiatorManagement.Models.Game_logic.GameService
 
         public void CheckDefaultGear()
         {
-            if (_weaponRepo.Read(1) == null)
-            {
-                Weapon weapon = _weaponRepo.Create("Fist", 0, 0, 0);
-                PlayerGladiatorRepo.DefaultWId = weapon.Id;
+            //if (_weaponRepo.Read(1) == null)
+            //{
+            //    Weapon weapon = _weaponRepo.Create("Fist", 0, 0, 0);
+            //    PlayerGladiatorRepo.DefaultWId = weapon.Id;
 
-            }
-            if (_armorRepo.Read(1) == null)
-            {
-                Armor armor = _armorRepo.Create("Skin", 0, 0, 0);
-                PlayerGladiatorRepo.DefaultAId = armor.Id;
-            }
+            //}
+            //if (_armorRepo.Read(1) == null)
+            //{
+            //    Armor armor = _armorRepo.Create("Skin", 0, 0, 0);
+            //    PlayerGladiatorRepo.DefaultAId = armor.Id;
+            //}
             if (Shop == null)
                 Shop = new Shop();
         }
