@@ -19,6 +19,8 @@ namespace GladiatorManagement.Models
         public int Defence { get; set; }
         public Weapon Weapon { get; set; }
         public Armor Armor { get; set; }
+        public int? ArmorID { get; set; }
+        public int? WeaponID { get; set; }
         public int InventoryId { get; set; }
 
         [Required]

@@ -4,14 +4,16 @@ using GladiatorManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GladiatorManagement.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211022141604_IdHolders2")]
+    partial class IdHolders2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,7 +87,7 @@ namespace GladiatorManagement.Data.Migrations
                     b.Property<int>("Accuracy")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ArmorID")
+                    b.Property<int>("ArmorID")
                         .HasColumnType("int");
 
                     b.Property<int>("Defence")
@@ -115,7 +117,7 @@ namespace GladiatorManagement.Data.Migrations
                     b.Property<int>("Strength")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WeaponID")
+                    b.Property<int>("WeaponID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -381,7 +383,9 @@ namespace GladiatorManagement.Data.Migrations
                 {
                     b.HasOne("GladiatorManagement.Models.Armor", "Armor")
                         .WithMany()
-                        .HasForeignKey("ArmorID");
+                        .HasForeignKey("ArmorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("GladiatorManagement.Models.Player", "Player")
                         .WithMany("Gladiators")
@@ -389,7 +393,9 @@ namespace GladiatorManagement.Data.Migrations
 
                     b.HasOne("GladiatorManagement.Models.Weapon", "Weapon")
                         .WithMany()
-                        .HasForeignKey("WeaponID");
+                        .HasForeignKey("WeaponID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GladiatorManagement.Models.Weapon", b =>

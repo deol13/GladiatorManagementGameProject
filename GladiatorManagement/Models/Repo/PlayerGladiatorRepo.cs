@@ -23,14 +23,16 @@ namespace GladiatorManagement.Models.Repo
 
             PlayerGladiator gladiator = new PlayerGladiator
             {
-                //Player = player,
+                PlayerId = player.PlayerId,
                 Name = name,
                 Strength = strength,
                 Accuracy = accuracy,
                 Health = health,
                 Defence = defence,
                 Weapon = defaultWeapon,
-                Armor = defaultArmor
+                Armor = defaultArmor,
+                WeaponID = DefaultWId,
+                ArmorID = DefaultAId
             };
             
             _appDbContext.PlayerGladiators.Add(gladiator);
@@ -66,9 +68,8 @@ namespace GladiatorManagement.Models.Repo
             //glad.Armor = gladiator.Armor;
             //glad.Weapon = gladiator.Weapon;
 
-            //_appDbContext.Update(gladiator);
-
-            _appDbContext.SaveChanges();
+            _appDbContext.Update(gladiator);
+            int changes = _appDbContext.SaveChanges();
             return gladiator;
         }
 

@@ -11,6 +11,8 @@ namespace GladiatorManagement.Models.Repo
         public Armor Create(Armor armor);
         public Armor Read(int id);
         public List<Armor> Read();
+        public List<Armor> ReadAllInventory(int inventoryId);
+
         public bool Delete(Armor armor);
     }
 }

@@ -72,38 +72,38 @@ namespace GladiatorManagement.Models.Service
 
         public PlayerGladiator UpdateGladiatorGear(PlayerGladiator gladiator, Gear gear)
         {
-            PlayerGladiator gladiatorTMP = null;
             if (gear is Armor)
             {
-                Armor oldGear = gladiator.Armor;
+                Armor deletThis = gladiator.Armor;
                 gladiator.Armor = (Armor)gear;
+                gladiator.ArmorID = gear.Id;
+                gladiator = _playerGladiatorRepo.Update(gladiator);
 
-                gladiatorTMP = _playerGladiatorRepo.Update(gladiator);
-
-                _armorRepo.Delete(oldGear);
-                
+                _armorRepo.Delete(deletThis);
             }
             else if (gear is Weapon)
             {
-                Weapon oldGear = gladiator.Weapon;
+                Weapon deletThis = gladiator.Weapon;
                 gladiator.Weapon = (Weapon)gear;
+                gladiator.WeaponID = gear.Id;
+                gladiator = _playerGladiatorRepo.Update(gladiator);
 
-                gladiatorTMP = _playerGladiatorRepo.Update(gladiator);
-
-                _weaponRepo.Delete(oldGear);
+                _weaponRepo.Delete(deletThis);
             }
 
-            return gladiatorTMP;
+            return gladiator;
 
             //if (gear is Armor)
             //{
             //    _armorRepo.Delete(gladiator.Armor);
             //    gladiator.Armor = (Armor)gear;
+            //    gladiator.ArmorID = gear.Id;
             //}
             //else if (gear is Weapon)
             //{
             //    _weaponRepo.Delete(gladiator.Weapon);
             //    gladiator.Weapon = (Weapon)gear;
+            //    gladiator.WeaponID = gear.Id;
             //}
 
             //return _playerGladiatorRepo.Update(gladiator);
@@ -207,6 +207,7 @@ namespace GladiatorManagement.Models.Service
             Player opponent = _playerRepo.Read(id);
             if(opponent != null)
                 opponent.Gladiators = _playerGladiatorRepo.ReadRelatedToPlayer(opponent.PlayerId);
+            //Collect specific gladiator
             return opponent;
         }
 
@@ -221,13 +222,12 @@ namespace GladiatorManagement.Models.Service
                 CurrentPlayer.Gladiators = _playerGladiatorRepo.ReadRelatedToPlayer(CurrentPlayer.PlayerId);
 
 
-
-                //for (int i = 0; i < CurrentPlayer.Gladiators.Count; i++)
-                //{
-                //    Add a int to Gladiator called ArmorId and WeaponId that hold's his/her's weapon and armor object ids
-                //    CurrentPlayer.Gladiators[i].Armor = _armorRepo.Read(CurrentPlayer.Gladiators[i].ArmorId);
-                //    CurrentPlayer.Gladiators[i].Weapon = _armorRepo.Read(CurrentPlayer.Gladiators[i].WeaponId);
-                //}
+               
+                for (int i = 0; i < CurrentPlayer.Gladiators.Count; i++)
+                {
+                    CurrentPlayer.Gladiators[i].Armor = _armorRepo.Read((int)CurrentPlayer.Gladiators[i].ArmorID);
+                    CurrentPlayer.Gladiators[i].Weapon = _weaponRepo.Read((int)CurrentPlayer.Gladiators[i].WeaponID);
+                }
             }
             return CurrentPlayer;
         }
