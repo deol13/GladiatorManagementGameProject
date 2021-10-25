@@ -76,7 +76,7 @@ namespace GladiatorManagement.Controllers
             //bool succeeded = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 0);
             //bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, false, 0);
 
-            _gameService.RemoveShopInventory(inventory.Id);
+            //_gameService.RemoveShopInventory(inventory.Id);
 
             //PlayerGladiator opponent = _playerService.CreateOpponent(playerGladiate);
 
