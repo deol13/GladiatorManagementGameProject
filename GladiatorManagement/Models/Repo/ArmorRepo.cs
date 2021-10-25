@@ -34,13 +34,26 @@ namespace GladiatorManagement.Models.Repo
 
         public bool Delete(Armor armor)
         {
-            if (_appDbContext.Armors.Contains(armor) && armor.Id != 1)
+            if (_appDbContext.Armors.Contains(armor))// && armor.Id != 1)
             {
                 _appDbContext.Armors.Remove(armor);
                 _appDbContext.SaveChanges();
                 return true;
             }
             else return false;
+        }
+
+        public bool DeleteAll(ShopInventory inventory)
+        {
+            foreach (var item in inventory.ArmorsInShop)
+            {
+                if (_appDbContext.Armors.Contains(item))
+                {
+                    _appDbContext.Armors.Remove(item);
+                }
+            }
+            _appDbContext.SaveChanges();
+            return true;
         }
 
         public Armor Read(int id)

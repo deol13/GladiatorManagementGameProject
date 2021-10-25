@@ -34,7 +34,7 @@ namespace GladiatorManagement.Models.Repo
 
         public bool Delete(Weapon weapon)
         {
-            if (_appDbContext.Weapons.Contains(weapon) && weapon.Id != 1)
+            if (_appDbContext.Weapons.Contains(weapon))// && weapon.Id != 1)
             {
                 //_appDbContext.Entry(weapon).State = EntityState.Deleted;
                 _appDbContext.Weapons.Remove(weapon);
@@ -43,7 +43,18 @@ namespace GladiatorManagement.Models.Repo
             }
             else return false;
         }
-
+        public bool DeleteAll(ShopInventory inventory)
+        {
+            foreach (var item in inventory.WeaponsInShop)
+            {
+                if (_appDbContext.Weapons.Contains(item))
+                {
+                    _appDbContext.Weapons.Remove(item);
+                }
+            }
+            _appDbContext.SaveChanges();
+            return true;
+        }
         public Weapon Read(int id)
         {
             return _appDbContext.Weapons.AsNoTracking().FirstOrDefault(w => w.Id == id);

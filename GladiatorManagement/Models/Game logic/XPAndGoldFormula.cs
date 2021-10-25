@@ -39,7 +39,7 @@ namespace GladiatorManagement.Models.Game_logic
             {
                 XpToLVl[i] = 100*(i+1);
                 GoldToGive[i] = 15 * (i + 1);
-                XPToGive[i] = 105 * (i + 1);
+                XPToGive[i] = 15 * (i + 1);
             }
         }
 

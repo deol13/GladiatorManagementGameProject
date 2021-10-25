@@ -39,6 +39,7 @@ namespace GladiatorManagement.Models.Service
 
             
             PlayerGladiator gladiator = _playerGladiatorRepo.Create(player, name, strength, accuracy, health, defence);
+            gladiator.Player = player;
             player.Gladiators.Add(gladiator);
             _playerRepo.Update(player);
 
@@ -147,6 +148,8 @@ namespace GladiatorManagement.Models.Service
                 playerGladiator.Experience -= XPAndGoldFormula.XpToLVl[playerGladiator.Level - 1];
                 playerGladiator.Level++;
             }
+
+            
             return _playerGladiatorRepo.Update(playerGladiator);
         }
 
@@ -199,14 +202,26 @@ namespace GladiatorManagement.Models.Service
 
         public PlayerGladiator FindById(int id)
         {
-            return _playerGladiatorRepo.Read(id);
+            PlayerGladiator gladiator = _playerGladiatorRepo.Read(id);
+            gladiator.Weapon = _weaponRepo.Read((int)gladiator.WeaponID);
+            gladiator.Armor = _armorRepo.Read((int)gladiator.ArmorID);
+
+            return gladiator;
         }
 
         public Player GetPlayer(int id)
         {
             Player opponent = _playerRepo.Read(id);
-            if(opponent != null)
+            if (opponent != null)
+            {
                 opponent.Gladiators = _playerGladiatorRepo.ReadRelatedToPlayer(opponent.PlayerId);
+                for (int i = 0; i < opponent.Gladiators.Count; i++)
+                {
+                    opponent.Gladiators[i].Armor = _armorRepo.Read((int)opponent.Gladiators[i].ArmorID);
+                    opponent.Gladiators[i].Weapon = _weaponRepo.Read((int)opponent.Gladiators[i].WeaponID);
+                }
+            }
+
             //Collect specific gladiator
             return opponent;
         }
@@ -220,9 +235,7 @@ namespace GladiatorManagement.Models.Service
 
                 CurrentPlayer = _playerRepo.Read(email);
                 CurrentPlayer.Gladiators = _playerGladiatorRepo.ReadRelatedToPlayer(CurrentPlayer.PlayerId);
-
-
-               
+             
                 for (int i = 0; i < CurrentPlayer.Gladiators.Count; i++)
                 {
                     CurrentPlayer.Gladiators[i].Armor = _armorRepo.Read((int)CurrentPlayer.Gladiators[i].ArmorID);
