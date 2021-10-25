@@ -53,7 +53,7 @@ namespace GladiatorManagement.Models.Game_logic.GameRepo
 
         public ShopInventory Update(ShopInventory shopInventory)
         {
-            _appDbContext.ShopInventories.Update(shopInventory);
+            //_appDbContext.ShopInventories.Update(shopInventory);
             _appDbContext.SaveChanges();
 
             return shopInventory;

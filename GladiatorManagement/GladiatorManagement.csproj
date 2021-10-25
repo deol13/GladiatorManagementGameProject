@@ -16,6 +16,8 @@
     <Compile Remove="Data\Migrations\20211022105829_NewStart.Designer.cs" />
     <Compile Remove="Data\Migrations\20211022110016_NewStart.cs" />
     <Compile Remove="Data\Migrations\20211022110016_NewStart.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211022141430_IdHolders.cs" />
+    <Compile Remove="Data\Migrations\20211022141430_IdHolders.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

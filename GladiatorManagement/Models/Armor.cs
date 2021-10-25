@@ -13,6 +13,7 @@ namespace GladiatorManagement.Models
 
         [Required]
         public int Health { get; set; }
+        public int? ShopInventoryId { get; set; }
 
         public Armor(string Name, int Cost, int Defence, int Health) : base(Name, Cost)
         {
