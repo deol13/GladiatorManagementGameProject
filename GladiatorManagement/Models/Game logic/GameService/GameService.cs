@@ -6,7 +6,7 @@ using GladiatorManagement.Models.Game_logic.GameRepo;
 using GladiatorManagement.Models.Repo;
 using GladiatorManagement.Models.Service;
 
-namespace GladiatorManagement.Models.Game_logic
+namespace GladiatorManagement.Models.Game_logic.GameService
 {
     public class GameService : IGameService
     {

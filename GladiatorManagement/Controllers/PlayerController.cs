@@ -34,5 +34,7 @@ namespace GladiatorManagement.Controllers
             PlayerGladiator glad = _playerService.FindById(id);
             return PartialView("_GladiatorDetails", glad);
         }
+
+
     }
 }
