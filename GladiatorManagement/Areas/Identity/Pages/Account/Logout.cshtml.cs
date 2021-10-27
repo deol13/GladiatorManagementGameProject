@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GladiatorManagement.Models.Game_logic;
+using GladiatorManagement.Models.Game_logic.GameService;
 using GladiatorManagement.Models.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

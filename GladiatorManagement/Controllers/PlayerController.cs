@@ -37,7 +37,16 @@ namespace GladiatorManagement.Controllers
 
         public IActionResult GladiatorDetails(int id)
         {
-            PlayerGladiator glad = _playerService.FindById(id);
+            PlayerGladiator glad = null;
+            Player currentPlayer = _playerService.GetCurrentPlayer();
+            foreach (var item in currentPlayer.Gladiators)
+            {
+                if (item.Id == id)
+                    glad = item;
+            }
+            if(glad == null)
+                glad = _playerService.FindById(id);
+
             return PartialView("_GladiatorDetails", glad);
         }
 

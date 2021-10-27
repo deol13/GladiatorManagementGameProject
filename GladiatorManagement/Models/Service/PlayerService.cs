@@ -127,7 +127,14 @@ namespace GladiatorManagement.Models.Service
 
         public PlayerViewModel FindPlayerById(int id)
         {
-            Player player = _playerRepo.Read(id);
+            //Player player = _playerRepo.Read(id);
+            Player player = null;
+            if (CurrentPlayer != null)
+                if(CurrentPlayer.PlayerId == id || id == 0)
+                    player = CurrentPlayer;
+
+            if(player == null)
+                player = _playerRepo.Read(id);
             PlayerViewModel playerVM = new PlayerViewModel
             {
                 Player = player,
