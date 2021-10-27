@@ -22,7 +22,7 @@ namespace GladiatorManagement.Models.Service
         public Player EditAmountOfGold(Player player, int changeInGold);
 
         public Player EditScore(Player player, int changeInScore);
-        public PlayerGladiator LevelUp(PlayerGladiator playerGladiator);
+        public PlayerGladiator LevelUp(PlayerGladiator playerGladiator, ref bool lvledUp);
 
         public bool CanLevelUp(PlayerGladiator gladiator);
 

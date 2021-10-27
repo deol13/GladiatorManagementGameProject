@@ -144,13 +144,13 @@ namespace GladiatorManagement.Models.Service
             return playerVM;
 
         }
-        public PlayerGladiator LevelUp(PlayerGladiator playerGladiator)
+        public PlayerGladiator LevelUp(PlayerGladiator playerGladiator, ref bool lvledUp)
         {
             if (playerGladiator.Level >= 0 && playerGladiator.Level < XPAndGoldFormula.MaxLvl)
                 playerGladiator.Experience += XPAndGoldFormula.XPToGive[playerGladiator.Level-1];
 
-
-            if (CanLevelUp(playerGladiator))
+            lvledUp = CanLevelUp(playerGladiator);
+            if (lvledUp)
             {
                 playerGladiator.Experience -= XPAndGoldFormula.XpToLVl[playerGladiator.Level - 1];
                 playerGladiator.Level++;

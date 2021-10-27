@@ -17,9 +17,11 @@ namespace GladiatorManagement.Models.Game_logic.GameService
 
         public ShopInventory CreateAShop(int lvlOfGladiator, int gladiatorId);
 
-        public bool RemoveShopInventory(int shopInventoryId);
+        public bool RemoveShopInventory(int shopInventoryId, bool belongToAGlad);
 
         public ShopInventory FindShopInventory(int id, bool belongToAGladiator);
+
+        public ShopInventory GladLvledUp(PlayerGladiator glad);
         //public ShopInventory FindGladiatorsInventory(int id);
 
         public bool BuyAPieceOfGear(ShopInventory inventory, PlayerGladiator playersGladiator, bool weapon, int idOfItem);

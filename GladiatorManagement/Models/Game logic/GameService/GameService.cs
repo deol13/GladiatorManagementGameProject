@@ -41,19 +41,27 @@ namespace GladiatorManagement.Models.Game_logic.GameService
             //Work in progress
             if (info.Winner == "Player")
             {
+                bool lvledUp = false;
                 int gold = HowMuchGoldWon(player.Level);
                 _playerService.EditAmountOfGold(player.Player, gold);
-                _playerService.LevelUp(player);
+                _playerService.LevelUp(player, ref lvledUp);
 
                 RemoveFalledGladiatorsGear(opponent);
+
+                if (lvledUp)
+                    GladLvledUp(player);
             }
             else
             {
                 if (PvP)
                 {
+                    bool lvledUp = false;
                     int gold = HowMuchGoldWon(opponent.Level);
                     _playerService.EditAmountOfGold(opponent.Player, gold);
-                    _playerService.LevelUp(opponent);
+                    _playerService.LevelUp(opponent, ref lvledUp);
+
+                    if (lvledUp)
+                        GladLvledUp(opponent);
                 }
 
                 RemoveFalledGladiatorsGear(player);
@@ -135,7 +143,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
         //    return inventory;
         //}
 
-        public bool RemoveShopInventory(int shopInventoryId)
+        public bool RemoveShopInventory(int shopInventoryId, bool belongToAGlad)
         {
             //bool succeeded = false;
             //ShopInventory inventory = FindShopInventory(shopInventoryId, false);
@@ -155,7 +163,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
 
             //return succeeded;
             bool succeeded = false;
-            ShopInventory inventory = FindShopInventory(shopInventoryId, false);
+            ShopInventory inventory = FindShopInventory(shopInventoryId, belongToAGlad);
 
             if (inventory != null)
             {
@@ -201,6 +209,18 @@ namespace GladiatorManagement.Models.Game_logic.GameService
                 Shop.Shops.Add(inv);
 
             return inv;
+        }
+
+        public ShopInventory GladLvledUp(PlayerGladiator glad)
+        {
+            if (glad.InventoryId > 0)
+            {
+                RemoveShopInventory(glad.InventoryId, true);
+                ShopInventory inv = CreateAShop(glad.Level, glad.Id);
+                glad.InventoryId = inv.Id;
+            }
+
+            return null;
         }
 
         //public ShopInventory FindGladiatorsInventory(int gladiatorId)
