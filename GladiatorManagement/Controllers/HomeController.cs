@@ -11,6 +11,7 @@ using GladiatorManagement.Models.Service;
 using GladiatorManagement.Models.Repo;
 using GladiatorManagement.Data;
 using GladiatorManagement.Models.ViewModel;
+using GladiatorManagement.Models.Game_logic.GameService;
 
 namespace GladiatorManagement.Controllers
 {

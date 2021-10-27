@@ -28,33 +28,40 @@
     </div>
 </div>
 
-    <h3>Gladiators</h3>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <p>Name</p>
-            </div>
-            <div class="col">
-                <p>Level</p>
-            </div>
-            <div class="col">
-                <p>Details</p>
-            </div>
+<h3>Gladiators</h3>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p>Name</p>
         </div>
-        @foreach (PlayerGladiator gladiator in Model.Player.Gladiators)
-        {
-            <div class="row">
-                <div class="col">
-                    <p>@gladiator.Name</p>
-                </div>
-                <div class="col">
-                    <p>@gladiator.Level</p>
-                </div>
-                <div class="col">
-                    <a asp-action="GladiatorDetails" asp-route-id="@gladiator.Id">Details</a>
-                </div>
-            </div>
-        }
+        <div class="col">
+            <p>Level</p>
+        </div>
+        <div class="col">
+            <p>Details</p>
+        </div>
+        <div class="col">
+            <p>Shop</p>
+        </div>
     </div>
+    @foreach (PlayerGladiator gladiator in Model.Player.Gladiators)
+    {
+<div class="row">
+    <div class="col">
+        <p>@gladiator.Name</p>
+    </div>
+    <div class="col">
+        <p>@gladiator.Level</p>
+    </div>
+    <div class="col">
+        <a asp-action="GladiatorDetails" asp-route-id="@gladiator.Id">Details</a>
+    </div>
+    <div class="col">
+        <a asp-action="Shop" asp-route-id="@gladiator.Id">Shop for @gladiator.Name</a>
+    </div>
+</div>
+    }
+</div>
 
-    
+
+

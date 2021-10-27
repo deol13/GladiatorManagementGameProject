@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GladiatorManagement.Models.Game_logic
+namespace GladiatorManagement.Models.Game_logic.GameService
 {
     public interface IGameService
     {
