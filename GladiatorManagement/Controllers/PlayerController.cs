@@ -64,5 +64,35 @@ namespace GladiatorManagement.Controllers
             return View(shopView);
         }
 
+        public IActionResult Arena()
+        {
+            //Lägg till i PlayerView vid "Shop" knappen en knapp för att "Go to arena"
+            //Här kan du välja PVE eller PVP
+            return PartialView("_ArenaPartialView");
+        }
+
+        public IActionResult PVECombat()
+        {
+            //Update player and gladiator after combat
+
+
+            return View(); //PartialView("_PVECombatViewModel", info);
+        }
+
+        /*
+        public IActionResult ShowAllEnemyPlayers()
+        {
+            return PartialView("");
+        }
+        */
+
+        //public IActionResult PVPCombat()
+        //{
+        //Lista av andra spelares gladiatorer, kanske använda Player actionen på något sätt?
+
+
+        //    return View(); //PartialView("_PVPCombatViewModel", info);
+        //}
+
     }
 }

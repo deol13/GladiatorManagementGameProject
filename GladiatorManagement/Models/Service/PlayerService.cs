@@ -92,6 +92,12 @@ namespace GladiatorManagement.Models.Service
                 _weaponRepo.Delete(deletThis);
             }
 
+            for (int i = 0; i < CurrentPlayer.Gladiators.Count; i++)
+            {
+                if (CurrentPlayer.Gladiators[i].Id == gladiator.Id)
+                    CurrentPlayer.Gladiators[i] = gladiator;
+            }
+
             return gladiator;
 
             //if (gear is Armor)
@@ -115,14 +121,23 @@ namespace GladiatorManagement.Models.Service
         public Player EditAmountOfGold(Player player, int changeInGold)
         {
             player.Gold += changeInGold;
-            return _playerRepo.Update(player);
+            player = _playerRepo.Update(player);
 
+            if (player.PlayerId == CurrentPlayer.PlayerId)
+                CurrentPlayer.Gold = player.Gold;
+
+            return player;
         }
 
         public Player EditScore(Player player, int changeInScore)
         {
             player.Score += changeInScore;
-            return _playerRepo.Update(player);
+            player =  _playerRepo.Update(player);
+
+            if (player.PlayerId == CurrentPlayer.PlayerId)
+                CurrentPlayer.Score = player.Score;
+
+            return player;
         }
 
         public PlayerViewModel FindPlayerById(int id)
@@ -156,6 +171,15 @@ namespace GladiatorManagement.Models.Service
                 playerGladiator.Level++;
             }
 
+            //Keep currentPlayer updated
+            for (int i = 0; i < CurrentPlayer.Gladiators.Count; i++)
+            {
+                if(CurrentPlayer.Gladiators[i].Id == playerGladiator.Id)
+                {
+                    CurrentPlayer.Gladiators[i].Level = playerGladiator.Level;
+                    CurrentPlayer.Gladiators[i].Experience = playerGladiator.Experience;
+                }
+            }
             
             return _playerGladiatorRepo.Update(playerGladiator);
         }
@@ -171,7 +195,18 @@ namespace GladiatorManagement.Models.Service
 
         public bool RemoveGladiator(PlayerGladiator playerGladiator)
         {
-            return _playerGladiatorRepo.Delete(playerGladiator);
+            //for (int i = 0; i < CurrentPlayer.Gladiators.Count; i++)
+            //{
+            //    if (CurrentPlayer.Gladiators[i].Id == playerGladiator.Id)
+            //        CurrentPlayer.Gladiators.RemoveAt(i);
+            //}
+
+            ///Test
+            bool removed = _playerGladiatorRepo.Delete(playerGladiator);
+            Player tmp = CurrentPlayer;
+            return removed;
+
+            //return _playerGladiatorRepo.Delete(playerGladiator);
         }
 
         public PlayerGladiator AddHealth(PlayerGladiator playerGladiator, int amount)

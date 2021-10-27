@@ -44,6 +44,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
                 bool lvledUp = false;
                 int gold = HowMuchGoldWon(player.Level);
                 _playerService.EditAmountOfGold(player.Player, gold);
+                //Add score _playerService.EditScore();
                 _playerService.LevelUp(player, ref lvledUp);
 
                 RemoveFalledGladiatorsGear(opponent);
@@ -58,6 +59,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
                     bool lvledUp = false;
                     int gold = HowMuchGoldWon(opponent.Level);
                     _playerService.EditAmountOfGold(opponent.Player, gold);
+                    //Add score _playerService.EditScore();
                     _playerService.LevelUp(opponent, ref lvledUp);
 
                     if (lvledUp)

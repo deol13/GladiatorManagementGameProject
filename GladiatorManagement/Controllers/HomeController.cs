@@ -41,7 +41,7 @@ namespace GladiatorManagement.Controllers
 
         public IActionResult Test()
         {
-            //Test123();
+            Test123();
 
             return View();
         }
@@ -49,7 +49,8 @@ namespace GladiatorManagement.Controllers
         public void Test123()
         {
             ///PVP Test
-            //Player player = _playerService.GetCurrentPlayer();
+            Player player = _playerService.GetCurrentPlayer();
+            _playerService.RemoveGladiator(player.Gladiators[2]);
             //Player OpponentPlayer = _playerService.GetPlayer(2);
 
             //PlayerGladiator playerGladiate = player.Gladiators.FirstOrDefault();
