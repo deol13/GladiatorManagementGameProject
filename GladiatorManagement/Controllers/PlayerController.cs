@@ -64,19 +64,31 @@ namespace GladiatorManagement.Controllers
             return View(shopView);
         }
 
+        [HttpPost]
         public IActionResult Arena()
         {
-            //Lägg till i PlayerView vid "Shop" knappen en knapp för att "Go to arena"
-            //Här kan du välja PVE eller PVP
+            //ArenaModelView model = new ArenaModelView();
+            //model.GladiatorId = id;
+            //model.PlayerId = _playerService.GetCurrentPlayer().PlayerId;
+
+            //return PartialView("_ArenaPartialView", model);
             return PartialView("_ArenaPartialView");
         }
 
-        public IActionResult PVECombat()
+        [HttpPost]
+        public IActionResult PVECombat(int id)
         {
-            //Update player and gladiator after combat
+            PVEGladiatorViewModel info = new PVEGladiatorViewModel();
+            PlayerGladiator playersGladiator = _playerService.FindById(id);
+            PlayerGladiator opponent = _playerService.CreateOpponent(playersGladiator);
 
+            info.PlayerId = _playerService.GetCurrentPlayer().PlayerId;
+            info.GladiatorName = playersGladiator.Name;
+            info.OpponentName = opponent.Name;
 
-            return View(); //PartialView("_PVECombatViewModel", info);
+            info.CombatLog = _gameService.LaunchCombat(playersGladiator, opponent, false);
+
+            return PartialView("_PVECombatViewModel", info);
         }
 
         /*
@@ -89,10 +101,10 @@ namespace GladiatorManagement.Controllers
         //public IActionResult PVPCombat()
         //{
         //Lista av andra spelares gladiatorer, kanske använda Player actionen på något sätt?
-
+        //StartUp.cs => UserEndPoint ? för int playersGladiatorId, int enemyPlayersGladiatorId, Player enemyPlayer
+        //Eller om man kan spara det i steg, spara playersGladiatorId när man väljer arena, sen bara skicka in enemyPlayersGladiatorId och hämta Player enemyPlayer ut ifrån det
 
         //    return View(); //PartialView("_PVPCombatViewModel", info);
         //}
-
     }
 }

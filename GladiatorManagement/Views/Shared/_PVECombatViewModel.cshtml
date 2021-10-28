@@ -1,0 +1,33 @@
+﻿@model PVEGladiatorViewModel
+
+@{
+    ViewData["Title"] = "PVE";
+}
+
+<div id="enviroment-container">
+    @foreach (var item in Model.CombatLog)
+    {
+    <p id="CombatLog">
+        Gladiator
+        @if (@item.Hit == "Player")
+        {
+            @Model.GladiatorName
+        }
+        @if (@item.Hit == "Opponent")
+        {
+            @Model.OpponentName
+        }
+        won the roll!
+        <br />
+        @Model.GladiatorName Rolled: @item.PlayerRollResult (@item.PlayerRollDetails) And @Model.OpponentName Rolled: @item.OpponentRollResult (@item.OpponentRollDetails)
+        <br />
+        Damage Done: @item.DamageDone (@item.DamageDoneDetails)
+        <br />
+        @Model.GladiatorName health left: @item.PlayerHealthLeft    @Model.OpponentName health left: @item.OpponentHealthLeft
+        <br />
+        The winner is: @item.Winner
+        --------------------------------------------------------------------------------
+        <br />
+    </p>
+    }
+</div>

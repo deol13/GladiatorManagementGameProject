@@ -142,6 +142,7 @@ namespace GladiatorManagement.Models.Service
 
         public PlayerViewModel FindPlayerById(int id)
         {
+            PlayerViewModel playerVM = null;
             //Player player = _playerRepo.Read(id);
             Player player = null;
             if (CurrentPlayer != null)
@@ -150,11 +151,14 @@ namespace GladiatorManagement.Models.Service
 
             if(player == null)
                 player = _playerRepo.Read(id);
-            PlayerViewModel playerVM = new PlayerViewModel
+            if (player != null)
             {
-                Player = player,
-                Gladiators = player.Gladiators
-            };
+                playerVM = new PlayerViewModel
+                {
+                    Player = player,
+                    Gladiators = player.Gladiators
+                };
+            }
 
             return playerVM;
 
@@ -195,18 +199,7 @@ namespace GladiatorManagement.Models.Service
 
         public bool RemoveGladiator(PlayerGladiator playerGladiator)
         {
-            //for (int i = 0; i < CurrentPlayer.Gladiators.Count; i++)
-            //{
-            //    if (CurrentPlayer.Gladiators[i].Id == playerGladiator.Id)
-            //        CurrentPlayer.Gladiators.RemoveAt(i);
-            //}
-
-            ///Test
-            bool removed = _playerGladiatorRepo.Delete(playerGladiator);
-            Player tmp = CurrentPlayer;
-            return removed;
-
-            //return _playerGladiatorRepo.Delete(playerGladiator);
+            return _playerGladiatorRepo.Delete(playerGladiator);
         }
 
         public PlayerGladiator AddHealth(PlayerGladiator playerGladiator, int amount)
@@ -244,7 +237,17 @@ namespace GladiatorManagement.Models.Service
 
         public PlayerGladiator FindById(int id)
         {
+            for (int i = 0; i < CurrentPlayer.Gladiators.Count; i++)
+            {
+                if (CurrentPlayer.Gladiators[i].Id == id)
+                {
+                    return CurrentPlayer.Gladiators[i];
+                }
+            }
+
+
             PlayerGladiator gladiator = _playerGladiatorRepo.Read(id);
+            gladiator.Player = GetPlayer((int)gladiator.PlayerId);
             gladiator.Weapon = _weaponRepo.Read((int)gladiator.WeaponID);
             gladiator.Armor = _armorRepo.Read((int)gladiator.ArmorID);
 

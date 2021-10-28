@@ -11,7 +11,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
 
         //public void GetInventoryFromdatabase();
 
-        public void LaunchCombat(PlayerGladiator player, PlayerGladiator opponent, bool PvP);
+        public List<CombatInfo> LaunchCombat(PlayerGladiator player, PlayerGladiator opponent, bool PvP);
         public int HowMuchGoldWon(int lvl);
         public ShopInventory GenerateInventoryForAShop(ShopInventory inventory, int lvlOfGladiator, int nrOfGears);
 

@@ -1,5 +1,25 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Arena";
 }
+
+<button type="submit" asp-controller="Player" asp-action="PVECombat"
+        id="enterPve" data-target="viewContainer">
+    Enter PVE
+</button>
+
+<div id="enviroment-container">
+    <h2>Welcome to the Arena, input an gladiator id then choose a mode</h2>
+    <h4>PVE let's you fight against a random generated AI opponent</h4>
+    <h4>PVP let's you choose a gladiator of an enemy Player to fight against</h4>
+    <h4>If your gladiator loose, they will permanentily die.</h4>
+</div>
+
+<script>
+    $("#enterPve").click(function (e) {
+        e.preventDefault();
+        let id = $("#id").val();
+        $.post("Player/PVECombat/" + id, function (res) {
+            $("#viewContainer").html(res);
+        })
+    });
+</script>

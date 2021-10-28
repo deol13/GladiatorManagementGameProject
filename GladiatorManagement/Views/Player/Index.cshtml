@@ -6,7 +6,13 @@
         id="playerDetailsButton" data-target="viewContainer">
     Show Player
 </button>
+<button type="submit" asp-controller="Player" asp-action="Arena"
+        id="arenaButton" data-target="viewContainer">
+    Enter a gladiator Id to enter the Arena
+</button>
+<button type="reset" id="resetButton" data-target="viewContainer">Reset</button>
 <div id="viewContainer"></div>
+
 <script>
     $("#playerDetailsButton").click(function (e) {
         e.preventDefault();
@@ -15,6 +21,17 @@
             $("#viewContainer").html(res);
         });
     });
+    $("#arenaButton").click(function (e) {
+        e.preventDefault();
+        $.post("Player/Arena/", function (res) {
+            $("#viewContainer").html(res);
+        });
+    });
+    $("#resetButton").click(function (e) {
+        e.preventDefault();
+        $("#viewContainer").html("");
+    });
+
 </script>
 
 

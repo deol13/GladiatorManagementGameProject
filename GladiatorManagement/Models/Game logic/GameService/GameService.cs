@@ -25,8 +25,8 @@ namespace GladiatorManagement.Models.Game_logic.GameService
             _weaponRepo = weaponRepo;
         }
 
-        //Needs to be tweak and improved
-        public void LaunchCombat(PlayerGladiator player, PlayerGladiator opponent, bool PvP)
+        //Make a view model and return it, it contains listOfCombatDetails, player, gladiator and pvp?
+        public List<CombatInfo> LaunchCombat(PlayerGladiator player, PlayerGladiator opponent, bool PvP)
         {
             //Setup
             Combat combat = new Combat(player, opponent);
@@ -36,7 +36,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
             CombatInfo info = listOfCombatDetails.Last();
 
             //rig
-            info.Winner = "Player";
+            info.Winner = "Opponent";
 
             //Work in progress
             if (info.Winner == "Player")
@@ -51,6 +51,14 @@ namespace GladiatorManagement.Models.Game_logic.GameService
 
                 if (lvledUp)
                     GladLvledUp(player);
+
+                Player currPlayer = _playerService.GetCurrentPlayer();
+                for (int i = 0; i < currPlayer.Gladiators.Count; i++)
+                {
+                    if(player.Id == currPlayer.Gladiators[i].Id)
+                        currPlayer.Gladiators[i] = player;
+                }
+                //Kolla om player hos glad uppdaterades auto
             }
             else
             {
@@ -67,7 +75,10 @@ namespace GladiatorManagement.Models.Game_logic.GameService
                 }
 
                 RemoveFalledGladiatorsGear(player);
+                Player currPlayer = _playerService.GetCurrentPlayer(); //kolla om glad tas bort
             }
+
+            return listOfCombatDetails;
         }
 
         public void RemoveFalledGladiatorsGear(PlayerGladiator gladiator)
