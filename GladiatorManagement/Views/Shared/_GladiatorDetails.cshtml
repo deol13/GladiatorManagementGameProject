@@ -1,41 +1,73 @@
 ﻿@model GladiatorManagement.Models.PlayerGladiator
 
-
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <p>Name: @Model.Name</p>
-        </div>
-        <div class="col">
-            <p>Level: @Model.Level</p>
-        </div>
-        <div class="col">
-            <p>Experience: @Model.Experience</p>
-        </div>
-        <div class="col">
-            <p>Score: @Model.Score</p>
-        </div>
-        <div class="col">
-            <p>Strength: @Model.Strength</p>
-        </div>
-        <div class="col">
-            <p>Accuracy: @Model.Accuracy</p>
-        </div>
-        <div class="col">
-            <p>Health: @Model.Health</p>
-        </div>
-        <div class="col">
-            <p>Defence: @Model.Defence</p>
-        </div>
-        <div class="col">
-            <p>Armor: @Model.Armor.Name</p>
-        </div>
-        <div class="col">
-            <p>Weapon: @Model.Weapon.Name</p>
-        </div>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Return</a>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Experience)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Score)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Strength)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accuracy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Health)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Defence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Armor.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Weapon.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Level)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Experience)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Score)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Strength)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Accuracy)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Health)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Defence)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Armor.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Weapon.Name)
+            </td>
+        </tr>
+    </tbody>
+</table>
