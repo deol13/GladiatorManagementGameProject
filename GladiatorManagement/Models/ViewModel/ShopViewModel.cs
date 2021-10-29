@@ -8,9 +8,7 @@ namespace GladiatorManagement.Models.ViewModel
     public class ShopViewModel
     {
         public PlayerGladiator Gladiator { get; set; }
-        public Shop Shop { get; set; }
-
-        public ShopInventory Inventory { get; set; }
+        public ShopInventory Inventory { get; set; } = new ShopInventory();
 
     }
 }

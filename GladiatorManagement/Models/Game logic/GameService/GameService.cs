@@ -301,5 +301,13 @@ namespace GladiatorManagement.Models.Game_logic.GameService
         {
             return _weaponRepo.Read();
         }
+        public Weapon FindWeapon(int id)
+        {
+            return _weaponRepo.Read(id);
+        }
+        public Armor FindArmor(int id)
+        {
+            return _armorRepo.Read(id);
+        }
     }
 }

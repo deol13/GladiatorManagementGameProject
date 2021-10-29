@@ -6,82 +6,98 @@
         <h3 class="display-4">Welcome to the shop!</h3>
     </div>
 
-    <h5>Weapons</h5>
-    
+<h5>Weapons</h5>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            Name
+        </div>
+        <div class="col">
+            Price
+        </div>
+        <div class="col">
+            Details
+        </div>
+        <div class="col">
+            Buy
+        </div>
+    </div>
+</div>
+
+@foreach (Weapon w in Model.Inventory.WeaponsInShop)
+{
     <div class="container">
         <div class="row">
             <div class="col">
-                Name
+                @w.Name
             </div>
             <div class="col">
-                Price
+                @w.Cost
             </div>
             <div class="col">
-                Details
+                <a>Details</a>
             </div>
-            <div class="col">
-                Buy
-            </div>
+            <button type="submit" asp-controller="Player" asp-action="BuyWeapon"
+                    id="buyWeaponButton" data-target="viewContainer">
+                Buy Weapon
+            </button>
         </div>
     </div>
-    
-    @foreach (Weapon w in Model.Inventory.WeaponsInShop)
-    {
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    @w.Name
-                </div>
-                <div class="col">
-                    @w.Cost
-                </div>
-                <div class="col">
-                    <a>Details</a>
-                </div>
-                <div class="col">
-                    <a>Buy</a>
-                </div>
-            </div>
-        </div>
-    }
-    
-    
-    <h5>Armor</h5>
-    
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                Name
-            </div>
-            <div class="col">
-                Price
-            </div>
-            <div class="col">
-                Details
-            </div>
-            <div class="col">
-                Buy
-            </div>
-        </div>
-    </div>
-    
-    @foreach (Armor a in Model.Inventory.ArmorsInShop)
-    {
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    @a.Name
-                </div>
-                <div class="col">
-                    @a.Cost
-                </div>
-                <div class="col">
-                    <a>Details</a>
-                </div>
-                <div class="col">
-                    <a>Buy</a>
-                </div>
-            </div>
-        </div>
-    }
 }
+
+
+<h5>Armor</h5>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            Name
+        </div>
+        <div class="col">
+            Price
+        </div>
+        <div class="col">
+            Details
+        </div>
+        <div class="col">
+            Buy
+        </div>
+    </div>
+</div>
+
+@foreach (Armor a in Model.Inventory.ArmorsInShop)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                @a.Name
+            </div>
+            <div class="col">
+                @a.Cost
+            </div>
+            <div class="col">
+                <a>Details</a>
+            </div>
+            <div class="col">
+                <button type="submit" asp-controller="Player" asp-action="BuyArmor"
+                        id="buyArmorButton" data-target="viewContainer">
+                    Buy Amor
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<div id="viewContainer"></div>
+
+<script>
+    $("#buyWeaponButton").click(function (e) {
+        e.preventDefault();
+        let id = $("#id").val();
+        $.post("Player/BuyWeapon/" + id, function (res) {
+            $("#viewContainer").html(res);
+        });
+    });
+
+</script>
