@@ -315,5 +315,13 @@ namespace GladiatorManagement.Models.Service
         {
             CurrentPlayer = null;
         }
+        public PlayerGladiator CreateGladiator(CreateGladiatorViewModel createGladiatorViewModel)
+        {
+            PlayerGladiator gladiator = _playerGladiatorRepo.Create(CurrentPlayer, createGladiatorViewModel.Name, createGladiatorViewModel.Strength, createGladiatorViewModel.Accuracy, createGladiatorViewModel.Health, createGladiatorViewModel.Defence);
+            CurrentPlayer.Gladiators.Add(gladiator);
+            _playerRepo.Update(CurrentPlayer);
+
+            return gladiator;
+        }
     }
 }
