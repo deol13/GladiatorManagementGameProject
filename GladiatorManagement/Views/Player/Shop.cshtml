@@ -115,7 +115,7 @@
 
     function buyArmor(e) {
         let id = e;
-        var url = "Player/BuyWeapon/" + id;
+        var url = "Player/BuyArmor/" + id;
         $.post(url, function (res) {
             $("#Enviorment-container").html(res);
         });
