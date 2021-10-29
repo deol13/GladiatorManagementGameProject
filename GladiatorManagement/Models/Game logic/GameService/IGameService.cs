@@ -28,5 +28,8 @@ namespace GladiatorManagement.Models.Game_logic.GameService
         public List<Weapon> ReadAllWeapon();
 
         public void RemoveFalledGladiatorsGear(PlayerGladiator gladiator);
+
+        public Weapon FindWeapon(int id);
+        public Armor FindArmor(int id);
     }
 }

@@ -189,6 +189,12 @@ namespace GladiatorManagement.Models.Service
                     Player = player,
                     Gladiators = player.Gladiators
                 };
+                //CurrentPlayer = player;
+
+                //foreach (PlayerGladiator g in _playerGladiatorRepo.Read())
+                //{
+                //    if (g.PlayerId == id) player.Gladiators.Add(g);
+                //}
             }
 
             return playerVM;

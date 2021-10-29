@@ -36,9 +36,10 @@
             <div class="col">
                 <a>Details</a>
             </div>
-            <div class="col">
-                <a>Buy</a>
-            </div>
+            <button type="submit" asp-controller="Player" asp-action="BuyWeapon"
+                    id="buyWeaponButton" data-target="viewContainer">
+                Buy Weapon
+            </button>
         </div>
     </div>
 }
@@ -77,8 +78,24 @@
                 <a>Details</a>
             </div>
             <div class="col">
-                <a>Buy</a>
+                <button type="submit" asp-controller="Player" asp-action="BuyArmor"
+                        id="buyArmorButton" data-target="viewContainer">
+                    Buy Amor
+                </button>
             </div>
         </div>
     </div>
 }
+
+<div id="viewContainer"></div>
+
+<script>
+    $("#buyWeaponButton").click(function (e) {
+        e.preventDefault();
+        let id = $("#id").val();
+        $.post("Player/BuyWeapon/" + id, function (res) {
+            $("#viewContainer").html(res);
+        });
+    });
+
+</script>
