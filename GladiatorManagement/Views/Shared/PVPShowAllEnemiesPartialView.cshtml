@@ -1,0 +1,74 @@
+﻿@model PlayerViewModel
+
+<h4>Input which enemy gladiator you want to challenge!</h4>
+
+<button type="submit" asp-controller="Player" asp-action="PVPCombat"
+        id="beginPvp" data-target="viewContainer">
+    Enter PVP
+</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                ID
+            </th>
+            <th>
+                Level
+            </th>
+            <th>
+                Strength
+            </th>
+            <th>
+                Accuracy
+            </th>
+            <th>
+                Defence
+            </th>
+            <th>
+                Health
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Gladiators)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Strength)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Accuracy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Defence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Health)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $("#beginPvp").click(function (e) {
+        e.preventDefault();
+        let id = $("#id").val();
+        $.post("Player/PVPCombat/" + id, function (res) {
+            $("#viewContainer").html(res);
+        })
+    });
+</script>

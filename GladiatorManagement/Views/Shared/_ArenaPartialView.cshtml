@@ -7,6 +7,11 @@
     Enter PVE
 </button>
 
+<button type="submit" asp-controller="Player" asp-action="ShowAllEnemyPlayers"
+        id="enterPvp" data-target="viewContainer">
+    Enter PVP
+</button>
+
 <div id="enviroment-container">
     <h2>Welcome to the Arena, input an gladiator id then choose a mode</h2>
     <h4>PVE let's you fight against a random generated AI opponent</h4>
@@ -19,6 +24,13 @@
         e.preventDefault();
         let id = $("#id").val();
         $.post("Player/PVECombat/" + id, function (res) {
+            $("#viewContainer").html(res);
+        })
+    });
+    $("#enterPvp").click(function (e) {
+        e.preventDefault();
+        let id = $("#id").val();
+        $.post("Player/ShowAllEnemyPlayers/" + id, function (res) {
             $("#viewContainer").html(res);
         })
     });

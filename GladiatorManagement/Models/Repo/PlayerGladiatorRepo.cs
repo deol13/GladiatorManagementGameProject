@@ -62,6 +62,11 @@ namespace GladiatorManagement.Models.Repo
             return _appDbContext.PlayerGladiators.Where(g => g.PlayerId == id).ToList();
         }
 
+        public List<PlayerGladiator> ReadEnemyGlad(int id)
+        {
+            return _appDbContext.PlayerGladiators.Where(g => g.PlayerId != id).ToList();
+        }
+
         public PlayerGladiator Update(PlayerGladiator gladiator)
         {
             //PlayerGladiator glad = _appDbContext.PlayerGladiators.Find(gladiator.Id);

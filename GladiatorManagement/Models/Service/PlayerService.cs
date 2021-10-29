@@ -116,7 +116,17 @@ namespace GladiatorManagement.Models.Service
             //return _playerGladiatorRepo.Update(gladiator);
 
         }
-        
+
+        /// <summary>
+        /// Return all gladiators that doesn't belong to the playerId
+        /// </summary>
+        /// <param name="playerId"></param>
+        /// <returns></returns>
+        public List<PlayerGladiator> GetListOfEnemyGlad(int playerId)
+        {
+            return _playerGladiatorRepo.ReadEnemyGlad(playerId);
+        }
+
         //send in negative value for changeInGold if you want to decrease amount
         public Player EditAmountOfGold(Player player, int changeInGold)
         {
@@ -247,10 +257,12 @@ namespace GladiatorManagement.Models.Service
 
 
             PlayerGladiator gladiator = _playerGladiatorRepo.Read(id);
-            gladiator.Player = GetPlayer((int)gladiator.PlayerId);
-            gladiator.Weapon = _weaponRepo.Read((int)gladiator.WeaponID);
-            gladiator.Armor = _armorRepo.Read((int)gladiator.ArmorID);
-
+            if (gladiator != null)
+            {
+                gladiator.Player = GetPlayer((int)gladiator.PlayerId);
+                gladiator.Weapon = _weaponRepo.Read((int)gladiator.WeaponID);
+                gladiator.Armor = _armorRepo.Read((int)gladiator.ArmorID);
+            }
             return gladiator;
         }
 

@@ -19,6 +19,9 @@ namespace GladiatorManagement.Models.Service
         public PlayerGladiator CreateOpponent(PlayerGladiator playerGladiator);
 
         public PlayerGladiator UpdateGladiatorGear(PlayerGladiator gladiator, Gear gear);
+
+        public List<PlayerGladiator> GetListOfEnemyGlad(int gladiatorId);
+
         public Player EditAmountOfGold(Player player, int changeInGold);
 
         public Player EditScore(Player player, int changeInScore);

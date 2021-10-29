@@ -16,7 +16,7 @@ namespace GladiatorManagement.Controllers
         IPlayerService _playerService;
         IGameService _gameService;
         IGameRepo _gameRepo;
-
+        static int GladiatorId { get; set; }
          public PlayerController(IPlayerService playerService, IGameService gameService, IGameRepo gameRepo)
         {
             _playerService = playerService;
@@ -35,7 +35,7 @@ namespace GladiatorManagement.Controllers
             return PartialView("_PlayerView", player);
         }
 
-        [HttpPost]
+        //[HttpPost]
         public IActionResult GladiatorDetails(int id)
         {
             PlayerGladiator glad = null;
@@ -77,35 +77,81 @@ namespace GladiatorManagement.Controllers
         }
 
         [HttpPost]
+        public IActionResult ShowAllEnemyPlayers(int id)
+        {
+            bool exist = false;
+            Player currPlayer = _playerService.GetCurrentPlayer();
+
+            foreach (var item in currPlayer.Gladiators)
+            {
+                if (item.Id == id)
+                    exist = true;
+            }
+
+            if (exist)
+            {
+                GladiatorId = id;
+                List<PlayerGladiator> listOfenemyGlad = _playerService.GetListOfEnemyGlad(currPlayer.PlayerId);
+
+                PlayerViewModel player = new PlayerViewModel();
+                player.Player = currPlayer;
+                player.Gladiators = listOfenemyGlad;
+
+                return PartialView("PVPShowAllEnemiesPartialView", player);
+            }
+
+            return PartialView("_ArenaPartialView");
+        }
+
+        [HttpPost]
         public IActionResult PVECombat(int id)
         {
-            PVEGladiatorViewModel info = new PVEGladiatorViewModel();
             PlayerGladiator playersGladiator = _playerService.FindById(id);
-            PlayerGladiator opponent = _playerService.CreateOpponent(playersGladiator);
 
-            info.PlayerId = _playerService.GetCurrentPlayer().PlayerId;
-            info.GladiatorName = playersGladiator.Name;
-            info.OpponentName = opponent.Name;
+            if (playersGladiator != null)
+            {
+                PVEGladiatorViewModel info = new PVEGladiatorViewModel();
+                PlayerGladiator opponent = _playerService.CreateOpponent(playersGladiator);
 
-            info.CombatLog = _gameService.LaunchCombat(playersGladiator, opponent, false);
+                info.PlayerId = _playerService.GetCurrentPlayer().PlayerId;
+                info.GladiatorName = playersGladiator.Name;
+                info.OpponentName = opponent.Name;
 
-            return PartialView("_PVECombatViewModel", info);
+                info.CombatLog = _gameService.LaunchCombat(playersGladiator, opponent, false);
+
+                return PartialView("_PVECombatViewModel", info);
+            }
+
+            return PartialView("_ArenaPartialView");
         }
 
-        /*
-        public IActionResult ShowAllEnemyPlayers()
+       
+        public IActionResult PVPCombat(int id)
         {
-            return PartialView("");
+            PlayerGladiator opponent = _playerService.FindById(id);
+
+            if (opponent != null)
+            {
+                if (opponent.Id != GladiatorId)
+                {
+                    PVEGladiatorViewModel info = new PVEGladiatorViewModel();
+                    PlayerGladiator playersGladiator = _playerService.FindById(GladiatorId);
+
+                    info.PlayerId = _playerService.GetCurrentPlayer().PlayerId;
+                    info.GladiatorName = playersGladiator.Name;
+                    info.OpponentName = opponent.Name;
+
+                    info.CombatLog = _gameService.LaunchCombat(playersGladiator, opponent, true);
+
+                    return PartialView("_PVECombatViewModel", info);
+                }
+            }
+
+            return PartialView("_ArenaPartialView");
+
+            //Lista av andra spelares gladiatorer, kanske använda Player actionen på något sätt?
+            //StartUp.cs => UserEndPoint ? för int playersGladiatorId, int enemyPlayersGladiatorId, Player enemyPlayer
+            //Eller om man kan spara det i steg, spara playersGladiatorId när man väljer arena, sen bara skicka in enemyPlayersGladiatorId och hämta Player enemyPlayer ut ifrån det
         }
-        */
-
-        //public IActionResult PVPCombat()
-        //{
-        //Lista av andra spelares gladiatorer, kanske använda Player actionen på något sätt?
-        //StartUp.cs => UserEndPoint ? för int playersGladiatorId, int enemyPlayersGladiatorId, Player enemyPlayer
-        //Eller om man kan spara det i steg, spara playersGladiatorId när man väljer arena, sen bara skicka in enemyPlayersGladiatorId och hämta Player enemyPlayer ut ifrån det
-
-        //    return View(); //PartialView("_PVPCombatViewModel", info);
-        //}
     }
 }

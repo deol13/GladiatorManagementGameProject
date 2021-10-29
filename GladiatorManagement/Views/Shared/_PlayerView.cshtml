@@ -62,9 +62,7 @@
     </div>
     <div class="col">
         @*<a asp-action="GladiatorDetails" asp-route-id="@gladiator.Id">Details</a>*@
-        <button type="submit" asp-controller="Player" asp-action="PVECombat" id="showDetails" data-target="viewContainer" value="@gladiator.Id">
-            Show details
-        </button>
+        @Html.ActionLink("Details", "GladiatorDetails", new { id= gladiator.Id})
     </div>
     <div class="col">
         <a asp-action="Shop" asp-route-id="@gladiator.Id">Shop for @gladiator.Name</a>
@@ -74,13 +72,14 @@
 </div>
 }
 
-<script>
-    $("#showDetails").click(function (e) {
+@*<script>
+    let dude = $(".showDetails").click(function (e) {
         e.preventDefault();
-        let id = $("#showDetails").val();
+        //let id = $(".showDetails").val();
+        let id = dude.val()
         $.post("Player/GladiatorDetails/" + id, function (res) {
             $("#viewContainer").html(res);
         })
     });
-</script>
+</script>*@
 
