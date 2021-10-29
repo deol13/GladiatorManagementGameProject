@@ -62,11 +62,11 @@
     </div>
     <div class="col">
         @*<a asp-action="GladiatorDetails" asp-route-id="@gladiator.Id">Details</a>*@
-        @*@Html.ActionLink("Details", "GladiatorDetails", new { id= gladiator.Id})*@
-        <button type="submit" asp-controller="Player" asp-action="GladiatorDetails"
+        @Html.ActionLink("Details", "GladiatorDetails", new { id= gladiator.Id})
+        @*<button type="submit" asp-controller="Player" asp-action="GladiatorDetails"
                 class="showDetails" data-target="viewContainer">
             Details
-        </button>
+        </button>*@
     </div>
     <div class="col">
         <a asp-action="Shop" asp-route-id="@gladiator.Id">Shop for @gladiator.Name</a>

@@ -28,18 +28,22 @@ namespace GladiatorManagement.Models.Game_logic
         /// </summary>
         public static int[] XPToGive { get; set; }
 
+        public static int[] ScoreToGive { get; set; }
+
         public static void Setup()
         {
             rng = new Random();
             XpToLVl = new int[MaxLvl];
             GoldToGive = new int[MaxLvl];
             XPToGive = new int[MaxLvl];
+            ScoreToGive = new int[MaxLvl];
 
             for (int i = 0; i < MaxLvl; i++)
             {
                 XpToLVl[i] = 100*(i+1);
                 GoldToGive[i] = 15 * (i + 1);
-                XPToGive[i] = 105 * (i + 1);
+                XPToGive[i] = 15 * (i + 1);
+                ScoreToGive[i] = 5 * (i + 1);
             }
         }
 

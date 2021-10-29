@@ -35,7 +35,6 @@ namespace GladiatorManagement.Controllers
             _gameService.CheckDefaultGear();
             XPAndGoldFormula.Setup();
            
-
             return View();
         }
 

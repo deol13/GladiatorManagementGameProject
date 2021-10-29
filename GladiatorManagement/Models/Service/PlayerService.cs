@@ -68,7 +68,19 @@ namespace GladiatorManagement.Models.Service
             int health = rng.Next(minHealth, maxHealth);
             int defence = rng.Next(minDef, maxDef);
 
-            return _playerGladiatorRepo.Create(null, name, strength, accuracy, health, defence);
+            PlayerGladiator gladiator = new PlayerGladiator
+            {
+                Name = name,
+                Strength = strength,
+                Accuracy = accuracy,
+                Health = health,
+                Defence = defence,
+                Weapon = new Weapon("Fist", 0, 0, 0),
+                Armor = new Armor("Skin", 0, 0, 0)
+            };
+
+            return gladiator;
+            //return _playerGladiatorRepo.Create(null, name, strength, accuracy, health, defence);
         }
 
         public PlayerGladiator UpdateGladiatorGear(PlayerGladiator gladiator, Gear gear)

@@ -35,7 +35,6 @@ namespace GladiatorManagement.Controllers
             return PartialView("_PlayerView", player);
         }
 
-        //[HttpPost]
         public IActionResult GladiatorDetails(int id)
         {
             PlayerGladiator glad = null;
