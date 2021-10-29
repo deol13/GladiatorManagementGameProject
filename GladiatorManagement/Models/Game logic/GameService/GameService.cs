@@ -178,7 +178,7 @@ namespace GladiatorManagement.Models.Game_logic.GameService
             return succeeded;
         }
 
-        public ShopInventory FindShopInventory(int inventoryId, bool belongToAGladiator)
+        public ShopInventory FindShopInventory(int gladId, bool belongToAGladiator)
         {
             ShopInventory inv;
 
@@ -186,21 +186,21 @@ namespace GladiatorManagement.Models.Game_logic.GameService
             {
                 foreach (var item in Shop.Shops)
                 {
-                    if (item.GladiatorId == inventoryId)
+                    if (item.GladiatorId == gladId)
                         return item;
                 }
 
-                inv = _gameRepo.FindGladiatorsInventory(inventoryId);
+                inv = _gameRepo.FindGladiatorsInventory(gladId);
             }
             else
             {
                 foreach (var item in Shop.Shops)
                 {
-                    if (item.Id == inventoryId)
+                    if (item.Id == gladId)
                         return item;
                 }
 
-                inv = _gameRepo.FindShopInventory(inventoryId);
+                inv = _gameRepo.FindShopInventory(gladId);
             }
 
             inv.WeaponsInShop = _weaponRepo.ReadAllInventory(inv.Id);

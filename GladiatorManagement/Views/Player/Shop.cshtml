@@ -38,10 +38,13 @@
             <div class="col">
                 <a>Details</a>
             </div>
-            <button type="submit" asp-controller="Player" asp-action="BuyWeapon"
+            <div class="col">
+                <button onclick="buyWeapon(@w.Id)">But this weapon</button>
+                @*<button type="submit" asp-controller="Player" asp-action="BuyWeapon"
                     id="buyWeaponButton" data-target="viewContainer">
                 Buy Weapon
-            </button>
+                </button>*@
+            </div>
         </div>
     </div>
 }
@@ -80,24 +83,42 @@
                 <a>Details</a>
             </div>
             <div class="col">
-                <button type="submit" asp-controller="Player" asp-action="BuyArmor"
+                @*<button type="submit" asp-controller="Player" asp-action="BuyArmor"
                         id="buyArmorButton" data-target="viewContainer">
                     Buy Amor
-                </button>
+                </button>*@
+                <button onclick="buyArmor(@a.Id)">But his armor</button>
             </div>
         </div>
     </div>
 }
 
-<div id="viewContainer"></div>
-
+<div id="viewContainer2"></div>
+}
 <script>
-    $("#buyWeaponButton").click(function (e) {
-        e.preventDefault();
-        let id = $("#id").val();
-        $.post("Player/BuyWeapon/" + id, function (res) {
-            $("#viewContainer").html(res);
+    //$("#buyWeaponButton").click(function (e) {
+    //    e.preventDefault();
+    //    let id = $("#id").val();
+    //    $.post("Player/BuyWeapon/" + id, function (res) {
+    //        $("#viewContainer").html(res);
+    //    });
+    //});
+
+    function buyWeapon(e)
+    {
+        let id = e;
+        var url = "Player/BuyWeapon/" + id;
+        $.post(url, function (res) {
+            $("#Enviorment-container").html(res);
         });
-    });
+    }
+
+    function buyArmor(e) {
+        let id = e;
+        var url = "Player/BuyWeapon/" + id;
+        $.post(url, function (res) {
+            $("#Enviorment-container").html(res);
+        });
+    }
 
 </script>

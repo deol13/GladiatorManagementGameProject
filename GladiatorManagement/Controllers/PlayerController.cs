@@ -57,18 +57,34 @@ namespace GladiatorManagement.Controllers
             return PartialView("_GladiatorDetails", glad);
         }
 
+        [HttpPost]
         public IActionResult Shop(int id)
         {
             PlayerGladiator gladiator = _playerService.FindById(id);
-            ShopInventory inventory = _gameService.CreateAShop(gladiator.Level, id);
-            ShopViewModel shopView = new ShopViewModel()
+
+            if(gladiator.InventoryId > 0)
+            {
+                ShopInventory inventory = _gameService.FindShopInventory(id, true);
+                ShopViewModel shopView = new ShopViewModel()
+                {
+                    Gladiator = gladiator,
+                    Inventory = inventory
+                };
+
+                return View("Shop", shopView);
+            }
+
+            ShopInventory inventory2 = _gameService.CreateAShop(gladiator.Level, id);
+            gladiator.InventoryId = inventory2.Id;
+            _playerService.UpdateGladiator(gladiator);
+            ShopViewModel shopView1 = new ShopViewModel()
             {
                 Gladiator = gladiator,
-                Inventory = inventory
+                Inventory = inventory2
             };
             //ShopViewModel shopView = new ShopViewModel();
 
-            return View(shopView);
+            return PartialView(shopView1);
         }
 
         //public IActionResult BuyWeapon(ShopViewModel shopView)
@@ -92,9 +108,9 @@ namespace GladiatorManagement.Controllers
         //}
 
         [HttpPost]
-        public IActionResult BuyWeapon(int weaponId)
+        public IActionResult BuyWeapon(int id)
         {
-            Weapon weapon = _gameService.FindWeapon(weaponId);
+            Weapon weapon = _gameService.FindWeapon(id);
             ShopInventory inventory;
             PlayerGladiator gladiator;
 
@@ -105,11 +121,15 @@ namespace GladiatorManagement.Controllers
                 return Json(status + ": Could not buy weapon :(");
             }
 
-            inventory = _gameService.FindShopInventory((int)weapon.ShopInventoryId, true);
+            //If you send in true:   FindShopInventory will take the id parameter as a gladiator id
+            //and search the shopInventory database after a shopInvenotry which that gladiatorId
+            //If you send in false:  FindShopInventory will take the id parameter as a inventory id
+            //and search the shopInventory database after an inventory with that specific shopInventory id.
+            inventory = _gameService.FindShopInventory((int)weapon.ShopInventoryId, false);
 
             gladiator = _playerService.FindById(inventory.GladiatorId);
 
-            if (_gameService.BuyAPieceOfGear(inventory, gladiator, true, weaponId))
+            if (_gameService.BuyAPieceOfGear(inventory, gladiator, true, id))
             {
                 int status = Response.StatusCode = (int)HttpStatusCode.OK;
                 return Json(status + ": You have bought a weapon!");

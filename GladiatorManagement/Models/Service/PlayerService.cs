@@ -83,6 +83,11 @@ namespace GladiatorManagement.Models.Service
             //return _playerGladiatorRepo.Create(null, name, strength, accuracy, health, defence);
         }
 
+        public PlayerGladiator UpdateGladiator(PlayerGladiator gladiator)
+        {
+            return _playerGladiatorRepo.Update(gladiator);
+        }
+
         public PlayerGladiator UpdateGladiatorGear(PlayerGladiator gladiator, Gear gear)
         {
             if (gear is Armor)
