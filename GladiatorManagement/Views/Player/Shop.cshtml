@@ -1,84 +1,87 @@
 ﻿@model ShopViewModel
 
-<div class="text-center">
-    <h3 class="display-4">Welcome to the shop!</h3>
-</div>
-
-<h5>Weapons</h5>
-
-<div class="container">
-    <div class="row">
-        <div class="col">
-            Name
-        </div>
-        <div class="col">
-            Price
-        </div>
-        <div class="col">
-            Details
-        </div>
-        <div class="col">
-            Buy
-        </div>
-    </div>
-</div>
-
-@foreach (Weapon w in Model.Inventory.WeaponsInShop)
+@if (User.IsInRole("Admin") || User.IsInRole("User"))
 {
+    <div class="text-center">
+        <h3 class="display-4">Welcome to the shop!</h3>
+    </div>
+
+    <h5>Weapons</h5>
+    
     <div class="container">
         <div class="row">
             <div class="col">
-                @w.Name
+                Name
             </div>
             <div class="col">
-                @w.Cost
+                Price
             </div>
             <div class="col">
-                <a>Details</a>
+                Details
             </div>
             <div class="col">
-                <a>Buy</a>
+                Buy
             </div>
         </div>
     </div>
-}
-
-
-<h5>Armor</h5>
-
-<div class="container">
-    <div class="row">
-        <div class="col">
-            Name
+    
+    @foreach (Weapon w in Model.Inventory.WeaponsInShop)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    @w.Name
+                </div>
+                <div class="col">
+                    @w.Cost
+                </div>
+                <div class="col">
+                    <a>Details</a>
+                </div>
+                <div class="col">
+                    <a>Buy</a>
+                </div>
+            </div>
         </div>
-        <div class="col">
-            Price
-        </div>
-        <div class="col">
-            Details
-        </div>
-        <div class="col">
-            Buy
-        </div>
-    </div>
-</div>
-
-@foreach (Armor a in Model.Inventory.ArmorsInShop)
-{
+    }
+    
+    
+    <h5>Armor</h5>
+    
     <div class="container">
         <div class="row">
             <div class="col">
-                @a.Name
+                Name
             </div>
             <div class="col">
-                @a.Cost
+                Price
             </div>
             <div class="col">
-                <a>Details</a>
+                Details
             </div>
             <div class="col">
-                <a>Buy</a>
+                Buy
             </div>
         </div>
     </div>
+    
+    @foreach (Armor a in Model.Inventory.ArmorsInShop)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    @a.Name
+                </div>
+                <div class="col">
+                    @a.Cost
+                </div>
+                <div class="col">
+                    <a>Details</a>
+                </div>
+                <div class="col">
+                    <a>Buy</a>
+                </div>
+            </div>
+        </div>
+    }
 }

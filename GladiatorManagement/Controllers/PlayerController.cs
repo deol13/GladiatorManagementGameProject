@@ -8,9 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GladiatorManagement.Controllers
 {
+    [Authorize(Roles = "Admin, User")]
     public class PlayerController : Controller
     {
         IPlayerService _playerService;
@@ -35,6 +37,9 @@ namespace GladiatorManagement.Controllers
             return PartialView("_PlayerView", player);
         }
 
+        ///Because in Setup->Endpoints->pattern the paramter is called id, we have to call it id in the action
+        ///that wants to use that pattern.
+        [HttpPost]
         public IActionResult GladiatorDetails(int id)
         {
             PlayerGladiator glad = null;

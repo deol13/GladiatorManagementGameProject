@@ -49,7 +49,8 @@ namespace GladiatorManagement.Controllers
         {
             ///PVP Test
             //Player player = _playerService.GetCurrentPlayer();
-            //_playerService.CreateDefaultGladiator(player, "MatGlad");
+            //_playerService.CreateDefaultGladiator(player, "terminal5");
+            //_playerService.CreateDefaultGladiator(player, "terminal6");
             //Player OpponentPlayer = _playerService.GetPlayer(2);
 
             //PlayerGladiator playerGladiate = player.Gladiators.FirstOrDefault();

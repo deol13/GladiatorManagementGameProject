@@ -1,88 +1,86 @@
 ﻿@model PlayerViewModel
 
-@if (@Model != null)
+@if (User.IsInRole("Admin") || User.IsInRole("User"))
 {
-<h3>Player info</h3>
-
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <p>Name<p>
-        </div>
-        <div class="col">
-            <p>Score</p>
-        </div>
-        <div class="col">
-            <p>Gold</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <p>@Model.Player.Name<p>
-        </div>
-        <div class="col">
-            <p>@Model.Player.Score</p>
-        </div>
-        <div class="col">
-            <p>@Model.Player.Gold</p>
-        </div>
-    </div>
-</div>
-
-<h3>Gladiators</h3>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <p>Name</p>
-        </div>
-        <div class="col">
-            <p>ID</p>
-        </div>
-        <div class="col">
-            <p>Level</p>
-        </div>
-        <div class="col">
-            <p>Details</p>
-        </div>
-        <div class="col">
-            <p>Shop</p>
-        </div>
-    </div>
-    @foreach (PlayerGladiator gladiator in Model.Player.Gladiators)
+    @if (@Model != null)
     {
-<div class="row">
-    <div class="col">
-        <p>@gladiator.Name</p>
-    </div>
-    <div class="col">
-        <p>@gladiator.Id</p>
-    </div>
-    <div class="col">
-        <p>@gladiator.Level</p>
-    </div>
-    <div class="col">
-        @*<a asp-action="GladiatorDetails" asp-route-id="@gladiator.Id">Details</a>*@
-        @Html.ActionLink("Details", "GladiatorDetails", new { id= gladiator.Id})
-        @*<button type="submit" asp-controller="Player" asp-action="GladiatorDetails"
-                class="showDetails" data-target="viewContainer">
-            Details
-        </button>*@
-    </div>
-    <div class="col">
-        <a asp-action="Shop" asp-route-id="@gladiator.Id">Shop for @gladiator.Name</a>
-    </div>
-</div>
-    }
-</div>
-}
+        <h3>Player info</h3>
 
-<script>
-    $(".showDetails").click(function (e) {
-        e.preventDefault();
-        let id = $(".showDetails").val();
-        $.post("Player/GladiatorDetails/" + id, function (res) {
-            $("#viewContainer").html(res);
-        })
-    });
-</script>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p>Name<p>
+                </div>
+                <div class="col">
+                    <p>Score</p>
+                </div>
+                <div class="col">
+                    <p>Gold</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>@Model.Player.Name<p>
+                </div>
+                <div class="col">
+                    <p>@Model.Player.Score</p>
+                </div>
+                <div class="col">
+                    <p>@Model.Player.Gold</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>Gladiators</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p>Name</p>
+                </div>
+                <div class="col">
+                    <p>ID</p>
+                </div>
+                <div class="col">
+                    <p>Level</p>
+                </div>
+                <div class="col">
+                    <p>Details</p>
+                </div>
+                <div class="col">
+                    <p>Shop</p>
+                </div>
+            </div>
+            @foreach (PlayerGladiator gladiator in Model.Player.Gladiators)
+            {
+                <div class="row">
+                    <div class="col">
+                        <p>@gladiator.Name</p>
+                    </div>
+                    <div class="col">
+                        <p>@gladiator.Id</p>
+                    </div>
+                    <div class="col">
+                        <p>@gladiator.Level</p>
+                    </div>
+                    <div class="col">
+                        <button onclick="showDetails(@gladiator.Id)">Details</button>
+                    </div>
+                    <div class="col">
+                        <a asp-action="Shop" asp-route-id="@gladiator.Id">Shop for @gladiator.Name</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}
+    <script>
+        function showDetails(e)
+        {
+            let id = e;
+            var url = "Player/GladiatorDetails/" + id;
+            $.post(url, function (res) {
+                $("#viewContainer").html(res);
+            });
+        }
+    </script>
 
