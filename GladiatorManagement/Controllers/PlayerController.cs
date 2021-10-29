@@ -107,5 +107,34 @@ namespace GladiatorManagement.Controllers
 
         //    return View(); //PartialView("_PVPCombatViewModel", info);
         //}
+        [HttpPost]
+        public IActionResult Create(CreateGladiatorViewModel createGladiatorViewModel)
+        {
+            _playerService.CreateGladiator(createGladiatorViewModel);
+            return RedirectToAction("Index");
+        }
+        public IActionResult AddPoint(CreateGladiatorViewModel vm)
+        {
+            if (vm.AvailablePoints > 0)
+            {
+                switch (vm.ChosenStat)
+                {
+                    case "Strength":
+                        vm.Strength++;
+                        break;
+                    case "Defence":
+                        vm.Defence++;
+                        break;
+                    case "Accuracy":
+                        vm.Accuracy++;
+                        break;
+                    case "Health":
+                        vm.Health++;
+                        break;
+                }
+                vm.AvailablePoints--;
+            }
+            return View(vm);
+        }
     }
 }

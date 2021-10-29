@@ -42,6 +42,6 @@ namespace GladiatorManagement.Models.Service
         public PlayerGladiator FindById(int id);
         public void LoggedOut();
 
-
+        public PlayerGladiator CreateGladiator(CreateGladiatorViewModel createGladiatorViewModel);
     }
 }

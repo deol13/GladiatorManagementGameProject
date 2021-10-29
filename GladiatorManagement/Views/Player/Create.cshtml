@@ -1,0 +1,43 @@
+﻿
+@model CreateGladiatorViewModel
+<h2>Choose stats for your gladiator</h2>
+
+Available points: @Model.AvailablePoints
+
+Strength:   @Model.Strength
+Defence:    @Model.Defence
+Accuracy:   @Model.Accuracy
+Health:     @Model.Health
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Strength</th>
+            <th>Defence</th>
+            <th>Accuracy</th>
+            <th>Health</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<form asp-action="AddStat">
+    <label asp-for"ChosenStat">Attack</label>
+    <input asp-for="ChosenStat" type="radio" value="Attack" />
+    <label asp-for"ChosenStat">Defence</label>
+    <input asp-for="ChosenStat" type="radio" value="Defence" />
+    <label asp-for"ChosenStat">Accuracy</label>
+    <input asp-for="ChosenStat" type="radio" value="Accuracy" />
+    <label asp-for"ChosenStat">Health</label>
+    <input asp-for="ChosenStat" type="radio" value="Health" />
+    <button type="submit">Add</button>
+</form>
+
+Name your new gladiator:
+
+<form asp-action="Create" method="post">
+    <input asp-for="@Model.Name" />
+    <button type="submit">Create</button>
+</form>
