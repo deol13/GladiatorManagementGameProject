@@ -10,6 +10,10 @@
         id="arenaButton" data-target="viewContainer">
     Enter a gladiator Id to enter the Arena
 </button>
+<button type="submit" asp-controller="Player" asp-action="HighScore"
+        id="highScoreButton" data-target="viewContainer">
+    Show High Score
+</button>
 <button type="reset" id="resetButton" data-target="viewContainer">Reset</button>
 <div id="viewContainer"></div>
 
@@ -24,6 +28,12 @@
     $("#arenaButton").click(function (e) {
         e.preventDefault();
         $.post("Player/Arena/", function (res) {
+            $("#viewContainer").html(res);
+        });
+    });
+    $("#highScoreButton").click(function (e) {
+        e.preventDefault();
+        $.get("Player/HighScore/", function (res) {
             $("#viewContainer").html(res);
         });
     });

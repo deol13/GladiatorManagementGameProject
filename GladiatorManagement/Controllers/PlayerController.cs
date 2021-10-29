@@ -68,11 +68,6 @@ namespace GladiatorManagement.Controllers
         [HttpPost]
         public IActionResult Arena()
         {
-            //ArenaModelView model = new ArenaModelView();
-            //model.GladiatorId = id;
-            //model.PlayerId = _playerService.GetCurrentPlayer().PlayerId;
-
-            //return PartialView("_ArenaPartialView", model);
             return PartialView("_ArenaPartialView");
         }
 
@@ -148,10 +143,14 @@ namespace GladiatorManagement.Controllers
             }
 
             return PartialView("_ArenaPartialView");
+        }
 
-            //Lista av andra spelares gladiatorer, kanske använda Player actionen på något sätt?
-            //StartUp.cs => UserEndPoint ? för int playersGladiatorId, int enemyPlayersGladiatorId, Player enemyPlayer
-            //Eller om man kan spara det i steg, spara playersGladiatorId när man väljer arena, sen bara skicka in enemyPlayersGladiatorId och hämta Player enemyPlayer ut ifrån det
+        [HttpGet]
+        public IActionResult HighScore()
+        {
+            HighScoreViewModel highScore = _playerService.GetHighScore();
+
+            return PartialView("_HighScorePartialView", highScore);
         }
     }
 }

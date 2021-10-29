@@ -9,8 +9,6 @@ namespace GladiatorManagement.Models.Game_logic.GameService
     {
         public static Shop Shop { get; set; }
 
-        //public void GetInventoryFromdatabase();
-
         public List<CombatInfo> LaunchCombat(PlayerGladiator player, PlayerGladiator opponent, bool PvP);
         public int HowMuchGoldWon(int lvl);
         public ShopInventory GenerateInventoryForAShop(ShopInventory inventory, int lvlOfGladiator, int nrOfGears);
@@ -22,7 +20,6 @@ namespace GladiatorManagement.Models.Game_logic.GameService
         public ShopInventory FindShopInventory(int id, bool belongToAGladiator);
 
         public ShopInventory GladLvledUp(PlayerGladiator glad);
-        //public ShopInventory FindGladiatorsInventory(int id);
 
         public bool BuyAPieceOfGear(ShopInventory inventory, PlayerGladiator playersGladiator, bool weapon, int idOfItem);
         public void CheckDefaultGear();

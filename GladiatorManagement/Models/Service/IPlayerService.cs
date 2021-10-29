@@ -22,9 +22,11 @@ namespace GladiatorManagement.Models.Service
 
         public List<PlayerGladiator> GetListOfEnemyGlad(int gladiatorId);
 
+        public HighScoreViewModel GetHighScore();
+
         public Player EditAmountOfGold(Player player, int changeInGold);
 
-        public Player EditScore(Player player, int changeInScore);
+        public PlayerGladiator EditScore(ref Player player,  PlayerGladiator glad, int changeInScore);
         public PlayerGladiator LevelUp(PlayerGladiator playerGladiator, ref bool lvledUp);
 
         public bool CanLevelUp(PlayerGladiator gladiator);
@@ -46,5 +48,7 @@ namespace GladiatorManagement.Models.Service
         public void LoggedOut();
 
         public PlayerGladiator CreateGladiator(CreateGladiatorViewModel createGladiatorViewModel);
+
+
     }
 }

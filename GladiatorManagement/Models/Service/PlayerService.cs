@@ -99,22 +99,6 @@ namespace GladiatorManagement.Models.Service
             }
 
             return gladiator;
-
-            //if (gear is Armor)
-            //{
-            //    _armorRepo.Delete(gladiator.Armor);
-            //    gladiator.Armor = (Armor)gear;
-            //    gladiator.ArmorID = gear.Id;
-            //}
-            //else if (gear is Weapon)
-            //{
-            //    _weaponRepo.Delete(gladiator.Weapon);
-            //    gladiator.Weapon = (Weapon)gear;
-            //    gladiator.WeaponID = gear.Id;
-            //}
-
-            //return _playerGladiatorRepo.Update(gladiator);
-
         }
 
         /// <summary>
@@ -125,6 +109,29 @@ namespace GladiatorManagement.Models.Service
         public List<PlayerGladiator> GetListOfEnemyGlad(int playerId)
         {
             return _playerGladiatorRepo.ReadEnemyGlad(playerId);
+        }
+
+        public HighScoreViewModel GetHighScore()
+        {
+            List<Player> listOfPlayers = _playerRepo.Read();
+            List<PlayerGladiator> listOfGlad = _playerGladiatorRepo.Read();
+
+            HighScoreViewModel highScore = new HighScoreViewModel();
+            foreach (var item in listOfPlayers)
+            {
+                PlayerHighScore playerHigh = new PlayerHighScore(item.Score, item.Name);
+                highScore.PlayerHighScoreList.Add(playerHigh);
+            }
+            foreach (var item in listOfGlad)
+            {
+                GladHighScore gladHigh = new GladHighScore(item.Score, item.Name, item.Player.Name);
+                highScore.GladHighScoreList.Add(gladHigh);
+            }
+
+            highScore.PlayerHighScoreList = highScore.PlayerHighScoreList.OrderByDescending(p => p.PlayerScore).ToList();
+            highScore.GladHighScoreList = highScore.GladHighScoreList.OrderByDescending(g => g.GladScore).ToList();
+
+            return highScore;
         }
 
         //send in negative value for changeInGold if you want to decrease amount
@@ -139,21 +146,23 @@ namespace GladiatorManagement.Models.Service
             return player;
         }
 
-        public Player EditScore(Player player, int changeInScore)
+        public PlayerGladiator EditScore(ref Player player, PlayerGladiator glad, int changeInScore)
         {
+            glad.Score += changeInScore;
             player.Score += changeInScore;
-            player =  _playerRepo.Update(player);
+
+            player = _playerRepo.Update(player);
+            glad = _playerGladiatorRepo.Update(glad);
 
             if (player.PlayerId == CurrentPlayer.PlayerId)
                 CurrentPlayer.Score = player.Score;
 
-            return player;
+            return glad;
         }
 
         public PlayerViewModel FindPlayerById(int id)
         {
             PlayerViewModel playerVM = null;
-            //Player player = _playerRepo.Read(id);
             Player player = null;
             if (CurrentPlayer != null)
                 if(CurrentPlayer.PlayerId == id || id == 0)
@@ -192,6 +201,7 @@ namespace GladiatorManagement.Models.Service
                 {
                     CurrentPlayer.Gladiators[i].Level = playerGladiator.Level;
                     CurrentPlayer.Gladiators[i].Experience = playerGladiator.Experience;
+                    CurrentPlayer.Gladiators[i].Score = playerGladiator.Score;
                 }
             }
             
