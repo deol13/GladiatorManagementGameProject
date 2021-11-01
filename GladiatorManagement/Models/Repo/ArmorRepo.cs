@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GladiatorManagement.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace GladiatorManagement.Models.Repo
 {
@@ -71,5 +72,17 @@ namespace GladiatorManagement.Models.Repo
             return _appDbContext.Armors.AsNoTracking().Where(a => a.ShopInventoryId == inventoryId).ToList();
         }
 
+        public Armor Update(Armor armor)
+        {
+            EntityEntry ee = _appDbContext.Entry(armor);
+
+            if (ee.State == Microsoft.EntityFrameworkCore.EntityState.Detached)
+                _appDbContext.Armors.Update(armor);
+
+            int changes = _appDbContext.SaveChanges();
+            ee.State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+
+            return armor;
+        }
     }
 }

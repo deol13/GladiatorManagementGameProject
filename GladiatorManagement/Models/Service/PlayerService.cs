@@ -95,8 +95,8 @@ namespace GladiatorManagement.Models.Service
                 Armor deletThis = gladiator.Armor;
                 gladiator.Armor = (Armor)gear;
                 gladiator.ArmorID = gear.Id;
+     
                 gladiator = _playerGladiatorRepo.Update(gladiator);
-
                 _armorRepo.Delete(deletThis);
             }
             else if (gear is Weapon)
@@ -104,8 +104,8 @@ namespace GladiatorManagement.Models.Service
                 Weapon deletThis = gladiator.Weapon;
                 gladiator.Weapon = (Weapon)gear;
                 gladiator.WeaponID = gear.Id;
-                gladiator = _playerGladiatorRepo.Update(gladiator);
 
+                gladiator = _playerGladiatorRepo.Update(gladiator);
                 _weaponRepo.Delete(deletThis);
             }
 

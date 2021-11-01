@@ -8,91 +8,78 @@
 
     <h5>Weapons</h5>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                Name
-            </div>
-            <div class="col">
-                Price
-            </div>
-            <div class="col">
-                Details
-            </div>
-            <div class="col">
-                Buy
-            </div>
-        </div>
-    </div>
-
-    @for (int i = 0; i < Model.Inventory.WeaponsInShop.Count; i++)
-    {
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    @Model.Inventory.WeaponsInShop[i].Name
-                </div>
-                <div class="col">
-                    @Model.Inventory.WeaponsInShop[i].Cost
-                </div>
-                <div class="col">
-                    <a>Details</a>
-                </div>
-                <div class="col">
-                    <button onclick="buyWeapon(@i)">Buy this weapon</button>
-                </div>
-            </div>
-        </div>
-    }
-
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Buy
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Inventory.WeaponsInShop.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Model.Inventory.WeaponsInShop[i].Name
+                    </td>
+                    <td>
+                        @Model.Inventory.WeaponsInShop[i].Cost
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" onclick="buyWeapon(@i)">Buy this weapon</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
     <h5>Armor</h5>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                Name
-            </div>
-            <div class="col">
-                Price
-            </div>
-            <div class="col">
-                Details
-            </div>
-            <div class="col">
-                Buy
-            </div>
-        </div>
-    </div>
-
-    @for (int i = 0; i < Model.Inventory.ArmorsInShop.Count; i++)
-        {
-            <div class="container">
-                <div class="row">
-                    <div class="col">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Buy
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Inventory.WeaponsInShop.Count; i++)
+            {
+                <tr>
+                    <td>
                         @Model.Inventory.ArmorsInShop[i].Name
-                    </div>
-                    <div class="col">
-                        @@Model.Inventory.ArmorsInShop[i].Cost
-                    </div>
-                    <div class="col">
-                        <a>Details</a>
-                    </div>
-                    <div class="col">
-                        <button onclick="buyArmor(@i)">Buy this armor</button>
-                    </div>
-                </div>
-            </div>
-        }
-
-    <div id="viewContainer2"></div>
+                    </td>
+                    <td>
+                        @Model.Inventory.ArmorsInShop[i].Cost
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" onclick="buyArmor(@i)">Buy this armor</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 <script>
     function buyWeapon(e) {
         let id = e;
         var url = "Player/BuyWeapon/" + id;
         $.post(url, function (res) {
-            $("#Enviorment-container").html(res);
+            $("#viewContainer").html(res);
         });
     }
 
@@ -100,7 +87,7 @@
         let id = e;
         var url = "Player/BuyArmor/" + id;
         $.post(url, function (res) {
-            $("#Enviorment-container").html(res);
+            $("#viewContainer").html(res);
         });
     }
 

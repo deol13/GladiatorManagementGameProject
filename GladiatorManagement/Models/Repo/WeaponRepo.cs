@@ -70,5 +70,18 @@ namespace GladiatorManagement.Models.Repo
         {
             return _appDbContext.Weapons.AsNoTracking().Where(a => a.ShopInventoryId == inventoryId).ToList();
         }
+
+        public Weapon Update(Weapon weapon)
+        {
+            EntityEntry ee = _appDbContext.Entry(weapon);
+
+            if (ee.State == Microsoft.EntityFrameworkCore.EntityState.Detached)
+                _appDbContext.Weapons.Update(weapon);
+
+            int changes = _appDbContext.SaveChanges();
+            ee.State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+
+            return weapon;
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 @if (User.IsInRole("Admin") || User.IsInRole("User"))
 {
+<p>The number in parentheses after each attribute is the addition from weapon/armor </p>
     <table class="table">
         <thead>
             <tr>
@@ -53,16 +54,16 @@
                     @Html.DisplayFor(model => model.Score)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => model.Strength)
+                    @Html.DisplayFor(model => model.Strength) + (@Model.Weapon.Strength)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => model.Accuracy)
+                    @Html.DisplayFor(model => model.Accuracy) + (@Model.Weapon.Accuracy)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => model.Health)
+                    @Html.DisplayFor(model => model.Health) + (@Model.Armor.Health)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => model.Defence)
+                    @Html.DisplayFor(model => model.Defence) + (@Model.Armor.Defence)
                 </td>
                 <td>
                     @Html.DisplayFor(model => model.Armor.Name)

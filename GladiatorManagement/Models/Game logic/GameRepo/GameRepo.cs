@@ -1,4 +1,5 @@
 ﻿using GladiatorManagement.Data;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,8 +54,12 @@ namespace GladiatorManagement.Models.Game_logic.GameRepo
 
         public ShopInventory Update(ShopInventory shopInventory)
         {
+            EntityEntry ee = _appDbContext.Entry(shopInventory);
+            if (ee.State == Microsoft.EntityFrameworkCore.EntityState.Detached)
+                _appDbContext.Update(shopInventory);
+
             //_appDbContext.ShopInventories.Update(shopInventory);
-            _appDbContext.SaveChanges();
+            int changes = _appDbContext.SaveChanges();
 
             return shopInventory;
         }

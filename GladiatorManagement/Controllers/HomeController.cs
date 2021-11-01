@@ -38,50 +38,12 @@ namespace GladiatorManagement.Controllers
             return View();
         }
 
-        public IActionResult Test()
+        public void Test24()
         {
-            //Test123();
-
-            return View();
-        }
-
-        public void Test123()
-        {
-            ///PVP Test
             //Player player = _playerService.GetCurrentPlayer();
             //_playerService.CreateDefaultGladiator(player, "terminal5");
             //_playerService.CreateDefaultGladiator(player, "terminal6");
             //Player OpponentPlayer = _playerService.GetPlayer(2);
-
-            //PlayerGladiator playerGladiate = player.Gladiators.FirstOrDefault();
-            //_playerService.CreateDefaultGladiator(player, "Hars1");
-            //PlayerGladiator opponent = OpponentPlayer.Gladiators.FirstOrDefault();
-
-            //PlayerGladiator opponent = _playerService.CreateOpponent(playerGladiate);
-
-            //_gameService.LaunchCombat(playerGladiate, opponent, true);
-
-
-
-            ///Everything else test
-            //Player player = _playerService.GetCurrentPlayer();
-
-            //PlayerGladiator playerGladiate = _playerService.CreateDefaultGladiator(player, "Hars1");
-            //PlayerGladiator playerGladiate = player.Gladiators.FirstOrDefault();
-
-            //ShopInventory inventory = _gameService.FindShopInventory(playerGladiate.Id, true);
-
-            //ShopInventory inventory2 = _gameService.CreateAShop(playerGladiate.Level, playerGladiate.Id);
-            //playerGladiate.InventoryId = inventory2.Id;
-
-            //bool succeeded = _gameService.BuyAPieceOfGear(inventory, playerGladiate, true, 0);
-            //bool succeeded2 = _gameService.BuyAPieceOfGear(inventory, playerGladiate, false, 0);
-
-            //_gameService.RemoveShopInventory(inventory.Id);
-
-            //PlayerGladiator opponent = _playerService.CreateOpponent(playerGladiate);
-
-            //_gameService.LaunchCombat(playerGladiate, opponent, false);
         }
 
 

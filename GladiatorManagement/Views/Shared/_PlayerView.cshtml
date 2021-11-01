@@ -6,89 +6,96 @@
     {
         <h3>Player info</h3>
 
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <p>Name<p>
-                </div>
-                <div class="col">
-                    <p>Score</p>
-                </div>
-                <div class="col">
-                    <p>Gold</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>@Model.Player.Name<p>
-                </div>
-                <div class="col">
-                    <p>@Model.Player.Score</p>
-                </div>
-                <div class="col">
-                    <p>@Model.Player.Gold</p>
-                </div>
-            </div>
-        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Score
+                    </th>
+                    <th>
+                        Gold
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Model.Player.Name
+                    </td>
+                    <td>
+                        @Model.Player.Score
+                    </td>
+                    <td>
+                        @Model.Player.Gold
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
         <h3>Gladiators</h3>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <p>Name</p>
-                </div>
-                <div class="col">
-                    <p>ID</p>
-                </div>
-                <div class="col">
-                    <p>Level</p>
-                </div>
-                <div class="col">
-                    <p>Details</p>
-                </div>
-                <div class="col">
-                    <p>Shop</p>
-                </div>
-            </div>
-            @foreach (PlayerGladiator gladiator in Model.Player.Gladiators)
-            {
-                <div class="row">
-                    <div class="col">
-                        <p>@gladiator.Name</p>
-                    </div>
-                    <div class="col">
-                        <p>@gladiator.Id</p>
-                    </div>
-                    <div class="col">
-                        <p>@gladiator.Level</p>
-                    </div>
-                    <div class="col">
-                        <button onclick="showDetails(@gladiator.Id)" class="btn-primary">Details</button>
-                    </div>
-                    <div class="col">
-                        @*<a asp-action="Shop" asp-route-id="@gladiator.Id">Shop for @gladiator.Name</a>*@
-                        <button onclick="EnterShop(@gladiator.Id)" class="btn-primary">Shop</button>
-                    </div>
-                </div>
-            }
-        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Level
+                    </th>
+                    <th>
+                        Details
+                    </th>
+                    <th>
+                        Shop
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (PlayerGladiator gladiator in Model.Player.Gladiators)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => gladiator.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => gladiator.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => gladiator.Level)
+                        </td>
+                        <td>
+                            <button onclick="showDetails(@gladiator.Id)" class="btn btn-primary">Details</button>
+                        </td>
+                        <td>
+                            <button onclick="EnterShop(@gladiator.Id)" class="btn btn-primary">Shop</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>        
     }
 }
-    <script>
-        function showDetails(e)
-        {
-            let id = e;
-            var url = "Player/GladiatorDetails/" + id;
-            $.post(url, function (res) {
-                $("#viewContainer").html(res);
-            });
-        }
-        function EnterShop(e) {
-            let id = e;
-            var url = "Player/Shop/" + id;
-            $.post(url, function (res) {
-                $("#viewContainer").html(res);
-            });
-        }
-    </script>
+<script>
+    function showDetails(e) {
+        let id = e;
+        var url = "Player/GladiatorDetails/" + id;
+        $.post(url, function (res) {
+            $("#viewContainer").html(res);
+        });
+    }
+    function EnterShop(e) {
+        let id = e;
+        var url = "Player/Shop/" + id;
+        $.post(url, function (res) {
+            $("#viewContainer").html(res);
+        });
+    }
+</script>
 

@@ -1,26 +1,37 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Game Page";
+}
+
 @if (User.IsInRole("Admin") || User.IsInRole("User"))
 {
-<div id="Enviorment-container">
-    <button type="submit" asp-controller="Player" asp-action="ShowPlayer"
-            id="playerDetailsButton" class="btn-primary" data-target="viewContainer">
-        Show Player
-    </button>
-    <button type="submit" asp-controller="Player" asp-action="Arena"
-            id="arenaButton" class="btn-primary" data-target="viewContainer">
-        Enter the arena
-    </button>
-    <button type="submit" asp-controller="Player" asp-action="HighScore"
-            id="highScoreButton" class="btn-primary" data-target="viewContainer">
-        Show High Score
-    </button>
-    <button type="reset" id="resetButton" class="btn-primary" data-target="viewContainer">Reset</button>
-    <button type="submit" asp-controller="Player" asp-action="Create"
-            id="createGlad" class="btn-primary" data-target="viewContainer">
-        Create Gladiator
-    </button>
-    <div id="viewContainer"></div>
-</div>
+    <div id="Enviorment-container" class="text-center">
+        <h4 class="display-4">Welcome to an gladiator management game</h4>
+        <div class="align-center">
+            <button id="playerDetailsButton" class="btn btn-primary margin-auto"
+                    type="submit" asp-controller="Player" asp-action="ShowPlayer"
+                    data-target="viewContainer">
+                Show Player
+            </button>
+            <button id="arenaButton" class="btn btn-primary margin-auto"
+                    type="submit" asp-controller="Player" asp-action="Arena"
+                    data-target="viewContainer">
+                Enter the arena
+            </button>
+            <button id="highScoreButton" class="btn btn-primary margin-auto"
+                    type="submit" asp-controller="Player" asp-action="HighScore"
+                    data-target="viewContainer">
+                Show High Score
+            </button>
+            <button id="resetButton" class="btn btn-primary margin-auto" type="reset" data-target="viewContainer">Reset</button>
+            <button id="createGlad" class="btn btn-primary margin-auto"
+                    type="submit" asp-controller="Player" asp-action="Create"
+                    data-target="viewContainer">
+                Create Gladiator
+            </button>
+        </div>
+        <br />
+        <div id="viewContainer"></div>
+    </div>
 }
 
 <script>

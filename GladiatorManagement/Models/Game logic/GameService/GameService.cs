@@ -249,11 +249,14 @@ namespace GladiatorManagement.Models.Game_logic.GameService
                         _playerService.EditAmountOfGold(playersGladiator.Player, buyingThis.Cost * -1);
                         _playerService.UpdateGladiatorGear(playersGladiator, buyingThis);
 
-                        //inventory.WeaponsInShop.RemoveAt(idOfItem);
                         bool removed = inventory.WeaponsInShop.Remove(buyingThis);
 
-                        if(removed)
+                        if (removed)
+                        {
                             _gameRepo.Update(inventory);
+                            buyingThis.ShopInventoryId = null;
+                            _weaponRepo.Update(buyingThis);
+                        }
 
                         succeeded = true;
                     }
@@ -274,7 +277,11 @@ namespace GladiatorManagement.Models.Game_logic.GameService
                         bool removed = inventory.ArmorsInShop.Remove(buyingThis);
 
                         if (removed)
+                        {
                             _gameRepo.Update(inventory);
+                            buyingThis.ShopInventoryId = null;
+                            _armorRepo.Update(buyingThis);
+                        }
 
                         succeeded = true;
                     }

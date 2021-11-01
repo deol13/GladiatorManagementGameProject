@@ -4,17 +4,38 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-
-    <p>How you Play: </p>
-
-    @if (User.IsInRole("Admin"))
-    {
-        <h1>Hello Leader!!!</h1>
-    }
     @if (User.IsInRole("User"))
     {
-        <h2>Hello Follower!!</h2>
+        <h2>How you Play: </h2>
+        <div class="text-left">
+            <p>
+                Click on the tab "Player" to enter the game. Here you can click on "Show player" button to see your gold and gladiators.
+                <br />
+                Each gladiator have two buttons, one to see more details such as attributes, and a second one to enter the shop with that gladiator.
+                <br />
+                <br />
+                The shop random generates an inventory of 5 weapons and 5 armors, that inventory is keyed to that gladiator and only updates when
+                the gladiator lvls up. Gold you get from winnig in the arena.
+                <br />
+                Other than "Show player" button, there is also a button to see the high scores, create new gladiator and enter the arena.
+                <br />
+                The high score tab consists of a high score for Players and one for gladiators. The gladiator gets score for every win,
+                <br />
+                high lvl gives more score. The player get's score everytime one of his/her's gladiators win a battle.
+                <br />
+                <br />
+                In the create new gladiator tab you are allowed to distribute 8 attribute points how ever you want and type a name.
+                <br />
+                Lastly the arena, there you have a choice of PvE and PvP, in PvE you fight random generated AI foe's that is based on the selected gladiators lvl.
+                <br />
+                In PvP you see a list of other player gladiators and can choose any one of them to challenge.
+                <br />
+
+            </p>
+        </div>
+        <h5>Remember, gladiators are removed entierly if they loose a fight.</h5>
     }
+
 
 </div>
 
