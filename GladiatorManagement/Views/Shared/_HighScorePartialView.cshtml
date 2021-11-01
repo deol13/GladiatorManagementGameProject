@@ -3,62 +3,71 @@
 @if (User.IsInRole("Admin") || User.IsInRole("User"))
 {
     <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Gladiator's Score
-                </th>
-                <th>
-                    Gladiator's' Name
-                </th>
-                <th>
-                    Player's name
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.GladHighScoreList)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GladName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GladScore)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PlayerName)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Player's Score
-                </th>
-                <th>
-                    Player's Score
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.PlayerHighScoreList)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PlayerScore)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PlayerName)
-                    </td>
-                </tr>
-            }
-        </tbody>
+        <tr>
+            Gladiators high score on he left. Players high score on the right
+            <td>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Gladiator's Score
+                            </th>
+                            <th>
+                                Gladiator's Name
+                            </th>
+                            <th>
+                                Player's name
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.GladHighScoreList)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.GladName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.GladScore)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PlayerName)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </td>
+            <td></td>
+            <td></td>
+            <td>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Player's Score
+                            </th>
+                            <th>
+                                Player's Score
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.PlayerHighScoreList)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PlayerScore)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PlayerName)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </td>
+        </tr>
     </table>
 }
