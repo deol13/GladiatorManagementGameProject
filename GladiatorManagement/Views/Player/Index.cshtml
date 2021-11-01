@@ -3,20 +3,20 @@
 {
 <div id="Enviorment-container">
     <button type="submit" asp-controller="Player" asp-action="ShowPlayer"
-            id="playerDetailsButton" data-target="viewContainer">
+            id="playerDetailsButton" class="btn-primary" data-target="viewContainer">
         Show Player
     </button>
     <button type="submit" asp-controller="Player" asp-action="Arena"
-            id="arenaButton" data-target="viewContainer">
+            id="arenaButton" class="btn-primary" data-target="viewContainer">
         Enter the arena
     </button>
     <button type="submit" asp-controller="Player" asp-action="HighScore"
-            id="highScoreButton" data-target="viewContainer">
+            id="highScoreButton" class="btn-primary" data-target="viewContainer">
         Show High Score
     </button>
-    <button type="reset" id="resetButton" data-target="viewContainer">Reset</button>
+    <button type="reset" id="resetButton" class="btn-primary" data-target="viewContainer">Reset</button>
     <button type="submit" asp-controller="Player" asp-action="Create"
-            id="createGlad" data-target="viewContainer">
+            id="createGlad" class="btn-primary" data-target="viewContainer">
         Create Gladiator
     </button>
     <div id="viewContainer"></div>
@@ -50,11 +50,9 @@
     $("#createGlad").click(function (e) {
         e.preventDefault();
         $.get("Player/Create/", function (res) {
-            $("#Enviorment-container").html(res);
+            $("#viewContainer").html(res);
         });
     });
-
-
 </script>
 
 

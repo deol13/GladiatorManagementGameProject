@@ -63,11 +63,11 @@
                         <p>@gladiator.Level</p>
                     </div>
                     <div class="col">
-                        <button onclick="showDetails(@gladiator.Id)">Details</button>
+                        <button onclick="showDetails(@gladiator.Id)" class="btn-primary">Details</button>
                     </div>
                     <div class="col">
                         @*<a asp-action="Shop" asp-route-id="@gladiator.Id">Shop for @gladiator.Name</a>*@
-                        <button onclick="EnterShop(@gladiator.Id)">Shop</button>
+                        <button onclick="EnterShop(@gladiator.Id)" class="btn-primary">Shop</button>
                     </div>
                 </div>
             }
@@ -87,7 +87,7 @@
             let id = e;
             var url = "Player/Shop/" + id;
             $.post(url, function (res) {
-                $("#Enviorment-container").html(res);
+                $("#viewContainer").html(res);
             });
         }
     </script>

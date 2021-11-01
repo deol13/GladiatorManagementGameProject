@@ -35,6 +35,8 @@ namespace GladiatorManagement.Models.Game_logic.GameService
             List<CombatInfo> listOfCombatDetails = combat.StartCombat();
             CombatInfo info = listOfCombatDetails.Last();
 
+            info.Winner = "Player";
+
             //Work in progress
             if (info.Winner == "Player")
             {

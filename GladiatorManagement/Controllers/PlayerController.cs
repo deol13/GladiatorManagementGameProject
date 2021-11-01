@@ -21,6 +21,7 @@ namespace GladiatorManagement.Controllers
         IGameService _gameService;
         IGameRepo _gameRepo;
         static int GladiatorId { get; set; }
+        static ShopInventory GladiatorsShop { get; set; }
          public PlayerController(IPlayerService playerService, IGameService gameService, IGameRepo gameRepo)
         {
             _playerService = playerService;
@@ -61,8 +62,9 @@ namespace GladiatorManagement.Controllers
         public IActionResult Shop(int id)
         {
             PlayerGladiator gladiator = _playerService.FindById(id);
+            GladiatorId = gladiator.Id;
 
-            if(gladiator.InventoryId > 0)
+            if (gladiator.InventoryId > 0)
             {
                 ShopInventory inventory = _gameService.FindShopInventory(id, true);
                 ShopViewModel shopView = new ShopViewModel()
@@ -71,7 +73,9 @@ namespace GladiatorManagement.Controllers
                     Inventory = inventory
                 };
 
-                return View("Shop", shopView);
+                GladiatorsShop = inventory;
+
+                return PartialView("Shop", shopView);
             }
 
             ShopInventory inventory2 = _gameService.CreateAShop(gladiator.Level, id);
@@ -83,8 +87,9 @@ namespace GladiatorManagement.Controllers
                 Inventory = inventory2
             };
             //ShopViewModel shopView = new ShopViewModel();
+            GladiatorsShop = inventory2;
 
-            return PartialView(shopView1);
+            return PartialView("Shop", shopView1);
         }
 
         //public IActionResult BuyWeapon(ShopViewModel shopView)
@@ -110,24 +115,15 @@ namespace GladiatorManagement.Controllers
         [HttpPost]
         public IActionResult BuyWeapon(int id)
         {
-            Weapon weapon = _gameService.FindWeapon(id);
-            ShopInventory inventory;
-            PlayerGladiator gladiator;
+            //Weapon weapon = _gameService.FindWeapon(id);
+            ShopInventory inventory = GladiatorsShop;
+            PlayerGladiator gladiator = _playerService.FindById(GladiatorId); ;
 
-            if(weapon.ShopInventoryId == null)
+            if(id < 0 || id > inventory.WeaponsInShop.Count)
             {
-
                 int status = (int)HttpStatusCode.BadRequest;
-                return Json(status + ": Could not buy weapon :(");
+                return Json(status + ": id out of bounce :(");
             }
-
-            //If you send in true:   FindShopInventory will take the id parameter as a gladiator id
-            //and search the shopInventory database after a shopInvenotry which that gladiatorId
-            //If you send in false:  FindShopInventory will take the id parameter as a inventory id
-            //and search the shopInventory database after an inventory with that specific shopInventory id.
-            inventory = _gameService.FindShopInventory((int)weapon.ShopInventoryId, false);
-
-            gladiator = _playerService.FindById(inventory.GladiatorId);
 
             if (_gameService.BuyAPieceOfGear(inventory, gladiator, true, id))
             {
@@ -138,6 +134,31 @@ namespace GladiatorManagement.Controllers
             {
                 int status = (int)HttpStatusCode.BadRequest;
                 return Json(status + ": Could not buy weapon :(");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult BuyArmor(int id)
+        {
+            //Weapon weapon = _gameService.FindWeapon(id);
+            ShopInventory inventory = GladiatorsShop;
+            PlayerGladiator gladiator = _playerService.FindById(GladiatorId); ;
+
+            if (id < 0 || id > inventory.WeaponsInShop.Count)
+            {
+                int status = (int)HttpStatusCode.BadRequest;
+                return Json(status + ": id out of bounce :(");
+            }
+
+            if (_gameService.BuyAPieceOfGear(inventory, gladiator, false, id))
+            {
+                int status = Response.StatusCode = (int)HttpStatusCode.OK;
+                return Json(status + ": You have bought an armor!");
+            }
+            else
+            {
+                int status = (int)HttpStatusCode.BadRequest;
+                return Json(status + ": Could not buy armor :(");
             }
         }
 

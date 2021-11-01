@@ -6,106 +6,89 @@
         <h3 class="display-4">Welcome to the shop!</h3>
     </div>
 
-<h5>Weapons</h5>
+    <h5>Weapons</h5>
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            Name
-        </div>
-        <div class="col">
-            Price
-        </div>
-        <div class="col">
-            Details
-        </div>
-        <div class="col">
-            Buy
-        </div>
-    </div>
-</div>
-
-@foreach (Weapon w in Model.Inventory.WeaponsInShop)
-{
     <div class="container">
         <div class="row">
             <div class="col">
-                @w.Name
+                Name
             </div>
             <div class="col">
-                @w.Cost
+                Price
             </div>
             <div class="col">
-                <a>Details</a>
+                Details
             </div>
             <div class="col">
-                <button onclick="buyWeapon(@w.Id)">But this weapon</button>
-                @*<button type="submit" asp-controller="Player" asp-action="BuyWeapon"
-                    id="buyWeaponButton" data-target="viewContainer">
-                Buy Weapon
-                </button>*@
+                Buy
             </div>
         </div>
     </div>
-}
+
+    @for (int i = 0; i < Model.Inventory.WeaponsInShop.Count; i++)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    @Model.Inventory.WeaponsInShop[i].Name
+                </div>
+                <div class="col">
+                    @Model.Inventory.WeaponsInShop[i].Cost
+                </div>
+                <div class="col">
+                    <a>Details</a>
+                </div>
+                <div class="col">
+                    <button onclick="buyWeapon(@i)">Buy this weapon</button>
+                </div>
+            </div>
+        </div>
+    }
 
 
-<h5>Armor</h5>
+    <h5>Armor</h5>
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            Name
-        </div>
-        <div class="col">
-            Price
-        </div>
-        <div class="col">
-            Details
-        </div>
-        <div class="col">
-            Buy
-        </div>
-    </div>
-</div>
-
-@foreach (Armor a in Model.Inventory.ArmorsInShop)
-{
     <div class="container">
         <div class="row">
             <div class="col">
-                @a.Name
+                Name
             </div>
             <div class="col">
-                @a.Cost
+                Price
             </div>
             <div class="col">
-                <a>Details</a>
+                Details
             </div>
             <div class="col">
-                @*<button type="submit" asp-controller="Player" asp-action="BuyArmor"
-                        id="buyArmorButton" data-target="viewContainer">
-                    Buy Amor
-                </button>*@
-                <button onclick="buyArmor(@a.Id)">But his armor</button>
+                Buy
             </div>
         </div>
     </div>
-}
 
-<div id="viewContainer2"></div>
+    @for (int i = 0; i < Model.Inventory.ArmorsInShop.Count; i++)
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        @Model.Inventory.ArmorsInShop[i].Name
+                    </div>
+                    <div class="col">
+                        @@Model.Inventory.ArmorsInShop[i].Cost
+                    </div>
+                    <div class="col">
+                        <a>Details</a>
+                    </div>
+                    <div class="col">
+                        <button onclick="buyArmor(@i)">Buy this armor</button>
+                    </div>
+                </div>
+            </div>
+        }
+
+    <div id="viewContainer2"></div>
 }
 <script>
-    //$("#buyWeaponButton").click(function (e) {
-    //    e.preventDefault();
-    //    let id = $("#id").val();
-    //    $.post("Player/BuyWeapon/" + id, function (res) {
-    //        $("#viewContainer").html(res);
-    //    });
-    //});
-
-    function buyWeapon(e)
-    {
+    function buyWeapon(e) {
         let id = e;
         var url = "Player/BuyWeapon/" + id;
         $.post(url, function (res) {

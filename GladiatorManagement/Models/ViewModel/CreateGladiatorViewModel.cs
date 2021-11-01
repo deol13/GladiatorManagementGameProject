@@ -23,12 +23,11 @@ namespace GladiatorManagement.Models.ViewModel
         public int AvailablePoints { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual Player Player { get; set; }
+        public Player Player { get; set; }
         public int? PlayerId { get; set; }
         public int Strength { get; set; }
         public int Accuracy { get; set; }
         public int Health { get; set; }
         public int Defence { get; set; }
-
     }
 }
