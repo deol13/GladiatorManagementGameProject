@@ -4,6 +4,9 @@
 
 @if (User.IsInRole("Admin") || User.IsInRole("User"))
 {
+    <label for="id">Enter ID:</label>
+    <input type="number" id="id" />
+
     <button type="submit" asp-controller="Player" asp-action="PVECombat"
             id="enterPve" data-target="viewContainer">
         Enter PVE
@@ -13,7 +16,7 @@
             id="enterPvp" data-target="viewContainer">
         Enter PVP
     </button>
-    
+
     <div id="enviroment-container">
         <h2>Welcome to the Arena, input an gladiator id then choose a mode</h2>
         <h4>PVE let's you fight against a random generated AI opponent</h4>

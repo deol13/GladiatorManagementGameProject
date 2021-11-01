@@ -32,10 +32,10 @@ namespace GladiatorManagement.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult ShowPlayer(int id)
+        [HttpGet]
+        public IActionResult ShowPlayer()
         {
-            PlayerViewModel player = _playerService.FindPlayerById(id);
+            PlayerViewModel player = _playerService.FindPlayerById(0);
             return PartialView("_PlayerView", player);
         }
 
