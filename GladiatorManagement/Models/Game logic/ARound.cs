@@ -49,8 +49,8 @@ namespace GladiatorManagement.Models.Game_logic
             combatInfo.PlayerRollResult = playerRoll + player.Accuracy + player.Weapon.Accuracy;
             combatInfo.OpponentRollResult = opponentRoll + opponent.Accuracy + opponent.Weapon.Accuracy;
 
-            combatInfo.PlayerRollDetails = $"{playerRoll + player.Weapon.Accuracy} + {player.Accuracy}";
-            combatInfo.OpponentRollDetails = $"{opponentRoll + opponent.Weapon.Accuracy} + {opponent.Accuracy}";
+            combatInfo.PlayerRollDetails = $"{playerRoll} + {player.Accuracy + player.Weapon.Accuracy}";
+            combatInfo.OpponentRollDetails = $"{opponentRoll} + {opponent.Accuracy + opponent.Weapon.Accuracy}";
 
             combatInfo.PlayerHealthLeft = player.Health;
             combatInfo.OpponentHealthLeft = opponent.Health;

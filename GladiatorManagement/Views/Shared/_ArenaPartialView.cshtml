@@ -18,10 +18,15 @@
     </button>
 
     <div id="enviroment-container">
-        <h2>Welcome to the Arena, input an gladiator id then choose a mode</h2>
-        <h4>PVE let's you fight against a random generated AI opponent</h4>
-        <h4>PVP let's you choose a gladiator of an enemy Player to fight against</h4>
+        <h4>Welcome to the Arena, input an gladiator id then choose a mode</h4>
+        <h5>PVE let's you fight against a random generated AI opponent</h5>
+        <h5>PVP let's you choose a gladiator of an enemy Player to fight against</h5>
         <h4>If your gladiator loose, they will permanentily die.</h4>
+        <br />
+        <h4>How the combat is calculated:</h4>
+        <h5>Roll result: D6 roll + (Gladiator accuracy + weapon accuracy).</h5>
+        <h5>Damage = (Attackers strength + attackers weapon's strength) - (defencers defence + defencers armor's defence) </h5>
+        <h5>Even if the defence is higher then the strength, the defencer will always minimum take 1 damage</h5>
     </div>
 }
 

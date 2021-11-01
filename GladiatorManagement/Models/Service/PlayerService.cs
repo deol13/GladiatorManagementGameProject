@@ -54,11 +54,11 @@ namespace GladiatorManagement.Models.Service
             string name = generator.NextUserName();
 
             int minStr = playerGladiator.Strength - 2;
-            int maxStr = playerGladiator.Strength + 3;
+            int maxStr = playerGladiator.Strength + 2;
             int minAcc = playerGladiator.Accuracy - 2;
-            int maxAcc = playerGladiator.Accuracy + 3;
+            int maxAcc = playerGladiator.Accuracy + 2;
             int minHealth = playerGladiator.Health - 2;
-            int maxHealth = playerGladiator.Health + 3;
+            int maxHealth = playerGladiator.Health + 2;
             int minDef = playerGladiator.Defence - 1;
             int maxDef = playerGladiator.Defence + 1;
 
