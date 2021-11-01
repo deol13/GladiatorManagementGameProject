@@ -1,24 +1,28 @@
 ﻿
 @if (User.IsInRole("Admin") || User.IsInRole("User"))
 {
-    <div id="Enviorment-container">
-        <label for="id">Enter ID:</label>
-        <input type="number" id="id" />
-        <button type="submit" asp-controller="Player" asp-action="ShowPlayer"
-                id="playerDetailsButton" data-target="viewContainer">
-            Show Player
-        </button>
-        <button type="submit" asp-controller="Player" asp-action="Arena"
-                id="arenaButton" data-target="viewContainer">
-            Enter a gladiator Id to enter the Arena
-        </button>
-        <button type="submit" asp-controller="Player" asp-action="HighScore"
-                id="highScoreButton" data-target="viewContainer">
-            Show High Score
-        </button>
-        <button type="reset" id="resetButton" data-target="viewContainer">Reset</button>
-        <div id="viewContainer"></div>
-    </div>
+<div id="Enviorment-container">
+    <label for="id">Enter ID:</label>
+    <input type="number" id="id" />
+    <button type="submit" asp-controller="Player" asp-action="ShowPlayer"
+            id="playerDetailsButton" data-target="viewContainer">
+        Show Player
+    </button>
+    <button type="submit" asp-controller="Player" asp-action="Arena"
+            id="arenaButton" data-target="viewContainer">
+        Enter a gladiator Id to enter the Arena
+    </button>
+    <button type="submit" asp-controller="Player" asp-action="HighScore"
+            id="highScoreButton" data-target="viewContainer">
+        Show High Score
+    </button>
+    <button type="reset" id="resetButton" data-target="viewContainer">Reset</button>
+    <div id="viewContainer"></div>
+    <button type="submit" asp-controller="Player" asp-action="Create"
+            id="createGlad" data-target="viewContainer">
+        Create Gladiator
+    </button>
+</div>
 }
 
 <script>
@@ -45,6 +49,13 @@
         e.preventDefault();
         $("#viewContainer").html("");
     });
+    $("#createGlad").click(function (e) {
+        e.preventDefault();
+        $.get("Player/Create/", function (res) {
+            $("#Enviorment-container").html(res);
+        });
+    });
+
 
 </script>
 

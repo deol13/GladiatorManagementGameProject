@@ -228,5 +228,27 @@ namespace GladiatorManagement.Controllers
 
             return PartialView("_HighScorePartialView", highScore);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            Player player = _playerService.GetCurrentPlayer();
+            CreateGladiatorViewModel createViewModel = new CreateGladiatorViewModel(player);
+
+            return PartialView("Create", createViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateGladiatorViewModel createViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _playerService.CreateGladiator(createViewModel);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return PartialView("Create", createViewModel);
+        }
     }
 }

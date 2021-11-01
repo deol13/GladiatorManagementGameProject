@@ -35,7 +35,7 @@ namespace GladiatorManagement.Models.Service
             int strength = 5;
             int accuracy = 5;
             int health = 5;
-            int defence = 5;
+            int defence = 3;
 
             
             PlayerGladiator gladiator = _playerGladiatorRepo.Create(player, name, strength, accuracy, health, defence);
@@ -59,8 +59,8 @@ namespace GladiatorManagement.Models.Service
             int maxAcc = playerGladiator.Accuracy + 3;
             int minHealth = playerGladiator.Health - 2;
             int maxHealth = playerGladiator.Health + 3;
-            int minDef = playerGladiator.Defence - 2;
-            int maxDef = playerGladiator.Defence + 3;
+            int minDef = playerGladiator.Defence - 1;
+            int maxDef = playerGladiator.Defence + 1;
 
 
             int strength = rng.Next(minStr, maxStr);
@@ -215,6 +215,11 @@ namespace GladiatorManagement.Models.Service
             {
                 playerGladiator.Experience -= XPAndGoldFormula.XpToLVl[playerGladiator.Level - 1];
                 playerGladiator.Level++;
+                playerGladiator.Strength += 1;
+                playerGladiator.Accuracy += 1;
+                playerGladiator.Health += 1;
+                if((playerGladiator.Level%2) == 0)
+                    playerGladiator.Defence += 1;
             }
 
             //Keep currentPlayer updated
